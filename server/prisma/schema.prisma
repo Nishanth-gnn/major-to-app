@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  chats     ChatHistory[]
+  transits  TransitRecord[]
+}
+
+model ChatHistory {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  message   String
+  response  String
+  createdAt DateTime @default(now())
+}
+
+model TransitRecord {
+  id             String   @id @default(uuid())
+  user           User     @relation(fields: [userId], references: [id])
+  userId         String
+  flightNumber   String
+  arrivalTime    DateTime
+  departureTime  DateTime
+  layoverMinutes Int
+  stressLevel    String
+  recommendation String
+  createdAt      DateTime @default(now())
+}
+
+model Flight {
+  id            String   @id @default(uuid())
+  flightNumber  String   @unique
+  arrivalTime   DateTime?
+  departureTime DateTime?
+  gate          String?
+  status        String?
+  createdAt     DateTime @default(now())
+}
+
+model LuggageGuide {
+  id         String @id @default(uuid())
+  category   String
+  stepNumber Int
+  title      String
+  description String
+  voiceText  String
+}
