@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+body { @apply bg-slate-50 text-slate-800; }
+
+.input { @apply border rounded px-3 py-2 w-full; }
+.btn { @apply px-3 py-2 rounded border; }
+.btn-primary { @apply bg-sky-600 text-white border-sky-700; }
