@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Header from '../components/Header'
 import FlightCard from '../components/FlightCard'
-import HeroAction from '../components/HeroAction'
+import HeroAction from '../../../components/HeroAction'
 import QuickActions from '../components/QuickActions'
-import Alerts from '../components/Alerts'
-import EmergencyHelp from '../components/EmergencyHelp'
-import FloatingAssistant from '../components/FloatingAssistant'
-import BottomNav from '../components/BottomNav'
+import Alerts from '../../../components/Alerts'
+import EmergencySection from '../components/EmergencySection'
+import FloatingAssistant from '../../../components/FloatingAssistant'
+import BottomNavigation from '../components/BottomNavigation'
 
 export default function Dashboard(){
   const [transit, setTransit] = useState<any|null>(null)
@@ -22,7 +22,6 @@ export default function Dashboard(){
   },[initialized])
 
   function getDummyData(id: string) {
-    // Simple deterministic dummy mapping based on boarding pass id
     const seed = id.split('').reduce((s,c)=>s + c.charCodeAt(0), 0)
     const gates = ['A12','B5','C3','B12','D4']
     const from = ['HYD','BOM','BLR','DEL','MAA'][seed % 5]
@@ -48,11 +47,9 @@ export default function Dashboard(){
     try{
       setLoading(true)
       if (boardingPassId) {
-        // use dummy data for now
         const data = getDummyData(boardingPassId)
         setTransit(data)
       } else {
-        // nothing to fetch without boarding pass id
         setTransit(null)
       }
     }catch(err){
@@ -94,14 +91,12 @@ export default function Dashboard(){
               </div>
             </div>
             <div>
-              <div className="text-sm text-slate-500 mb-2">Quick Actions</div>
               <QuickActions />
               <div className="mt-6">
                 <div className="text-sm text-slate-500 mb-2">Smart Alerts</div>
                 <Alerts alerts={alerts} />
                 <div className="mt-4">
-                  <div className="text-sm text-slate-500 mb-2">Emergency & Help</div>
-                  <EmergencyHelp />
+                  <EmergencySection />
                 </div>
               </div>
             </div>
@@ -110,7 +105,7 @@ export default function Dashboard(){
       )}
 
       <FloatingAssistant />
-      <BottomNav />
+      <BottomNavigation />
     </div>
   )
 }
