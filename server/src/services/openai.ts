@@ -12,7 +12,7 @@ if (openRouterKey) {
   client = new OpenAI({ apiKey: openaiKey });
   modelName = 'gpt-4o-mini';
 } else {
-  throw new Error('No OpenAI or OpenRouter API key configured');
+  console.warn('Warning: No OpenAI or OpenRouter API key configured. AI Chat will use heuristic fallbacks.');
 }
 
 export async function queryOpenAI(prompt: string) {
@@ -24,7 +24,7 @@ export async function queryOpenAI(prompt: string) {
     } as any);
     const text = resp.choices?.[0]?.message?.content || 'Sorry, I could not generate a response.';
     return text;
-  } catch (err:any) {
+  } catch (err: any) {
     console.error('OpenAI/OpenRouter error', err);
     // Fallback: simple heuristic responses for common airport queries when AI service is unreachable
     const p = (prompt || '').toLowerCase();

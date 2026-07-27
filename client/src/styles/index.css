@@ -3,8 +3,48 @@
 @tailwind utilities;
 
 html, body, #root { height: 100%; }
-body { @apply bg-slate-50 text-slate-800; }
 
-.input { @apply border rounded px-3 py-2 w-full; }
-.btn { @apply px-3 py-2 rounded border; }
-.btn-primary { @apply bg-sky-600 text-white border-sky-700; }
+/* ── Light mode base ─────────────────────────────────────── */
+body {
+  @apply bg-slate-50 text-slate-800;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.input  { @apply border rounded px-3 py-2 w-full dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100 dark:placeholder-slate-400; }
+.btn    { @apply px-3 py-2 rounded border; }
+.btn-primary { @apply bg-sky-600 text-white border-sky-700 dark:bg-sky-500 dark:border-sky-600; }
+
+/* ── Dark mode base ──────────────────────────────────────── */
+html.dark body {
+  @apply bg-slate-900 text-slate-100;
+}
+
+/* Smooth transitions for dark mode on common elements */
+html.dark * {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Cards / white surfaces */
+html.dark .bg-white       { background-color: rgb(30 41 59) !important; }   /* slate-800 */
+html.dark .bg-slate-50    { background-color: rgb(15 23 42) !important; }   /* slate-900 */
+html.dark .bg-slate-100   { background-color: rgb(30 41 59) !important; }   /* slate-800 */
+
+/* Text colour overrides */
+html.dark .text-slate-900 { color: rgb(241 245 249) !important; }           /* slate-100 */
+html.dark .text-slate-800 { color: rgb(226 232 240) !important; }           /* slate-200 */
+html.dark .text-slate-700 { color: rgb(203 213 225) !important; }           /* slate-300 */
+html.dark .text-slate-600 { color: rgb(148 163 184) !important; }           /* slate-400 */
+html.dark .text-slate-500 { color: rgb(100 116 139) !important; }           /* slate-500 */
+
+/* Borders */
+html.dark .border-slate-100 { border-color: rgb(51 65 85)  !important; }   /* slate-700 */
+html.dark .border-slate-200 { border-color: rgb(51 65 85)  !important; }   /* slate-700 */
+
+/* Ring */
+html.dark .ring-slate-100 { --tw-ring-color: rgb(51 65 85) !important; }
+html.dark .ring-1         { box-shadow: 0 0 0 1px rgb(51 65 85) !important; }
+
+/* Shadows */
+html.dark .shadow, html.dark .shadow-sm {
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.4), 0 1px 2px -1px rgba(0,0,0,0.4) !important;
+}

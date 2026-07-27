@@ -10,6 +10,8 @@ import NavigatePage from '../../features/navigation/pages/Navigate'
 import TranslatePage from '../../features/translation/pages/Translate'
 import SafetyPage from '../../features/women-safety/pages/Safety'
 import ProfilePage from '../../pages/Profile'
+import BoardingPassPage from '../../features/boarding-pass/pages/BoardingPassPage'
+import EmergencyContactPage from '../../features/emergency-contact/pages/EmergencyContactPage'
 
 export default function AppRoutes(){
   return (
@@ -24,6 +26,8 @@ export default function AppRoutes(){
       <Route path='/translate' element={<TranslatePage/>} />
       <Route path='/safety' element={<SafetyPage/>} />
       <Route path='/profile' element={<ProfilePage/>} />
+      <Route path='/boarding-pass' element={<BoardingPassPage/>} />
+      <Route path='/emergency-contact' element={<EmergencyContactPage/>} />
     </Routes>
   )
 }

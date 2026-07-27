@@ -19,3 +19,30 @@ coverage/
 /.vite
 /.parcel-cache
 *.local
+
+# Documents & PDFs
+*.pdf
+*.docx
+*.doc
+*.pptx
+*.ppt
+*.xlsx
+*.xls
+
+# Python virtual environments
+venv/
+.venv/
+env/
+.env/
+__pycache__/
+*.pyc
+
+# SQLite dev database
+*.db
+*.sqlite
+*.sqlite3
+
+# Test / temp media files
+test.js
+test.mp3
+test_te.mp3

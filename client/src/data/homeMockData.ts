@@ -20,11 +20,11 @@ const flight = {
 
 const quickActions = [
   { id: 'navigate', title: 'Navigate', to: '/navigate' },
-  { id: 'staff', title: 'Talk to Staff', to: '/chat', badge: 'NEW' },
+  { id: 'staff', title: 'Customer Support', to: '/chat', badge: 'NEW' },
   { id: 'translate', title: 'Translate', to: '/translate' },
   { id: 'checkin', title: 'Check-in Guide', to: '/luggage' },
   { id: 'transit', title: 'Transit Planner', to: '/transit' },
-  { id: 'safety', title: 'Women Safety', to: '/safety' }
+  { id: 'emergency', title: 'Emergency Contact', to: '/emergency-contact' }
 ]
 
 const emergencyActions = [

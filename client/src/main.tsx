@@ -14,8 +14,13 @@ import TranslatePage from './features/translation/pages/Translate'
 import SafetyPage from './features/women-safety/pages/Safety'
 import ProfilePage from './pages/Profile'
 import Navbar from './shared/components/Navbar'
+import { useDarkMode } from './shared/hooks/useDarkMode'
 
 function App(){
+  // Calling useDarkMode here ensures the `dark` class is
+  // applied to <html> on every page across the entire app.
+  useDarkMode();
+
   return (
     <BrowserRouter>
       <Navbar />
