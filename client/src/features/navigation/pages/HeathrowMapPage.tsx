@@ -1,0 +1,835 @@
+import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Map, NavigationControl, LngLatBounds, Marker } from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
+import {
+  ArrowLeft, Maximize2, Minimize2, Navigation as NavIcon,
+  Search, Layers, X, MapPin, Info, ArrowUp, ArrowRight,
+  ArrowUpRight, ArrowUpLeft, CheckCircle2, CornerUpLeft,
+  CornerUpRight, Undo2
+} from 'lucide-react';
+import { computeAStar, nearestNode, NavGraph } from '../utils/astar';
+import { convertRouteToSteps, NavigationStep, GraphNode } from '../utils/route_to_steps';
+import { calculateBearing } from '../utils/bearing';
+
+/* ─── Constants ─────────────────────────────────────────────────────────── */
+const CENTER: [number, number] = [-0.4614, 51.4775];
+const ZOOM_INIT = 14;
+
+const LAYER_DEFS = [
+  { id: 'terminals', path: '/map-data/terminals.geojson',             color: '#2979ff', minzoom: 8,  label: 'Terminals' },
+  { id: 'roads',     path: '/map-data/roads.geojson',                 color: '#e53935', minzoom: 10, label: 'Roads' },
+  { id: 'walkways',  path: '/map-data/walkways.geojson',              color: '#ffd740', minzoom: 12, label: 'Walkways' },
+  { id: 'indoor',    path: '/map-data/indoors/merged_indoor.geojson', color: '#00e5ff', minzoom: 14, label: 'Indoor' },
+  { id: 'security',  path: '/map-data/indoors/security.geojson',      color: '#ff5252', minzoom: 13, label: 'Security' },
+  { id: 'lounges',   path: '/map-data/indoors/lounges.geojson',       color: '#ffea00', minzoom: 13, label: 'Lounges' },
+  { id: 'amenities', path: '/map-data/amenities.geojson',             color: '#00e676', minzoom: 13, label: 'Amenities' },
+  { id: 'entrances', path: '/map-data/entrances.geojson',             color: '#ff6d00', minzoom: 14, label: 'Entrances' },
+  { id: 'gates',     path: '/map-data/gates.geojson',                 color: '#aa00ff', minzoom: 13, label: 'Gates' },
+];
+
+const INDOOR_CAT_COLORS = [
+  'gate', '#aa00ff', 'security', '#ff5252', 'lounge', '#ffea00',
+  'food', '#00e676', 'shop', '#ff9100', 'toilet', '#64b5f6',
+  'elevator', '#ffd740', 'corridor', '#1a3060', 'area', '#131f3a',
+];
+
+const CAT_ICONS: Record<string, string> = {
+  gate: '🚪', security: '🛡️', lounge: '🛋️', food: '🍽️',
+  shop: '🛍️', toilet: '🚻', elevator: '🛗', escalator: '⬆️',
+  atm: '🏧', information: 'ℹ️', baggage_claim: '🧳', check_in: '✅',
+  concourse: '🛣️', corridor: '🚶', room: '🚪', area: '📍',
+};
+
+/* ─── Direction icon ─────────────────────────────────────────────────────── */
+function ActionIcon({ action, size = 20 }: { action: string; size?: number }) {
+  switch (action) {
+    case 'straight':    return <ArrowUp size={size} />;
+    case 'slight right': return <ArrowUpRight size={size} />;
+    case 'right':       return <CornerUpRight size={size} />;
+    case 'sharp right': return <ArrowRight size={size} />;
+    case 'slight left': return <ArrowUpLeft size={size} />;
+    case 'left':        return <CornerUpLeft size={size} />;
+    case 'sharp left':  return <ArrowLeft size={size} />;
+    case 'u-turn':      return <Undo2 size={size} />;
+    case 'arrive':      return <MapPin size={size} color="#00e676" />;
+    default:            return <ArrowUp size={size} />;
+  }
+}
+
+/* ─── Types ─────────────────────────────────────────────────────────────── */
+interface TooltipData {
+  x: number; y: number;
+  title: string; category?: string; terminal?: string;
+  ref?: string; level?: string; operator?: string; hours?: string;
+}
+
+/* ─── Helpers ────────────────────────────────────────────────────────────── */
+function featureCentroid(f: any): [number, number] | null {
+  const g = f.geometry;
+  if (!g) return null;
+  if (g.type === 'Point') return [g.coordinates[0], g.coordinates[1]];
+  if (g.type === 'LineString' && g.coordinates?.length) {
+    const m = g.coordinates[Math.floor(g.coordinates.length / 2)];
+    return [m[0], m[1]];
+  }
+  if ((g.type === 'Polygon' || g.type === 'MultiPolygon') && g.coordinates?.[0]?.length) {
+    // Average the ring
+    const ring: number[][] = g.type === 'Polygon' ? g.coordinates[0] : g.coordinates[0][0];
+    const lng = ring.reduce((s: number, c: number[]) => s + c[0], 0) / ring.length;
+    const lat = ring.reduce((s: number, c: number[]) => s + c[1], 0) / ring.length;
+    return [lng, lat];
+  }
+  return null;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HeathrowMapPage
+═══════════════════════════════════════════════════════════════════════════ */
+export default function HeathrowMapPage() {
+  const navigate = useNavigate();
+  const mapContainer = useRef<HTMLDivElement>(null);
+  const mapRef       = useRef<Map | null>(null);
+  const navGraphRef  = useRef<NavGraph | null>(null);
+  const allFeaturesRef = useRef<any[]>([]);
+
+  /* ── Loading ── */
+  const [loading, setLoading]   = useState(true);
+  const [loadMsg, setLoadMsg]   = useState('Connecting to basemap…');
+  const [fullscreen, setFullscreen] = useState(false);
+
+  /* ── Tooltip ── */
+  const [tooltip, setTooltip] = useState<TooltipData | null>(null);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const tooltipTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  /* ── Route planner ── */
+  const [fromQuery, setFromQuery] = useState('');
+  const [toQuery, setToQuery]     = useState('');
+
+  /* ── Navigation state ── */
+  const [navMode, setNavMode]       = useState(false);
+  const [steps, setSteps]           = useState<NavigationStep[]>([]);
+  const [activeStep, setActiveStep] = useState(0);
+  const [dist, setDist]             = useState(0);
+  const [eta, setEta]               = useState(0);
+  const [routeError, setRouteError] = useState('');
+
+  /* ── Refs for imperative nav ── */
+  const userMarkerRef = useRef<Marker | null>(null);
+  const stepsRef      = useRef<NavigationStep[]>([]);
+  const activeStepRef = useRef(0);
+
+  /* ─── Tooltip helpers ─────────────────────────────────────────────── */
+  const showTooltip = useCallback((data: TooltipData) => {
+    if (tooltipTimer.current) clearTimeout(tooltipTimer.current);
+    setTooltipVisible(false);
+    setTimeout(() => { setTooltip(data); setTooltipVisible(true); }, 30);
+  }, []);
+
+  const hideTooltip = useCallback(() => {
+    setTooltipVisible(false);
+    tooltipTimer.current = setTimeout(() => setTooltip(null), 300);
+  }, []);
+
+  /* ─── Fullscreen ─────────────────────────────────────────────────── */
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen?.();
+      setFullscreen(true);
+    } else {
+      document.exitFullscreen?.();
+      setFullscreen(false);
+    }
+  };
+
+  /* ─── Map initialisation ──────────────────────────────────────────── */
+  useEffect(() => {
+    if (!mapContainer.current || mapRef.current) return;
+
+    const map = new Map({
+      container: mapContainer.current,
+      style: 'https://tiles.openfreemap.org/styles/dark',
+      center: CENTER,
+      zoom: ZOOM_INIT,
+      pitch: 0,
+      bearing: 0,
+      antialias: true,
+    });
+    mapRef.current = map;
+    map.addControl(new NavigationControl(), 'bottom-right');
+    map.on('error', (e) => console.warn('[MapLibre]', e.error?.message));
+    map.on('dragstart', hideTooltip);
+    map.on('click', (e) => {
+      const layers = LAYER_DEFS.flatMap(d => [`${d.id}-circle`, `${d.id}-fill`, `${d.id}-line`])
+        .filter(l => { try { return !!map.getLayer(l); } catch { return false; } });
+      const hits = map.queryRenderedFeatures(e.point, { layers });
+      if (!hits.length) hideTooltip();
+    });
+
+    map.on('load', async () => {
+      /* Load navigation graph */
+      setLoadMsg('Loading navigation graph…');
+      try {
+        const r = await fetch('/map-data/navigation_graph.json');
+        if (r.ok) navGraphRef.current = await r.json();
+      } catch (e) { console.warn('Nav graph failed', e); }
+
+      const allFeats: any[] = [];
+
+      for (const def of LAYER_DEFS) {
+        setLoadMsg(`Loading ${def.label}…`);
+        try {
+          const r = await fetch(def.path);
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          const data = await r.json();
+          const feats: any[] = data.features || [];
+          allFeats.push(...feats.map(f => ({ ...f, _sourceId: def.id })));
+
+          if (!map.getSource(def.id)) {
+            map.addSource(def.id, { type: 'geojson', data, generateId: true });
+          }
+
+          const hasPolygon = feats.some(f => ['Polygon', 'MultiPolygon'].includes(f.geometry?.type));
+          const hasLine    = feats.some(f => ['LineString', 'MultiLineString'].includes(f.geometry?.type));
+          const hasPoint   = feats.some(f => f.geometry?.type === 'Point');
+
+          /* Polygon fill */
+          if (hasPolygon) {
+            const fillColor: any = def.id === 'indoor'
+              ? ['match', ['get', '_category'], ...INDOOR_CAT_COLORS, '#131f3a']
+              : def.color;
+            map.addLayer({
+              id: `${def.id}-fill`, type: 'fill', source: def.id, minzoom: def.minzoom,
+              filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]],
+              paint: {
+                'fill-color': fillColor,
+                'fill-opacity': ['interpolate', ['linear'], ['zoom'],
+                  def.minzoom, 0, def.minzoom + 1,
+                  def.id === 'terminals' ? 0.12 : def.id === 'indoor' ? 0.4 : 0.18],
+              },
+            });
+          }
+
+          /* Line stroke */
+          if (hasPolygon || hasLine) {
+            map.addLayer({
+              id: `${def.id}-line`, type: 'line', source: def.id, minzoom: def.minzoom,
+              paint: {
+                'line-color': def.color,
+                'line-width': ['interpolate', ['linear'], ['zoom'], def.minzoom, 0.5, 18, def.id === 'terminals' ? 3 : 2],
+                'line-opacity': ['interpolate', ['linear'], ['zoom'], def.minzoom, 0, def.minzoom + 0.5, 0.9],
+              },
+            });
+          }
+
+          /* Point circles */
+          if (hasPoint) {
+            map.addLayer({
+              id: `${def.id}-circle`, type: 'circle', source: def.id, minzoom: def.minzoom,
+              filter: ['==', ['geometry-type'], 'Point'],
+              paint: {
+                'circle-radius': ['interpolate', ['linear'], ['zoom'], 13, 4, 16, 8, 19, 12],
+                'circle-color': def.color,
+                'circle-stroke-color': '#fff',
+                'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 13, 1, 17, 2],
+                'circle-opacity': ['interpolate', ['linear'], ['zoom'], def.minzoom, 0, def.minzoom + 0.5, 1],
+              },
+            });
+          }
+
+          /* ── Labels ── */
+          if (def.id === 'gates') {
+            map.addLayer({
+              id: 'gates-label', type: 'symbol', source: 'gates', minzoom: 13,
+              layout: {
+                'text-field': ['coalesce', ['get', '_label'], ['get', 'ref'], ['get', 'name'], 'Gate'],
+                'text-size': ['interpolate', ['linear'], ['zoom'], 13, 8, 17, 13],
+                'text-offset': [0, 1.2], 'text-anchor': 'top', 'text-allow-overlap': false,
+              },
+              paint: {
+                'text-color': '#fff', 'text-halo-color': '#6200ea', 'text-halo-width': 1.5,
+                'text-opacity': ['interpolate', ['linear'], ['zoom'], 13, 0, 13.5, 1],
+              },
+            });
+          }
+          if (def.id === 'terminals') {
+            map.addLayer({
+              id: 'terminals-label', type: 'symbol', source: 'terminals', minzoom: 12,
+              layout: {
+                'text-field': ['coalesce', ['get', '_label'], ['get', 'name'], ['get', 'loc_name'], 'Terminal'],
+                'text-size': ['interpolate', ['linear'], ['zoom'], 12, 11, 16, 16],
+                'text-anchor': 'center', 'text-allow-overlap': false,
+              },
+              paint: {
+                'text-color': '#64b0ff', 'text-halo-color': '#050a15', 'text-halo-width': 2.5,
+                'text-opacity': ['interpolate', ['linear'], ['zoom'], 12, 0, 13, 1],
+              },
+            });
+          }
+          if (def.id === 'amenities' || def.id === 'indoor' || def.id === 'entrances') {
+            map.addLayer({
+              id: `${def.id}-label`, type: 'symbol', source: def.id, minzoom: 15,
+              layout: {
+                'text-field': ['coalesce', ['get', '_label'], ['get', 'name'], ['get', 'ref'], 'Feature'],
+                'text-size': ['interpolate', ['linear'], ['zoom'], 15, 9, 19, 13],
+                'text-anchor': 'center', 'text-allow-overlap': false, 'text-max-width': 8,
+              },
+              paint: {
+                'text-color': '#dce8ff', 'text-halo-color': '#050a15', 'text-halo-width': 1.5,
+                'text-opacity': ['interpolate', ['linear'], ['zoom'], 15, 0, 15.8, 1],
+              },
+            });
+          }
+          if (def.id === 'security') {
+            map.addLayer({
+              id: 'security-label', type: 'symbol', source: 'security', minzoom: 14,
+              layout: {
+                'text-field': ['coalesce', ['get', '_label'], ['get', 'name'], 'Security'],
+                'text-size': 11, 'text-anchor': 'center', 'text-allow-overlap': false,
+              },
+              paint: {
+                'text-color': '#ff8a80', 'text-halo-color': '#050a15', 'text-halo-width': 1.5,
+                'text-opacity': ['interpolate', ['linear'], ['zoom'], 14, 0, 14.5, 1],
+              },
+            });
+          }
+          if (def.id === 'lounges') {
+            map.addLayer({
+              id: 'lounges-label', type: 'symbol', source: 'lounges', minzoom: 14,
+              layout: {
+                'text-field': ['coalesce', ['get', '_label'], ['get', 'name'], 'Lounge'],
+                'text-size': 11, 'text-anchor': 'center', 'text-allow-overlap': false,
+              },
+              paint: {
+                'text-color': '#ffe082', 'text-halo-color': '#050a15', 'text-halo-width': 1.5,
+                'text-opacity': ['interpolate', ['linear'], ['zoom'], 14, 0, 14.5, 1],
+              },
+            });
+          }
+
+          /* Click handlers */
+          const clickLayers = [`${def.id}-circle`, `${def.id}-fill`]
+            .filter(l => { try { return !!map.getLayer(l); } catch { return false; } });
+
+          clickLayers.forEach(layerId => {
+            map.on('click', layerId, (e) => {
+              e.originalEvent.stopPropagation();
+              const f = e.features?.[0];
+              if (!f) return;
+              const p = f.properties || {};
+              const title = p._label || p.name || p.ref || p._category || p.aeroway || p.amenity || p.highway || 'Feature';
+              const pt = map.project(e.lngLat);
+              showTooltip({
+                x: pt.x, y: pt.y, title,
+                category: p._category || p.aeroway || p.amenity || p.highway || '',
+                terminal: p.terminal || '',
+                ref: p.ref || '',
+                level: p.level ?? p._level ?? '',
+                operator: p.operator || '',
+                hours: p.opening_hours || '',
+              });
+            });
+            map.on('mouseenter', layerId, () => { map.getCanvas().style.cursor = 'pointer'; });
+            map.on('mouseleave', layerId, () => { map.getCanvas().style.cursor = ''; });
+          });
+
+        } catch (e) { console.warn(`[${def.id} failed]`, e); }
+      }
+
+      allFeaturesRef.current = allFeats;
+      setLoadMsg('Ready');
+      setLoading(false);
+    });
+
+    return () => {
+      if (tooltipTimer.current) clearTimeout(tooltipTimer.current);
+      userMarkerRef.current?.remove();
+      map.remove();
+      mapRef.current = null;
+    };
+  }, [showTooltip, hideTooltip]);
+
+  /* ─── Route Finding ──────────────────────────────────────────────── */
+  const findFeatureByQuery = (q: string): { coords: [number, number]; level: number } | null => {
+    if (!q.trim()) return null;
+    const tokens = q.toLowerCase().trim().split(/\s+/);
+    // Search through all loaded features
+    const feat = allFeaturesRef.current.find(f => {
+      const p = f.properties || {};
+      const hay = [p._label, p.name, p.ref, p._category, p.aeroway, p.amenity, p.highway]
+        .filter(Boolean).join(' ').toLowerCase();
+      return tokens.every(tok => hay.includes(tok));
+    });
+    if (!feat) return null;
+    const coords = featureCentroid(feat);
+    if (!coords) return null;
+    const p = feat.properties || {};
+    const level = Number(p.level ?? p._level ?? 0);
+    return { coords, level };
+  };
+
+  const handleRoute = useCallback(() => {
+    const graph = navGraphRef.current;
+    const map = mapRef.current;
+    setRouteError('');
+    if (!graph || !map) { setRouteError('Navigation graph not ready yet.'); return; }
+    if (!fromQuery.trim() || !toQuery.trim()) { setRouteError('Please enter both From and To locations.'); return; }
+
+    const fromLoc = findFeatureByQuery(fromQuery);
+    const toLoc   = findFeatureByQuery(toQuery);
+
+    if (!fromLoc) { setRouteError(`Location not found: "${fromQuery}". Try a gate like "Gate A10" or "T5 Entrance"`); return; }
+    if (!toLoc)   { setRouteError(`Location not found: "${toQuery}". Try a gate, lounge, or terminal name.`); return; }
+
+    const startNode = nearestNode(fromLoc.coords[0], fromLoc.coords[1], graph.nodes, fromLoc.level);
+    const goalNode  = nearestNode(toLoc.coords[0], toLoc.coords[1], graph.nodes, toLoc.level);
+
+    if (!startNode) { setRouteError('No navigation nodes near start location.'); return; }
+    if (!goalNode)  { setRouteError('No navigation nodes near destination.'); return; }
+    if (startNode === goalNode) { setRouteError('Start and destination are the same point.'); return; }
+
+    const path = computeAStar(graph, startNode, goalNode);
+    if (!path || path.length < 2) {
+      setRouteError(`No route found between "${fromQuery}" and "${toQuery}". They may be in disconnected areas.`);
+      return;
+    }
+
+    const pathNodes = path.map(k => graph.nodes[k]);
+    const genSteps  = convertRouteToSteps(pathNodes);
+    const totalD    = genSteps.reduce((s, st) => s + st.distanceMeters, 0);
+
+    setSteps(genSteps);
+    stepsRef.current = genSteps;
+    setDist(totalD);
+    setEta(Math.round(totalD / 1.4));
+    setActiveStep(0);
+    activeStepRef.current = 0;
+    setRouteError('');
+
+    /* Draw route line */
+    const coords = pathNodes.map(n => [n.lon, n.lat]);
+    if (map.getLayer('route-line')) map.removeLayer('route-line');
+    if (map.getSource('route-line')) map.removeSource('route-line');
+    map.addSource('route-line', {
+      type: 'geojson',
+      data: { type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: coords } as any },
+    });
+    map.addLayer({
+      id: 'route-line', type: 'line', source: 'route-line',
+      paint: {
+        'line-color': '#aa00ff',
+        'line-width': ['interpolate', ['linear'], ['zoom'], 12, 3, 18, 6],
+        'line-opacity': 0.92,
+        'line-blur': 0.5,
+      },
+    });
+
+    /* Fit map to route */
+    const bounds = coords.reduce(
+      (b, c) => b.extend(c as [number, number]),
+      new LngLatBounds(coords[0] as [number, number], coords[0] as [number, number])
+    );
+    map.fitBounds(bounds, { padding: 80, duration: 900, maxZoom: 18 });
+  }, [fromQuery, toQuery]);
+
+  /* ─── Camera helper ───────────────────────────────────────────────── */
+  const cameraToStep = useCallback((stepIdx: number, instant = false) => {
+    const map = mapRef.current;
+    const currentSteps = stepsRef.current;
+    if (!map || !currentSteps.length || stepIdx >= currentSteps.length) return;
+
+    const step = currentSteps[stepIdx];
+    const coord = step.coordinates[0];
+    const nextCoord = step.coordinates[1] || step.coordinates[0];
+    const bearing = calculateBearing(coord[1], coord[0], nextCoord[1], nextCoord[0]);
+
+    map.easeTo({
+      center: coord,
+      zoom: 18,
+      pitch: 55,
+      bearing,
+      duration: instant ? 500 : 900,
+      padding: { top: 80, bottom: 220, left: 280, right: 20 },
+    });
+  }, []);
+
+  /* ─── Start navigation ────────────────────────────────────────────── */
+  const startNavigation = useCallback(() => {
+    const map = mapRef.current;
+    if (!stepsRef.current.length || !map) return;
+    setNavMode(true);
+    setActiveStep(0);
+    activeStepRef.current = 0;
+    hideTooltip();
+
+    /* Place user marker at step 0 */
+    userMarkerRef.current?.remove();
+    const el = document.createElement('div');
+    el.style.cssText = `
+      width:24px;height:24px;border-radius:50%;
+      background:#2979ff;border:3px solid #fff;
+      box-shadow:0 0 18px rgba(41,121,255,0.9),0 0 40px rgba(41,121,255,0.4);
+      display:flex;align-items:center;justify-content:center;
+    `;
+    const pulse = document.createElement('div');
+    pulse.style.cssText = 'width:8px;height:8px;border-radius:50%;background:#fff;';
+    el.appendChild(pulse);
+
+    const step0 = stepsRef.current[0];
+    userMarkerRef.current = new Marker({ element: el })
+      .setLngLat(step0.coordinates[0])
+      .addTo(map);
+
+    cameraToStep(0, true);
+  }, [cameraToStep, hideTooltip]);
+
+  /* ─── Stop navigation ─────────────────────────────────────────────── */
+  const stopNavigation = useCallback(() => {
+    userMarkerRef.current?.remove();
+    userMarkerRef.current = null;
+    setNavMode(false);
+    setActiveStep(0);
+    activeStepRef.current = 0;
+    mapRef.current?.easeTo({ pitch: 0, bearing: 0, zoom: 15, duration: 700 });
+  }, []);
+
+  /* ─── Manual step navigation ──────────────────────────────────────── */
+  const gotoStep = useCallback((newIdx: number) => {
+    const currentSteps = stepsRef.current;
+    if (newIdx < 0 || newIdx >= currentSteps.length) return;
+    activeStepRef.current = newIdx;
+    setActiveStep(newIdx);
+
+    const step = currentSteps[newIdx];
+    const coord = step.coordinates[0];
+
+    /* Move user marker */
+    userMarkerRef.current?.setLngLat(coord);
+
+    /* Recalculate remaining distance & ETA */
+    let remaining = 0;
+    for (let i = newIdx; i < currentSteps.length; i++) remaining += currentSteps[i].distanceMeters;
+    setDist(remaining);
+    setEta(Math.round(remaining / 1.4));
+
+    /* Move camera to this step */
+    cameraToStep(newIdx);
+  }, [cameraToStep]);
+
+  const handleNextStep = useCallback(() => gotoStep(activeStepRef.current + 1), [gotoStep]);
+  const handlePrevStep = useCallback(() => gotoStep(activeStepRef.current - 1), [gotoStep]);
+
+  /* ─── Tooltip safe position ───────────────────────────────────────── */
+  const getTooltipStyle = () => {
+    if (!tooltip) return {};
+    const W = window.innerWidth, H = window.innerHeight;
+    const TW = 240, TH = 200;
+    let left = tooltip.x + 16;
+    let top  = tooltip.y - TH / 2;
+    if (left + TW > W - 10) left = tooltip.x - TW - 16;
+    if (top < 10) top = 10;
+    if (top + TH > H - 10) top = H - TH - 10;
+    return { left, top };
+  };
+
+  const mins = Math.ceil(eta / 60);
+  const currentStep = steps[activeStep];
+
+  /* ═══════════════════════════════════════════════════════════════════
+     Render
+  ═══════════════════════════════════════════════════════════════════ */
+  return (
+    <div className="fixed inset-0 z-50 flex flex-col bg-[#0a0e1a]">
+
+      {/* ── Top bar ─────────────────────────────────────────────── */}
+      <div className="flex items-center gap-3 px-4 py-3 border-b shrink-0 bg-[#0e1426] border-white/10 relative z-50">
+        <button onClick={() => navigate(-1)} className="flex items-center justify-center w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 transition-all">
+          <ArrowLeft size={18} color="#e8ecf4" />
+        </button>
+        <div className="flex items-center gap-2 flex-1">
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center text-base bg-gradient-to-br from-blue-500 to-cyan-400">✈</div>
+          <div>
+            <div className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">
+              Heathrow Navigation
+            </div>
+            <div className="text-[10px] text-gray-400">Interactive Indoor Map</div>
+          </div>
+        </div>
+        <button onClick={toggleFullscreen} className="flex items-center justify-center w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 transition-all">
+          {fullscreen ? <Minimize2 size={17} color="#e8ecf4" /> : <Maximize2 size={17} color="#e8ecf4" />}
+        </button>
+      </div>
+
+      <div className="relative flex-1 min-h-0">
+
+        {/* ── Loading overlay ──────────────────────────────────── */}
+        {loading && (
+          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-[#0a0e1a]">
+            <div className="w-14 h-14 rounded-full border-[3px] animate-spin"
+              style={{ borderColor: 'rgba(41,121,255,0.2)', borderTopColor: '#2979ff' }} />
+            <div className="text-sm font-medium text-gray-400">{loadMsg}</div>
+          </div>
+        )}
+
+        {/* ── MapLibre canvas ───────────────────────────────────── */}
+        <div ref={mapContainer} className="absolute inset-0 w-full h-full" />
+
+        {/* ── Interactive Tooltip ───────────────────────────────── */}
+        {tooltip && (
+          <div className="absolute z-30 pointer-events-none" style={{ ...getTooltipStyle(), transition: 'none' }}>
+            <div
+              className="pointer-events-auto"
+              style={{
+                opacity: tooltipVisible ? 1 : 0,
+                transform: tooltipVisible ? 'translateY(0) scale(1)' : 'translateY(6px) scale(0.97)',
+                transition: 'opacity 0.2s ease, transform 0.2s ease',
+                width: 230,
+              }}
+            >
+              <div className="bg-[#0d1628]/95 backdrop-blur-xl border border-white/12 rounded-2xl shadow-2xl overflow-hidden"
+                style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06)' }}>
+                <div className="px-4 pt-3 pb-2 border-b border-white/8"
+                  style={{ background: 'linear-gradient(135deg, rgba(41,121,255,0.12), rgba(0,229,255,0.06))' }}>
+                  <div className="flex items-start gap-2">
+                    <span className="text-lg leading-none mt-0.5 flex-shrink-0">
+                      {CAT_ICONS[tooltip.category ?? ''] || '📍'}
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-bold text-white leading-tight break-words">{tooltip.title}</div>
+                      {tooltip.category && <div className="text-[10px] text-cyan-400/80 mt-0.5 capitalize">{tooltip.category}</div>}
+                    </div>
+                    <button className="pointer-events-auto flex-shrink-0 text-white/30 hover:text-white/70 transition-colors" onClick={hideTooltip}>
+                      <X size={13} />
+                    </button>
+                  </div>
+                </div>
+                <div className="px-4 py-2.5 space-y-1.5 text-[11px]">
+                  {tooltip.terminal && (
+                    <div className="flex items-center gap-2 text-gray-300">
+                      <MapPin size={10} className="text-blue-400 flex-shrink-0" />
+                      <span className="text-gray-500">Terminal</span>
+                      <span className="ml-auto font-semibold text-blue-300">{tooltip.terminal}</span>
+                    </div>
+                  )}
+                  {tooltip.ref && (
+                    <div className="flex items-center gap-2 text-gray-300">
+                      <Info size={10} className="text-purple-400 flex-shrink-0" />
+                      <span className="text-gray-500">Ref</span>
+                      <span className="ml-auto font-semibold text-purple-300">{tooltip.ref}</span>
+                    </div>
+                  )}
+                  {(tooltip.level !== undefined && tooltip.level !== '') && (
+                    <div className="flex items-center gap-2 text-gray-300">
+                      <span className="text-[9px] text-gray-500">LEVEL</span>
+                      <span className="ml-auto font-semibold text-yellow-300">{tooltip.level}</span>
+                    </div>
+                  )}
+                  {tooltip.operator && (
+                    <div className="flex items-center gap-2 text-gray-300">
+                      <span className="text-[9px] text-gray-500">OPERATOR</span>
+                      <span className="ml-auto text-gray-300 truncate max-w-[110px]">{tooltip.operator}</span>
+                    </div>
+                  )}
+                  {tooltip.hours && (
+                    <div className="flex items-center gap-2 text-gray-300">
+                      <span className="text-[9px] text-gray-500">HOURS</span>
+                      <span className="ml-auto text-gray-300 text-[10px]">{tooltip.hours}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="px-3 pb-3 flex gap-2">
+                  <button
+                    className="pointer-events-auto flex-1 text-center text-[10px] font-semibold py-1.5 rounded-lg transition-colors"
+                    style={{ background: 'rgba(41,121,255,0.15)', color: '#64b0ff' }}
+                    onClick={() => { setFromQuery(tooltip.title); hideTooltip(); }}
+                  >Set as From</button>
+                  <button
+                    className="pointer-events-auto flex-1 text-center text-[10px] font-semibold py-1.5 rounded-lg transition-colors"
+                    style={{ background: 'rgba(170,0,255,0.15)', color: '#ce93d8' }}
+                    onClick={() => { setToQuery(tooltip.title); hideTooltip(); }}
+                  >Set as To</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Route Planner panel ───────────────────────────────── */}
+        {!navMode && !loading && (
+          <div className="absolute top-4 left-4 w-72 bg-[#0a1020]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl z-10">
+            <h3 className="text-white text-sm font-bold mb-3 flex items-center gap-2">
+              <NavIcon size={15} className="text-blue-400" />
+              Route Planner
+            </h3>
+            <div className="space-y-2">
+              <div className="relative">
+                <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                <input
+                  type="text"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg pl-8 pr-3 py-2 text-sm text-white placeholder-gray-500 outline-none focus:border-blue-500 transition-colors"
+                  placeholder="From (e.g. Gate 19 T3, T5 Entrance)"
+                  value={fromQuery}
+                  onChange={e => setFromQuery(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && handleRoute()}
+                />
+              </div>
+              <div className="relative">
+                <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                <input
+                  type="text"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg pl-8 pr-3 py-2 text-sm text-white placeholder-gray-500 outline-none focus:border-purple-500 transition-colors"
+                  placeholder="To (e.g. Gate 42 T3, Security)"
+                  value={toQuery}
+                  onChange={e => setToQuery(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && handleRoute()}
+                />
+              </div>
+              {routeError && (
+                <div className="text-xs text-red-400 bg-red-400/10 rounded-lg px-3 py-2">{routeError}</div>
+              )}
+              <div className="flex gap-2 pt-1">
+                <button onClick={handleRoute}
+                  className="flex-1 bg-white/10 hover:bg-white/20 text-white rounded-lg py-2 text-sm font-semibold transition-colors">
+                  Find Route
+                </button>
+                <button onClick={startNavigation} disabled={steps.length === 0}
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-500 hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-lg py-2 text-sm font-semibold transition-all">
+                  Start Nav
+                </button>
+              </div>
+              {steps.length > 0 && (
+                <div className="text-xs text-green-400 text-center pt-1 font-medium">
+                  ✓ {steps.length} steps · {Math.round(dist)}m · ~{mins} min
+                </div>
+              )}
+            </div>
+
+            {/* Layer legend */}
+            <div className="mt-3 pt-3 border-t border-white/8">
+              <div className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-2 flex items-center gap-1">
+                <Layers size={10} /> Layers
+              </div>
+              <div className="grid grid-cols-2 gap-1">
+                {LAYER_DEFS.map(d => (
+                  <div key={d.id} className="flex items-center gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: d.color }} />
+                    <span className="text-[10px] text-gray-400">{d.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Navigation Panel ──────────────────────────────────── */}
+        {navMode && (
+          <div className="absolute top-0 left-0 bottom-0 w-80 z-20 flex flex-col shadow-2xl"
+            style={{
+              background: 'rgba(10,16,32,0.97)',
+              backdropFilter: 'blur(24px)',
+              borderRight: '1px solid rgba(255,255,255,0.08)',
+            }}>
+
+            {/* Header */}
+            <div className="p-4 border-b shrink-0" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+              <div className="flex justify-between items-center mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
+                    <CheckCircle2 size={18} color="#fff" />
+                  </div>
+                  <div>
+                    <h2 className="text-white font-bold text-base leading-tight">Navigation</h2>
+                    <div className="text-[10px] text-gray-500">Step-by-step directions</div>
+                  </div>
+                </div>
+                <button onClick={stopNavigation} className="text-gray-400 hover:text-white transition-colors text-lg">✕</button>
+              </div>
+              <div className="flex gap-4 text-sm">
+                <div className="flex-1 bg-blue-600/15 rounded-lg p-2 text-center">
+                  <div className="text-green-400 font-bold text-base">{mins} min</div>
+                  <div className="text-gray-500 text-[10px]">remaining</div>
+                </div>
+                <div className="flex-1 bg-white/5 rounded-lg p-2 text-center">
+                  <div className="text-white font-bold text-base">{Math.round(dist)}m</div>
+                  <div className="text-gray-500 text-[10px]">distance</div>
+                </div>
+                <div className="flex-1 bg-white/5 rounded-lg p-2 text-center">
+                  <div className="text-cyan-400 font-bold text-base">{activeStep + 1}/{steps.length}</div>
+                  <div className="text-gray-500 text-[10px]">steps</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Current step hero */}
+            {currentStep && (
+              <div className="mx-3 mt-3 p-3 rounded-xl border border-blue-500/30"
+                style={{ background: 'rgba(41,121,255,0.12)' }}>
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white shrink-0">
+                    <ActionIcon action={currentStep.action} size={20} />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-white font-semibold text-sm">{currentStep.instruction}</div>
+                    {currentStep.distanceMeters > 0 && (
+                      <div className="text-blue-300 text-xs mt-1">{currentStep.distanceMeters}m</div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* All steps list */}
+            <div className="flex-1 overflow-y-auto py-2 px-2" style={{ scrollbarWidth: 'none' }}>
+              {steps.map((step, idx) => {
+                const isActive = idx === activeStep;
+                const isPast   = idx < activeStep;
+                return (
+                  <button key={idx}
+                    onClick={() => gotoStep(idx)}
+                    className={`w-full flex items-start gap-3 p-3 rounded-xl transition-all mb-1 text-left ${
+                      isActive ? 'bg-blue-600/20 border border-blue-500/30' :
+                      isPast   ? 'opacity-35' : 'hover:bg-white/5'
+                    }`}>
+                    <div className={`mt-0.5 flex items-center justify-center w-7 h-7 rounded-full shrink-0 ${
+                      isActive ? 'bg-blue-600 text-white' : isPast ? 'bg-gray-700 text-gray-500' : 'bg-gray-800 text-gray-400'
+                    }`}>
+                      <ActionIcon action={step.action} size={14} />
+                    </div>
+                    <div className="flex-1">
+                      <div className={`text-xs font-medium ${isActive ? 'text-white' : 'text-gray-400'}`}>
+                        {step.instruction}
+                      </div>
+                      {step.distanceMeters > 0 && (
+                        <div className="text-[10px] text-gray-600 mt-0.5">{step.distanceMeters}m</div>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Controls footer */}
+            <div className="p-3 border-t shrink-0" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+              <div className="grid grid-cols-2 gap-2">
+                <button onClick={handlePrevStep}
+                  disabled={activeStep === 0}
+                  className="bg-white/10 hover:bg-white/20 disabled:opacity-30 text-white rounded-xl py-3 text-sm font-semibold transition-colors flex items-center justify-center gap-2">
+                  ← Prev
+                </button>
+                <button onClick={handleNextStep}
+                  disabled={activeStep === steps.length - 1}
+                  className="bg-blue-600 hover:bg-blue-700 disabled:opacity-30 text-white rounded-xl py-3 text-sm font-semibold transition-colors flex items-center justify-center gap-2">
+                  Next →
+                </button>
+              </div>
+              <div className="mt-2 text-center text-[10px] text-gray-600">
+                Click any step above or use Prev/Next to navigate
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

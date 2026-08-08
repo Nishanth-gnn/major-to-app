@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Heathrow Airport – Indoor Navigation Map</title>
+  <meta name="description" content="Hyper-realistic Heathrow Airport indoor map with multi-floor navigation, gate finder, amenity search, and A* pathfinding. Powered by MapLibre GL JS and OpenStreetMap."/>
+
+  <!-- MapLibre GL JS -->
+  <link href="https://unpkg.com/maplibre-gl@4/dist/maplibre-gl.css" rel="stylesheet"/>
+  <script src="https://unpkg.com/maplibre-gl@4/dist/maplibre-gl.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+  /* ── Reset ───────────────────────────────────────────────────────── */
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:        #070c18;
+    --panel:     rgba(10,16,32,0.95);
+    --border:    rgba(255,255,255,0.08);
+    --accent:    #2979ff;
+    --accent2:   #00e5ff;
+    --purple:    #aa00ff;
+    --green:     #00e676;
+    --orange:    #ff6d00;
+    --red:       #ff5252;
+    --yellow:    #ffea00;
+    --text:      #e8ecf4;
+    --muted:     #8b95b0;
+    --radius:    12px;
+    --blur:      blur(24px);
+    --shadow:    0 8px 40px rgba(0,0,0,0.6);
+    --glow:      0 0 20px rgba(41,121,255,0.25);
+  }
+  html,body{height:100%;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
+
+  /* ── Map ─────────────────────────────────────────────────────────── */
+  #map{position:absolute;inset:0;z-index:0}
+  .maplibregl-ctrl-attrib{background:rgba(10,16,32,0.8)!important;color:var(--muted)!important;font-size:10px}
+  .maplibregl-ctrl-attrib a{color:var(--accent)!important}
+  .maplibregl-ctrl-zoom-in,.maplibregl-ctrl-zoom-out,.maplibregl-ctrl-compass{
+    background:var(--panel)!important;color:var(--text)!important;border:1px solid var(--border)!important
+  }
+
+  /* ── Loading overlay ─────────────────────────────────────────────── */
+  #loading{
+    position:fixed;inset:0;z-index:9999;
+    background:var(--bg);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+    transition:opacity .5s
+  }
+  #loading.out{opacity:0;pointer-events:none}
+  .spinner{
+    width:52px;height:52px;border-radius:50%;
+    border:3px solid rgba(41,121,255,.2);border-top-color:var(--accent);
+    animation:spin .8s linear infinite
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  #load-label{font-size:14px;color:var(--muted)}
+  #load-sub  {font-size:12px;color:var(--muted);opacity:.6}
+
+  /* ── Sidebar ─────────────────────────────────────────────────────── */
+  #sidebar{
+    position:absolute;left:0;top:0;bottom:0;width:300px;z-index:100;
+    background:var(--panel);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+    border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden
+  }
+
+  /* Header */
+  #sidebar-header{
+    padding:18px 16px 12px;border-bottom:1px solid var(--border);flex-shrink:0
+  }
+  .logo-row{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+  .logo-icon{
+    width:36px;height:36px;border-radius:10px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0
+  }
+  h1{
+    font-size:14px;font-weight:700;letter-spacing:.02em;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+  }
+  .sub-line{font-size:10px;color:var(--muted);margin-top:2px}
+
+  /* Search */
+  #search-wrap{padding:10px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
+  #search-input{
+    width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);
+    border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;
+    font-family:inherit;outline:none;transition:border-color .2s
+  }
+  #search-input::placeholder{color:var(--muted)}
+  #search-input:focus{border-color:var(--accent)}
+  #search-results{
+    max-height:180px;overflow-y:auto;margin-top:6px;display:none;
+    background:rgba(10,16,32,.98);border:1px solid var(--border);border-radius:8px
+  }
+  .search-result{
+    padding:8px 12px;cursor:pointer;font-size:12px;
+    border-bottom:1px solid var(--border);transition:background .15s
+  }
+  .search-result:last-child{border-bottom:none}
+  .search-result:hover{background:rgba(41,121,255,.12)}
+  .search-result .r-name{font-weight:600;color:var(--text)}
+  .search-result .r-meta{color:var(--muted);font-size:11px;margin-top:2px}
+
+  /* Terminal selector */
+  #terminal-bar{
+    display:flex;gap:4px;padding:10px 14px;border-bottom:1px solid var(--border);flex-shrink:0
+  }
+  .terminal-btn{
+    flex:1;padding:6px 4px;border-radius:8px;border:1px solid var(--border);
+    background:rgba(255,255,255,.04);color:var(--muted);font-size:11px;font-weight:600;
+    cursor:pointer;transition:all .2s;text-align:center
+  }
+  .terminal-btn:hover{background:rgba(41,121,255,.1);border-color:var(--accent);color:var(--text)}
+  .terminal-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:var(--glow)}
+
+  /* Floor switcher */
+  #floor-bar{
+    display:flex;gap:4px;padding:8px 14px;border-bottom:1px solid var(--border);flex-shrink:0;
+    overflow-x:auto;scrollbar-width:none
+  }
+  .floor-btn{
+    padding:5px 12px;border-radius:20px;border:1px solid var(--border);
+    background:rgba(255,255,255,.04);color:var(--muted);font-size:11px;font-weight:600;
+    cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0
+  }
+  .floor-btn:hover{background:rgba(41,121,255,.1);border-color:var(--accent);color:var(--text)}
+  .floor-btn.active{background:var(--purple);border-color:var(--purple);color:#fff}
+
+  /* Layers */
+  #layer-section{padding:12px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
+  .section-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .layer-row{display:flex;align-items:center;gap:8px;padding:5px 6px;border-radius:6px;cursor:pointer;transition:background .15s}
+  .layer-row:hover{background:rgba(255,255,255,.04)}
+  .layer-row.off .layer-name{opacity:.4}
+  .layer-swatch{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+  .layer-name{font-size:12px;font-weight:500;flex:1}
+  .layer-count{font-size:10px;color:var(--muted)}
+  .layer-toggle-btn{
+    width:28px;height:16px;border-radius:8px;background:rgba(255,255,255,.1);
+    border:none;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0
+  }
+  .layer-toggle-btn::after{
+    content:'';position:absolute;left:2px;top:2px;width:12px;height:12px;
+    background:#fff;border-radius:50%;transition:transform .2s
+  }
+  .layer-row.on .layer-toggle-btn{background:var(--accent)}
+  .layer-row.on .layer-toggle-btn::after{transform:translateX(12px)}
+
+  /* Route planner */
+  #route-section{padding:12px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
+  .route-inputs{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+  .route-input{
+    background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:8px;
+    padding:7px 10px;color:var(--text);font-size:12px;font-family:inherit;outline:none;
+    transition:border-color .2s;width:100%
+  }
+  .route-input:focus{border-color:var(--purple)}
+  #route-btn{
+    width:100%;margin-top:6px;padding:8px;border-radius:8px;border:none;cursor:pointer;
+    background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff;
+    font-size:12px;font-weight:600;font-family:inherit;transition:opacity .2s
+  }
+  #route-btn:hover{opacity:.85}
+  #route-result{
+    margin-top:6px;font-size:11px;color:var(--muted);display:none;
+    background:rgba(41,121,255,.08);border:1px solid rgba(41,121,255,.2);
+    border-radius:6px;padding:8px 10px
+  }
+
+  /* Feature info */
+  #info-section{flex:1;overflow-y:auto;padding:12px 14px}
+  #feature-box{
+    background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;
+    padding:10px;font-size:12px;color:var(--muted);min-height:60px;line-height:1.6
+  }
+  #feature-box strong{color:var(--text)}
+  #feature-box table{width:100%;border-collapse:collapse;margin-top:6px}
+  #feature-box td{padding:2px 0;vertical-align:top}
+  #feature-box td:first-child{color:var(--muted);width:42%;font-size:11px}
+  #feature-box td:last-child{color:var(--text);font-size:11px;word-break:break-word}
+
+  /* Stats bar */
+  #stats-bar{
+    padding:8px 14px;border-top:1px solid var(--border);flex-shrink:0;
+    display:flex;gap:10px;overflow-x:auto;scrollbar-width:none
+  }
+  .stat-chip{
+    display:flex;align-items:center;gap:5px;padding:4px 8px;border-radius:20px;
+    font-size:10px;font-weight:600;white-space:nowrap;flex-shrink:0
+  }
+  .stat-dot{width:6px;height:6px;border-radius:50%}
+
+  /* Popup */
+  .maplibregl-popup-content{
+    background:var(--panel)!important;border:1px solid var(--border)!important;
+    border-radius:var(--radius)!important;color:var(--text)!important;
+    font-family:'Inter',sans-serif;font-size:13px;padding:12px!important;
+    box-shadow:var(--shadow)!important;max-width:240px
+  }
+  .maplibregl-popup-tip{border-top-color:var(--panel)!important}
+  .popup-title{font-weight:700;font-size:14px;color:var(--accent2);margin-bottom:6px}
+  .popup-tag{font-size:11px;color:var(--muted);line-height:1.8}
+  .popup-tag span{color:var(--text)}
+  .popup-cat{
+    display:inline-block;margin-top:6px;padding:2px 8px;border-radius:10px;
+    font-size:10px;font-weight:600;background:rgba(41,121,255,.15);color:var(--accent)
+  }
+
+  /* Category badge colours */
+  .cat-gate    {background:rgba(170,0,255,.15);color:var(--purple)}
+  .cat-food    {background:rgba(0,230,118,.12);color:var(--green)}
+  .cat-shop    {background:rgba(255,109,0,.12);color:var(--orange)}
+  .cat-toilet  {background:rgba(41,121,255,.15);color:var(--accent)}
+  .cat-security{background:rgba(255,82,82,.12);color:var(--red)}
+  .cat-lounge  {background:rgba(0,229,255,.12);color:var(--accent2)}
+  .cat-elevator{background:rgba(255,234,0,.12);color:var(--yellow)}
+  .cat-info    {background:rgba(255,255,255,.08);color:var(--muted)}
+
+  /* Route animation */
+  @keyframes dash{to{stroke-dashoffset:-20}}
+
+  /* Responsive */
+  @media(max-width:640px){
+    #sidebar{width:100%;height:42vh;top:auto;bottom:0;left:0;right:0;border-right:none;border-top:1px solid var(--border)}
+    #map{bottom:42vh}
+  }
+  </style>
+</head>
+<body>
+
+<!-- Loading -->
+<div id="loading">
+  <div class="spinner"></div>
+  <div id="load-label">Loading Heathrow Indoor Map…</div>
+  <div id="load-sub">Initialising MapLibre GL JS</div>
+</div>
+
+<div id="map"></div>
+
+<!-- ── Sidebar ──────────────────────────────────────────────────────── -->
+<aside id="sidebar">
+
+  <!-- Header -->
+  <div id="sidebar-header">
+    <div class="logo-row">
+      <div class="logo-icon">✈</div>
+      <div>
+        <h1>Heathrow Indoor Map</h1>
+        <div class="sub-line">OSM · MapLibre GL JS · A* Navigation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div id="search-wrap">
+    <input id="search-input" type="text" placeholder="Search gates, shops, amenities…" autocomplete="off"/>
+    <div id="search-results"></div>
+  </div>
+
+  <!-- Terminal selector -->
+  <div id="terminal-bar">
+    <button class="terminal-btn active" data-terminal="all" id="term-all">All</button>
+    <button class="terminal-btn" data-terminal="2" id="term-2">T2</button>
+    <button class="terminal-btn" data-terminal="3" id="term-3">T3</button>
+    <button class="terminal-btn" data-terminal="4" id="term-4">T4</button>
+    <button class="terminal-btn" data-terminal="5" id="term-5">T5</button>
+  </div>
+
+  <!-- Floor switcher -->
+  <div id="floor-bar">
+    <button class="floor-btn" data-level="-2" id="floor-b2">B2</button>
+    <button class="floor-btn" data-level="-1" id="floor-b1">B1</button>
+    <button class="floor-btn active" data-level="0" id="floor-0">Ground</button>
+    <button class="floor-btn" data-level="1" id="floor-1">Level 1</button>
+    <button class="floor-btn" data-level="2" id="floor-2">Level 2</button>
+    <button class="floor-btn" data-level="3" id="floor-3">Level 3</button>
+  </div>
+
+  <!-- Layers -->
+  <div id="layer-section">
+    <div class="section-label">Map Layers</div>
+    <div id="layer-list"></div>
+  </div>
+
+  <!-- Route planner -->
+  <div id="route-section">
+    <div class="section-label">Route Planner</div>
+    <div class="route-inputs">
+      <input id="from-input" class="route-input" type="text" placeholder="From (e.g. Gate B32)"/>
+      <input id="to-input"   class="route-input" type="text" placeholder="To (e.g. Lounge, Gate A10)"/>
+    </div>
+    <button id="route-btn">Find Route ↗</button>
+    <div id="route-result"></div>
+  </div>
+
+  <!-- Feature info -->
+  <div id="info-section">
+    <div class="section-label">Selected Feature</div>
+    <div id="feature-box">Click any feature on the map to inspect.</div>
+  </div>
+
+  <!-- Stats -->
+  <div id="stats-bar" id="stats-bar"></div>
+
+</aside>
+
+<script>
+// ════════════════════════════════════════════════════════════════════════════
+// CONFIG
+// ════════════════════════════════════════════════════════════════════════════
+const MAP_SERVER = 'http://localhost:8092';
+const CENTER     = [-0.4614, 51.4775];
+const ZOOM_INIT  = 14;
+
+const TERMINAL_BOUNDS = {
+  '2': { center: [-0.4555, 51.4706], zoom: 16 },
+  '3': { center: [-0.4640, 51.4712], zoom: 16 },
+  '4': { center: [-0.4370, 51.4585], zoom: 16 },
+  '5': { center: [-0.4883, 51.4725], zoom: 15.5 },
+};
+
+// Layer definitions: [id, geojsonPath, type, colour, minZoom, label, count]
+const LAYER_DEFS = [
+  { id:'terminals',  path:'map-data/terminals.geojson',       color:'#2979ff', minzoom:8,  label:'Terminals',  cnt:0 },
+  { id:'entrances',  path:'map-data/entrances.geojson',       color:'#ff6d00', minzoom:14, label:'Entrances',  cnt:0 },
+  { id:'gates',      path:'map-data/gates.geojson',           color:'#aa00ff', minzoom:13, label:'Gates',      cnt:0 },
+  { id:'amenities',  path:'map-data/amenities.geojson',       color:'#00e676', minzoom:13, label:'Amenities',  cnt:0 },
+  { id:'roads',      path:'map-data/roads.geojson',           color:'#ff5252', minzoom:10, label:'Roads',      cnt:0 },
+  { id:'walkways',   path:'map-data/walkways.geojson',        color:'#ffea00', minzoom:12, label:'Walkways',   cnt:0 },
+  { id:'indoor',     path:'map-data/indoors/merged_indoor.geojson', color:'#00e5ff', minzoom:14, label:'Indoor',cnt:0 },
+  { id:'security',   path:'map-data/indoors/security.geojson',color:'#ff5252', minzoom:13, label:'Security',   cnt:0 },
+  { id:'lounges',    path:'map-data/indoors/lounges.geojson', color:'#ffea00', minzoom:13, label:'Lounges',    cnt:0 },
+];
+
+// ════════════════════════════════════════════════════════════════════════════
+// CATEGORY COLOURS
+// ════════════════════════════════════════════════════════════════════════════
+const CAT_COLORS = {
+  gate:         '#aa00ff', security:   '#ff5252', baggage_claim:'#ff6d00',
+  check_in:     '#2979ff', lounge:     '#ffea00', concourse:    '#00e5ff',
+  food:         '#00e676', shop:       '#ff9100', toilet:       '#64b5f6',
+  elevator:     '#ffd740', escalator:  '#ffd740', atm:          '#69f0ae',
+  information:  '#e0e0e0', corridor:   '#2979ff', area:         '#1e2d4e',
+  room:         '#1a2544', default:    '#37474f',
+};
+
+function catColor(cat){ return CAT_COLORS[cat] || CAT_COLORS.default; }
+
+// ════════════════════════════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════════════════════════════
+let map, navGraph = null;
+const layerVisible  = {};
+const allFeatures   = {};   // id → {feature, layer}
+let   currentLevel  = 0;
+let   currentTerminal = 'all';
+let   routeFrom = null, routeTo = null;
+
+// ════════════════════════════════════════════════════════════════════════════
+// INIT MAP
+// ════════════════════════════════════════════════════════════════════════════
+function initMap() {
+  setLoadSub('Connecting to OpenFreeMap tiles…');
+  map = new maplibregl.Map({
+    container: 'map',
+    style: 'https://tiles.openfreemap.org/styles/dark',
+    center: CENTER,
+    zoom:   ZOOM_INIT,
+    pitch:  0,
+    bearing:0,
+    antialias: true,
+    attributionControl: true,
+  });
+
+  map.addControl(new maplibregl.NavigationControl(), 'bottom-right');
+  map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-right');
+
+  map.on('load', () => {
+    setLoadSub('Loading GeoJSON layers…');
+    loadAllLayers();
+  });
+
+  map.on('error', (e) => console.warn('Map error:', e.error));
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// LOAD LAYERS
+// ════════════════════════════════════════════════════════════════════════════
+async function loadAllLayers() {
+  for (const def of LAYER_DEFS) {
+    setLoadSub(`Loading ${def.label}…`);
+    await loadLayer(def).catch(e => console.warn(`${def.id} failed:`, e));
+  }
+  buildSidebarLayers();
+  buildStats();
+  loadNavGraph();
+  hideLoading();
+}
+
+async function loadLayer(def) {
+  const url = `${MAP_SERVER}/${def.path}`;
+  let data;
+  try {
+    const r = await fetch(url);
+    data = await r.json();
+  } catch(e) {
+    console.warn(`Could not fetch ${def.path}:`, e.message);
+    data = { type:'FeatureCollection', features:[] };
+  }
+
+  def.cnt = data.features?.length ?? 0;
+
+  // Index all features for search
+  for (const f of data.features || []) {
+    const p = f.properties || {};
+    const key = p.osm_id + '_' + def.id;
+    allFeatures[key] = { feature: f, layerId: def.id };
+  }
+
+  // Add GeoJSON source
+  map.addSource(def.id, { type:'geojson', data, generateId:true });
+
+  const isPoint = (data.features||[]).every(f => f.geometry?.type === 'Point');
+
+  if (isPoint) {
+    // Circle layer for points
+    map.addLayer({
+      id:     def.id + '-circle',
+      type:   'circle',
+      source: def.id,
+      minzoom: def.minzoom,
+      paint: {
+        'circle-radius':       ['interpolate',['linear'],['zoom'],13,3,16,6,18,9],
+        'circle-color':        def.color,
+        'circle-opacity':      0.9,
+        'circle-stroke-color': '#fff',
+        'circle-stroke-width': 1,
+      },
+    });
+    map.on('click', def.id+'-circle', onFeatureClick);
+    map.on('mouseenter', def.id+'-circle', () => map.getCanvas().style.cursor='pointer');
+    map.on('mouseleave', def.id+'-circle', () => map.getCanvas().style.cursor='');
+
+  } else {
+    // Fill layer for polygons
+    map.addLayer({
+      id:     def.id + '-fill',
+      type:   'fill',
+      source: def.id,
+      minzoom: def.minzoom,
+      filter: ['in', ['geometry-type'], ['literal', ['Polygon','MultiPolygon']]],
+      paint: {
+        'fill-color':   def.color,
+        'fill-opacity': def.id === 'terminals' ? 0.15 : def.id === 'indoor' ? 0.35 : 0.2,
+      },
+    });
+    // Line layer
+    map.addLayer({
+      id:     def.id + '-line',
+      type:   'line',
+      source: def.id,
+      minzoom: def.minzoom,
+      paint: {
+        'line-color':  def.color,
+        'line-width':  def.id === 'terminals' ? 2 :
+                       def.id === 'roads'     ? 1.5 :
+                       def.id === 'walkways'  ? 1   : 1.5,
+        'line-opacity': 0.9,
+        'line-blur': def.id === 'terminals' ? 1 : 0,
+      },
+    });
+    map.on('click', def.id+'-fill', onFeatureClick);
+    map.on('click', def.id+'-line', onFeatureClick);
+    map.on('mouseenter', def.id+'-fill', () => map.getCanvas().style.cursor='pointer');
+    map.on('mouseleave', def.id+'-fill', () => map.getCanvas().style.cursor='');
+  }
+
+  // Gate labels
+  if (def.id === 'gates') {
+    map.addLayer({
+      id:    'gates-label',
+      type:  'symbol',
+      source:'gates',
+      minzoom:14,
+      filter:['has','ref'],
+      layout:{
+        'text-field':    ['get','ref'],
+        'text-size':     10,
+        'text-font':     ['Open Sans Bold','Arial Unicode MS Bold'],
+        'text-offset':   [0,1.2],
+        'text-anchor':   'top',
+      },
+      paint:{
+        'text-color':      '#fff',
+        'text-halo-color': '#aa00ff',
+        'text-halo-width': 1.5,
+      },
+    });
+  }
+
+  // Indoor coloured by category
+  if (def.id === 'indoor') {
+    map.setPaintProperty('indoor-fill', 'fill-color', [
+      'match', ['get','_category'],
+      'gate',        '#aa00ff',
+      'security',    '#ff5252',
+      'lounge',      '#ffea00',
+      'food',        '#00e676',
+      'shop',        '#ff9100',
+      'toilet',      '#64b5f6',
+      'elevator',    '#ffd740',
+      'corridor',    '#1a3060',
+      'area',        '#131f3a',
+      '#131f3a',
+    ]);
+  }
+
+  layerVisible[def.id] = true;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// FEATURE CLICK
+// ════════════════════════════════════════════════════════════════════════════
+let popup = null;
+function onFeatureClick(e) {
+  const f = e.features?.[0];
+  if (!f) return;
+  const p = f.properties || {};
+  const coords = e.lngLat;
+
+  // Popup
+  if (popup) popup.remove();
+  const title  = p.name || p.ref || p._category || p.aeroway || p.amenity || p.highway || 'OSM Feature';
+  const cat    = p._category || '';
+  const osmUrl = `https://www.openstreetmap.org/${p.osm_type||'node'}/${p.osm_id}`;
+
+  let html = `<div class="popup-title">${title}</div>`;
+  if (cat)             html += `<span class="popup-cat cat-${cat}">${cat}</span>`;
+  if (p.terminal)      html += `<div class="popup-tag">Terminal <span>${p.terminal}</span></div>`;
+  if (p.level || p._level !== undefined) html += `<div class="popup-tag">Level <span>${p.level ?? p._level}</span></div>`;
+  if (p.ref && p.ref !== title) html += `<div class="popup-tag">Ref <span>${p.ref}</span></div>`;
+  if (p.operator)      html += `<div class="popup-tag">Operator <span>${p.operator}</span></div>`;
+  if (p.opening_hours) html += `<div class="popup-tag">Hours <span>${p.opening_hours}</span></div>`;
+  html += `<div class="popup-tag" style="margin-top:8px"><a href="${osmUrl}" target="_blank" style="color:var(--accent)">View on OSM ↗</a></div>`;
+
+  popup = new maplibregl.Popup({ maxWidth:'260px', offset:8 })
+    .setLngLat(coords).setHTML(html).addTo(map);
+
+  // Sidebar info
+  showFeatureInfo(p, title, cat);
+}
+
+function showFeatureInfo(p, title, cat) {
+  const box  = document.getElementById('feature-box');
+  const skip = new Set(['osm_id','osm_type','source','created_by','_source']);
+  let rows = '';
+  for (const [k,v] of Object.entries(p)) {
+    if (skip.has(k) || !v) continue;
+    rows += `<tr><td>${k}</td><td>${v}</td></tr>`;
+  }
+  box.innerHTML = `<strong>${title}</strong>${cat ? ` <span style="color:var(--purple);font-size:11px">[${cat}]</span>` : ''}<table style="margin-top:8px">${rows}</table>`;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// FLOOR FILTER
+// ════════════════════════════════════════════════════════════════════════════
+function applyFloorFilter(level) {
+  currentLevel = level;
+  ['indoor','security','lounges'].forEach(id => {
+    const suffix = layerVisible[id] ? '' : '!';
+    ['fill','line','circle'].forEach(t => {
+      const lid = `${id}-${t}`;
+      if (!map.getLayer(lid)) return;
+      if (level === null) {
+        map.setFilter(lid, null);
+      } else {
+        map.setFilter(lid, [
+          'any',
+          ['!', ['has','_level']],
+          ['==', ['get','_level'], level],
+          ['==', ['get','level'],  String(level)],
+        ]);
+      }
+    });
+  });
+}
+
+document.querySelectorAll('.floor-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.floor-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const lvl = btn.dataset.level === 'all' ? null : Number(btn.dataset.level);
+    applyFloorFilter(lvl);
+  });
+});
+
+// ════════════════════════════════════════════════════════════════════════════
+// TERMINAL SELECTOR
+// ════════════════════════════════════════════════════════════════════════════
+document.querySelectorAll('.terminal-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.terminal-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentTerminal = btn.dataset.terminal;
+
+    if (currentTerminal === 'all') {
+      map.easeTo({ center: CENTER, zoom: ZOOM_INIT, duration: 700 });
+      // Remove terminal filter
+      LAYER_DEFS.forEach(def => {
+        ['fill','line','circle'].forEach(t => {
+          const lid = `${def.id}-${t}`;
+          if (map.getLayer(lid)) map.setFilter(lid, null);
+        });
+      });
+    } else {
+      const b = TERMINAL_BOUNDS[currentTerminal];
+      if (b) map.easeTo({ center: b.center, zoom: b.zoom, duration: 700 });
+      // Filter gates and amenities by terminal
+      ['gates','amenities','indoor'].forEach(id => {
+        ['fill','line','circle'].forEach(t => {
+          const lid = `${id}-${t}`;
+          if (!map.getLayer(lid)) return;
+          map.setFilter(lid, [
+            'any',
+            ['!', ['has','terminal']],
+            ['==', ['get','terminal'], currentTerminal],
+          ]);
+        });
+      });
+    }
+  });
+});
+
+// ════════════════════════════════════════════════════════════════════════════
+// LAYER TOGGLES (sidebar)
+// ════════════════════════════════════════════════════════════════════════════
+function buildSidebarLayers() {
+  const list = document.getElementById('layer-list');
+  list.innerHTML = '';
+  LAYER_DEFS.forEach(def => {
+    const row = document.createElement('div');
+    row.className = 'layer-row on';
+    row.innerHTML = `
+      <div class="layer-swatch" style="background:${def.color}"></div>
+      <span class="layer-name">${def.label}</span>
+      <span class="layer-count">${def.cnt.toLocaleString()}</span>
+      <button class="layer-toggle-btn" title="Toggle ${def.label}"></button>
+    `;
+    row.querySelector('.layer-toggle-btn').addEventListener('click', e => {
+      e.stopPropagation();
+      const on = !layerVisible[def.id];
+      layerVisible[def.id] = on;
+      row.className = `layer-row ${on?'on':'off'}`;
+      ['fill','line','circle'].forEach(t => {
+        const lid = `${def.id}-${t}`;
+        if (map.getLayer(lid)) map.setLayoutProperty(lid, 'visibility', on ? 'visible' : 'none');
+      });
+      if (def.id==='gates' && map.getLayer('gates-label'))
+        map.setLayoutProperty('gates-label', 'visibility', on?'visible':'none');
+    });
+    list.appendChild(row);
+  });
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// STATS BAR
+// ════════════════════════════════════════════════════════════════════════════
+function buildStats() {
+  const bar   = document.getElementById('stats-bar');
+  const total = LAYER_DEFS.reduce((s,d)=>s+d.cnt, 0);
+  const chips = [
+    { label:'Features', val: total.toLocaleString(), color:'#2979ff' },
+    { label:'Layers',   val: LAYER_DEFS.length,      color:'#00e5ff' },
+    { label:'CRS',      val:'WGS 84',                color:'#aa00ff' },
+  ];
+  bar.innerHTML = chips.map(c => `
+    <div class="stat-chip" style="background:${c.color}18;border:1px solid ${c.color}40;color:${c.color}">
+      <div class="stat-dot" style="background:${c.color}"></div>
+      <span>${c.label}: <strong>${c.val}</strong></span>
+    </div>
+  `).join('');
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// SEARCH
+// ════════════════════════════════════════════════════════════════════════════
+const searchInput   = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+
+searchInput.addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  if (!q || q.length < 2) { searchResults.style.display='none'; return; }
+
+  const matches = [];
+  for (const [key, {feature, layerId}] of Object.entries(allFeatures)) {
+    const p = feature.properties || {};
+    const haystack = [p.name, p.ref, p._category, p.aeroway, p.amenity, p.shop, p.highway]
+      .filter(Boolean).join(' ').toLowerCase();
+    if (haystack.includes(q)) {
+      matches.push({ feature, layerId, p });
+      if (matches.length >= 20) break;
+    }
+  }
+
+  if (!matches.length) { searchResults.style.display='none'; return; }
+
+  searchResults.innerHTML = matches.map((m,i) => {
+    const p = m.p;
+    const name = p.name || p.ref || p._category || p.aeroway || p.amenity || '?';
+    const meta = [m.layerId, p.terminal ? `T${p.terminal}` : '', p.level !== undefined ? `L${p.level}` : ''].filter(Boolean).join(' · ');
+    return `<div class="search-result" data-idx="${i}">
+      <div class="r-name">${name}</div>
+      <div class="r-meta">${meta}</div>
+    </div>`;
+  }).join('');
+
+  searchResults.style.display = 'block';
+
+  searchResults.querySelectorAll('.search-result').forEach((el, i) => {
+    el.addEventListener('click', () => {
+      const {feature, p} = matches[i];
+      const geom   = feature.geometry;
+      let center;
+      if (geom.type === 'Point')      center = geom.coordinates;
+      else if (geom.type === 'Polygon') center = geom.coordinates[0][0];
+      else if (geom.type === 'LineString') center = geom.coordinates[0];
+      if (center) map.easeTo({ center, zoom: 17, duration: 600 });
+      searchResults.style.display = 'none';
+      searchInput.value = matches[i].p.name || matches[i].p.ref || '';
+      showFeatureInfo(matches[i].p, searchInput.value, matches[i].p._category || '');
+    });
+  });
+});
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('#search-wrap')) searchResults.style.display = 'none';
+});
+
+// ════════════════════════════════════════════════════════════════════════════
+// NAVIGATION GRAPH + A*
+// ════════════════════════════════════════════════════════════════════════════
+async function loadNavGraph() {
+  try {
+    const r = await fetch(`${MAP_SERVER}/map-data/navigation_graph.json`);
+    if (!r.ok) throw new Error(`${r.status}`);
+    navGraph = await r.json();
+    console.log(`Nav graph: ${Object.keys(navGraph.nodes).length} nodes, ${navGraph.edges.length} edges`);
+
+    // Build adjacency list
+    navGraph.adj = {};
+    for (const e of navGraph.edges) {
+      if (!navGraph.adj[e.from]) navGraph.adj[e.from] = [];
+      navGraph.adj[e.from].push({ to: e.to, weight: e.weight });
+    }
+  } catch(err) {
+    console.warn('Navigation graph not available:', err.message);
+  }
+}
+
+function heuristic(a, b, nodes) {
+  const na = nodes[a], nb = nodes[b];
+  if (!na || !nb) return Infinity;
+  const dx = (na.lon - nb.lon) * 85000;
+  const dy = (na.lat - nb.lat) * 111000;
+  return Math.sqrt(dx*dx + dy*dy);
+}
+
+function astar(startKey, goalKey) {
+  if (!navGraph?.adj) return null;
+  const {nodes, adj} = navGraph;
+  const open   = new Set([startKey]);
+  const cameFrom = {};
+  const gScore   = { [startKey]: 0 };
+  const fScore   = { [startKey]: heuristic(startKey, goalKey, nodes) };
+
+  let iters = 0;
+  while (open.size && iters++ < 50000) {
+    let current = [...open].reduce((a,b) => (fScore[a]??Infinity) < (fScore[b]??Infinity) ? a : b);
+    if (current === goalKey) {
+      const path = [];
+      while (cameFrom[current]) { path.unshift(current); current = cameFrom[current]; }
+      path.unshift(startKey);
+      return path;
+    }
+    open.delete(current);
+    for (const {to, weight} of (adj[current] || [])) {
+      const tent = gScore[current] + weight;
+      if (tent < (gScore[to] ?? Infinity)) {
+        cameFrom[to] = current;
+        gScore[to]   = tent;
+        fScore[to]   = tent + heuristic(to, goalKey, nodes);
+        open.add(to);
+      }
+    }
+  }
+  return null;
+}
+
+function nearestNode(lon, lat) {
+  if (!navGraph?.nodes) return null;
+  let best = null, bestDist = Infinity;
+  for (const [k, n] of Object.entries(navGraph.nodes)) {
+    const dx = (n.lon - lon) * 85000, dy = (n.lat - lat) * 111000;
+    const d  = dx*dx + dy*dy;
+    if (d < bestDist) { bestDist = d; best = k; }
+  }
+  return best;
+}
+
+function findFeatureByName(q) {
+  const lq = q.toLowerCase();
+  for (const {feature, layerId} of Object.values(allFeatures)) {
+    const p = feature.properties || {};
+    const t = [p.name, p.ref, p._category].filter(Boolean).join(' ').toLowerCase();
+    if (t.includes(lq)) return feature;
+  }
+  return null;
+}
+
+function getFeatureCoord(f) {
+  const g = f.geometry;
+  if (g.type==='Point')      return g.coordinates;
+  if (g.type==='Polygon')    return g.coordinates[0][Math.floor(g.coordinates[0].length/2)];
+  if (g.type==='LineString') return g.coordinates[Math.floor(g.coordinates.length/2)];
+  return null;
+}
+
+document.getElementById('route-btn').addEventListener('click', () => {
+  const fromQ = document.getElementById('from-input').value.trim();
+  const toQ   = document.getElementById('to-input').value.trim();
+  const rr    = document.getElementById('route-result');
+
+  if (!fromQ || !toQ) { rr.textContent='Enter both From and To.'; rr.style.display='block'; return; }
+  if (!navGraph)       { rr.textContent='Navigation graph not loaded.'; rr.style.display='block'; return; }
+
+  const fromFeat = findFeatureByName(fromQ);
+  const toFeat   = findFeatureByName(toQ);
+  if (!fromFeat) { rr.textContent=`"${fromQ}" not found.`; rr.style.display='block'; return; }
+  if (!toFeat)   { rr.textContent=`"${toQ}" not found.`;   rr.style.display='block'; return; }
+
+  const [fLon, fLat] = getFeatureCoord(fromFeat);
+  const [tLon, tLat] = getFeatureCoord(toFeat);
+  const startNode = nearestNode(fLon, fLat);
+  const goalNode  = nearestNode(tLon, tLat);
+  if (!startNode || !goalNode) { rr.textContent='Cannot find graph nodes.'; rr.style.display='block'; return; }
+
+  const path = astar(startNode, goalNode);
+  if (!path) { rr.textContent='No route found between those locations.'; rr.style.display='block'; return; }
+
+  // Build route line
+  const coords = path.map(k => {
+    const n = navGraph.nodes[k];
+    return [n.lon, n.lat];
+  });
+  let distM = 0;
+  for (let i=0;i<path.length-1;i++) {
+    const a = navGraph.nodes[path[i]], b = navGraph.nodes[path[i+1]];
+    const dx=(a.lon-b.lon)*85000, dy=(a.lat-b.lat)*111000;
+    distM += Math.sqrt(dx*dx+dy*dy);
+  }
+  const etaMin = Math.max(1, Math.round(distM/80));
+
+  drawRoute(coords, fromFeat, toFeat);
+  rr.innerHTML = `<strong>Route found!</strong><br>Distance: ~${Math.round(distM)} m &nbsp;|&nbsp; ETA: ~${etaMin} min`;
+  rr.style.display = 'block';
+});
+
+function drawRoute(coords, fromFeat, toFeat) {
+  // Remove existing route
+  ['route-line','route-from','route-to'].forEach(id => {
+    if (map.getLayer(id)) map.removeLayer(id);
+    if (map.getSource(id)) map.removeSource(id);
+  });
+
+  map.addSource('route-line', { type:'geojson', data:{ type:'Feature', geometry:{ type:'LineString', coordinates:coords } } });
+  map.addLayer({
+    id:'route-line', type:'line', source:'route-line',
+    paint:{
+      'line-color':     '#aa00ff',
+      'line-width':     4,
+      'line-opacity':   0.95,
+      'line-dasharray': [2, 2],
+    },
+    layout:{ 'line-cap':'round', 'line-join':'round' }
+  });
+
+  const [fLon,fLat] = getFeatureCoord(fromFeat);
+  const [tLon,tLat] = getFeatureCoord(toFeat);
+  addWaypoint('route-from', fLon, fLat, '#00e676');
+  addWaypoint('route-to',   tLon, tLat, '#ff5252');
+
+  const bounds = coords.reduce((b,c) => b.extend(c), new maplibregl.LngLatBounds(coords[0],coords[0]));
+  map.fitBounds(bounds, { padding:80, duration:800 });
+}
+
+function addWaypoint(id, lon, lat, color) {
+  map.addSource(id, { type:'geojson', data:{ type:'Feature', geometry:{ type:'Point', coordinates:[lon,lat] } } });
+  map.addLayer({ id, type:'circle', source:id, paint:{
+    'circle-radius':8,'circle-color':color,'circle-stroke-color':'#fff','circle-stroke-width':2
+  }});
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// LOADING HELPERS
+// ════════════════════════════════════════════════════════════════════════════
+function setLoadSub(t){ document.getElementById('load-sub').textContent = t; }
+function hideLoading(){
+  const ov = document.getElementById('loading');
+  ov.classList.add('out');
+  setTimeout(()=>ov.remove(), 600);
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// BOOT
+// ════════════════════════════════════════════════════════════════════════════
+initMap();
+</script>
+</body>
+</html>

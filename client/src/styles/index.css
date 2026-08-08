@@ -48,3 +48,50 @@ html.dark .ring-1         { box-shadow: 0 0 0 1px rgb(51 65 85) !important; }
 html.dark .shadow, html.dark .shadow-sm {
   box-shadow: 0 1px 3px 0 rgba(0,0,0,0.4), 0 1px 2px -1px rgba(0,0,0,0.4) !important;
 }
+
+/* ── Aura Side-by-Side Panel Layout on Desktop ────────────────────── */
+body,
+nav,
+.max-w-6xl,
+.safe-bottom,
+.fixed.inset-0 {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 1024px) {
+  body.aura-open {
+    padding-right: 380px !important;
+  }
+  
+  /* Shift top header nav, bottom navigation bar, and active pages */
+  body.aura-open nav {
+    margin-right: 380px !important;
+    max-width: calc(100% - 380px) !important;
+  }
+  
+  body.aura-open .max-w-6xl {
+    margin-right: 380px !important;
+    margin-left: auto !important;
+  }
+
+  body.aura-open .safe-bottom {
+    right: 380px !important;
+  }
+
+  body.aura-open .fixed.inset-0:not(.z-40):not(.aura-container-desktop) {
+    right: 380px !important;
+  }
+
+  /* Style AuraModal as a right sidebar */
+  .aura-container-desktop {
+    max-width: 380px !important;
+    height: 100vh !important;
+    border-radius: 24px 0 0 24px !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    transform: none !important;
+  }
+}
+

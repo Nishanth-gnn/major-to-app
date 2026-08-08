@@ -1,0 +1,356 @@
+[
+  {
+    "target": "heathrow_guide",
+    "url": "https://www.heathrow.com/content/dam/heathrow/web/common/images/no-aspect-ratio/logo/heathrow-brand-logo/white-logo/white-heathrow-logo.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "heathrow_guide",
+    "url": "https://www.heathrow.com/content/dam/heathrow/web/common/images/no-aspect-ratio/logo/heathrow-brand-logo/purple-logo/purple-heathrow-logo.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "heathrow_guide",
+    "url": "https://cdn.fonts.net/kit/d4e7a834-fc7a-42ff-afec-5f40cd22526a/webFonts/FrutigerNextPaneuropeanMedium/normal_normal.woff2",
+    "resource_type": "font",
+    "extension": "woff2"
+  },
+  {
+    "target": "heathrow_guide",
+    "url": "https://cdn.fonts.net/kit/d4e7a834-fc7a-42ff-afec-5f40cd22526a/webFonts/FrutigerNextPaneuropeanRegular/normal_normal.woff2",
+    "resource_type": "font",
+    "extension": "woff2"
+  },
+  {
+    "target": "heathrow_guide",
+    "url": "https://collect.heathrow.com/heathrowairport/consent/2/i.gif",
+    "resource_type": "xhr",
+    "extension": "gif"
+  },
+  {
+    "target": "heathrow_guide",
+    "url": "https://www.heathrow.com/content/dam/heathrow/web/common/images/aspect-ratio-1-1/qr-codes/lhrkiosk_qr.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "heathrow_guide",
+    "url": "https://fonts.gstatic.com/s/opensans/v44/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVI.woff2",
+    "resource_type": "font",
+    "extension": "woff2"
+  },
+  {
+    "target": "heathrow_guide",
+    "url": "https://api-dp-prod.dp.heathrow.com/pihub/thirdparty/transportapi/train/stations/near.json",
+    "resource_type": "script-embedded",
+    "extension": "?"
+  },
+  {
+    "target": "heathrow_guide",
+    "url": "https://api-dp-prod.dp.heathrow.com/pihub/thirdparty/transportapi/places.json",
+    "resource_type": "script-embedded",
+    "extension": "?"
+  },
+  {
+    "target": "heathrow_guide",
+    "url": "https://api-dp-prod.dp.heathrow.com/pihub/thirdparty/transportapi/train/station/{origin_name}/live.json",
+    "resource_type": "script-embedded",
+    "extension": "?"
+  },
+  {
+    "target": "heathrow_guide",
+    "url": "https://api-dp-prod.dp.heathrow.com/pihub/thirdparty/transportapi/bus/stops/near.json",
+    "resource_type": "script-embedded",
+    "extension": "?"
+  },
+  {
+    "target": "heathrow_guide",
+    "url": "https://api-dp-prod.dp.heathrow.com/pihub/thirdparty/transportapi/tube.json",
+    "resource_type": "script-embedded",
+    "extension": "?"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://www.openstreetmap.org/assets/osm_logo-cc7d94392992162133be3baa21a37eb84f19f9b91178f704005378fbeecabb4e.svg",
+    "resource_type": "image",
+    "extension": "svg"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://www.openstreetmap.org/assets/banners/sotm_2026-91701356ba5ded75e411a8070176fc65be4dd24f2ab15a8792499a20600a5bf5.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://www.openstreetmap.org/assets/bootstrap-icons/font/fonts/bootstrap-icons-d58dbdc0232480708b000373bb9f5be99101ea5a95df6a9ef080912f10588790.woff2?24e3eb84d0bcaf83d77f904c78ac1f47",
+    "resource_type": "font",
+    "extension": "woff2"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16341/10900.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16342/10900.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16341/10901.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16342/10901.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16341/10899.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16342/10899.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16340/10900.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16343/10900.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16340/10901.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16343/10901.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16341/10902.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16342/10902.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16340/10899.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16343/10899.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16340/10902.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16343/10902.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16339/10900.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16344/10900.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16339/10901.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16344/10901.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16339/10899.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16344/10899.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16339/10902.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "openstreetmap_heathrow",
+    "url": "https://tile.openstreetmap.org/15/16344/10902.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://overpass-turbo.eu/assets/map-key-Ct1OkEvB.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://wiki.openstreetmap.org/w/images/b/b3/Powered_by_Overpass_API.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://overpass-turbo.eu/assets/fa-solid-900-BUswJgRo.woff2",
+    "resource_type": "font",
+    "extension": "woff2"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://overpass-turbo.eu/assets/ui-icons_444444_256x240-BCgGtUB_.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35041/24354.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35042/24354.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35041/24355.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35042/24355.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35041/24353.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35042/24353.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35040/24354.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35043/24354.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35040/24355.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35043/24355.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35041/24356.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35042/24356.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35040/24353.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35043/24353.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35040/24356.png",
+    "resource_type": "image",
+    "extension": "png"
+  },
+  {
+    "target": "overpass_turbo_heathrow",
+    "url": "https://tile.openstreetmap.org/16/35043/24356.png",
+    "resource_type": "image",
+    "extension": "png"
+  }
+]

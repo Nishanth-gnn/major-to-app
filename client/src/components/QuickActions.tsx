@@ -5,8 +5,8 @@ const actions = [
   { id: 'navigate', title: 'Navigate', to: '/navigate' },
   { id: 'staff', title: 'Customer Support', to: '/chat' },
   { id: 'translate', title: 'Translate', to: '/translate' },
-  { id: 'checkin', title: 'Check-in Guide', to: '/luggage' },
-  { id: 'transit', title: 'Transit Planner', to: '/transit' },
+  { id: 'checkin', title: 'Baggage Guidance', to: '/baggage-guidance' },
+  { id: 'transit', title: 'Flight Tracking', to: '/flight-tracking' },
   { id: 'safety', title: 'Women Safety', to: '/safety' }
 ]
 

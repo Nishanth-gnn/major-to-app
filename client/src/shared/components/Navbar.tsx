@@ -15,8 +15,8 @@ export default function Navbar(){
               <NavLink to="/" end className={({isActive})=>linkClass(isActive)}>Home</NavLink>
               <NavLink to="/navigate" className={({isActive})=>linkClass(isActive)}>Navigate</NavLink>
               <NavLink to="/chat" className={({isActive})=>linkClass(isActive)}>Aura</NavLink>
-              <NavLink to="/transit" className={({isActive})=>linkClass(isActive)}>Flights</NavLink>
-              <NavLink to="/luggage" className={({isActive})=>linkClass(isActive)}>Luggage</NavLink>
+              <NavLink to="/flight-tracking" className={({isActive})=>linkClass(isActive)}>Flights</NavLink>
+              <NavLink to="/baggage-guidance" className={({isActive})=>linkClass(isActive)}>Baggage</NavLink>
             </div>
           </div>
           <div className="hidden md:flex items-center gap-2">

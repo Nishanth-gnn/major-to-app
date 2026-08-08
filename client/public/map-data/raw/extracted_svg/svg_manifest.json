@@ -1,0 +1,113 @@
+[
+  {
+    "source": "heathrow_maps",
+    "file": "heathrow_maps_svg_0.svg",
+    "viewBox": "",
+    "width": 0,
+    "height": 0,
+    "size_kb": 820,
+    "note": "Raw SVG \u2014 coordinate calibration required"
+  },
+  {
+    "source": "wikipedia_lhr_diagram",
+    "type": "img",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/London_-_Heathrow_%28LHR_-_EGLL%29_AN1572653.jpg/250px-London_-_Heathrow_%28LHR_-_EGLL%29_AN1572653.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
+    "alt": ""
+  },
+  {
+    "source": "wikipedia_lhr_diagram",
+    "type": "img",
+    "src": "https://maps.wikimedia.org/img/osm-intl,a,a,a,250x200.png?lang=en&domain=en.wikipedia.org&title=Heathrow_Airport&revid=1368084929&groups=_4839cf732f6a3520512f2e858fda88f48ddcdda4&parser=parsoid",
+    "alt": "Map"
+  },
+  {
+    "source": "wikipedia_lhr_diagram",
+    "type": "img",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Aerial_photograph_of_Heathrow_Airport%2C_1955.jpg/250px-Aerial_photograph_of_Heathrow_Airport%2C_1955.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
+    "alt": ""
+  },
+  {
+    "source": "wikipedia_lhr_diagram",
+    "type": "img",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Heathrow_Airport_010.jpg/250px-Heathrow_Airport_010.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
+    "alt": ""
+  },
+  {
+    "source": "wikipedia_lhr_diagram",
+    "type": "img",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Heathrow_Airport_014.jpg/250px-Heathrow_Airport_014.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
+    "alt": ""
+  },
+  {
+    "source": "wikipedia_lhr_diagram",
+    "type": "img",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Heathrow_Terminal_5C_Iwelumo-1.jpg/250px-Heathrow_Terminal_5C_Iwelumo-1.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
+    "alt": ""
+  },
+  {
+    "source": "wikipedia_lhr_diagram",
+    "type": "img",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/TerminalFiveAirportHeathrowAugust2012.JPG/250px-TerminalFiveAirportHeathrowAugust2012.JPG?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
+    "alt": ""
+  },
+  {
+    "source": "wikipedia_lhr_diagram",
+    "type": "img",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Heathrow_Airport_tube_and_rail_stations_%282022%29.png/250px-Heathrow_Airport_tube_and_rail_stations_%282022%29.png?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
+    "alt": ""
+  },
+  {
+    "source": "wikipedia_lhr_diagram",
+    "type": "img",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Heathrow_Terminal_5_-_Track_Transit_System_%282307580672%29.jpg/250px-Heathrow_Terminal_5_-_Track_Transit_System_%282307580672%29.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
+    "alt": ""
+  },
+  {
+    "source": "wikipedia_lhr_diagram",
+    "type": "img",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Heathrow_airport_roads_and_terminals_expansion_layout.png/250px-Heathrow_airport_roads_and_terminals_expansion_layout.png?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
+    "alt": ""
+  },
+  {
+    "source": "ourairports_lhr",
+    "type": "img",
+    "src": "https://ourairports.com/images/logo-196px.png",
+    "alt": "OurAirports home"
+  },
+  {
+    "source": "ourairports_lhr",
+    "type": "img",
+    "src": "https://ourairports.com/images/flags/GB.png",
+    "alt": ""
+  },
+  {
+    "source": "ourairports_lhr",
+    "type": "img",
+    "src": "https://ourairports.com/images/maps/tacan-shadow.png",
+    "alt": ""
+  },
+  {
+    "source": "ourairports_lhr",
+    "type": "img",
+    "src": "https://ourairports.com/images/maps/large-airport-shadow.png",
+    "alt": ""
+  },
+  {
+    "source": "ourairports_lhr",
+    "type": "img",
+    "src": "https://ourairports.com/images/maps/tacan-marker.png",
+    "alt": ""
+  },
+  {
+    "source": "ourairports_lhr",
+    "type": "img",
+    "src": "https://ourairports.com/images/maps/large-airport-selected.png",
+    "alt": ""
+  },
+  {
+    "source": "ourairports_lhr",
+    "type": "img",
+    "src": "https://ourairports.com/images/icons/skyvector.png",
+    "alt": "SkyVector logo"
+  }
+]

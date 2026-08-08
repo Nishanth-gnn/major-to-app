@@ -1,12 +1,36 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import MapContainer from '../components/MapContainer';
 import SearchBar from '../components/SearchBar';
 import BottomSheet from '../components/BottomSheet';
-import { POINode, findShortestPath } from '../data/mapData';
+import { POINode, findShortestPath, pois } from '../data/mapData';
 
 export default function NavigatePage() {
+  const location = useLocation();
   const [selectedPOI, setSelectedPOI] = useState<POINode | null>(null);
-  
+
+  useEffect(() => {
+    // 1. Check React Router state
+    const state = location.state as { autoSelectPoiId?: string } | null;
+    if (state?.autoSelectPoiId) {
+      const poi = pois.find(p => p.id === state.autoSelectPoiId);
+      if (poi) {
+        setSelectedPOI(poi);
+        return;
+      }
+    }
+
+    // 2. Fallback to check sessionStorage
+    const sessionPoiId = sessionStorage.getItem('autoSelectPoiId');
+    if (sessionPoiId) {
+      sessionStorage.removeItem('autoSelectPoiId');
+      const poi = pois.find(p => p.id === sessionPoiId);
+      if (poi) {
+        setSelectedPOI(poi);
+      }
+    }
+  }, [location]);
+
   // Starting point for this demo is 'main_entrance'
   const currentLocation = useMemo(() => ({ x: 320, y: 1000 }), []);
 

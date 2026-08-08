@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Siren, MapPin, Loader, ShieldCheck } from 'lucide-react';
 import Header from '../../home/components/Header';
 import BottomNavigation from '../../home/components/BottomNavigation';
-import FloatingAssistant from '../../../components/FloatingAssistant';
 import EmergencyNotice from '../components/EmergencyNotice';
 import EmergencyReasonSelect from '../components/EmergencyReasonSelect';
 
@@ -211,7 +210,6 @@ export default function EmergencyContactPage() {
           </div>
         </div>
 
-        <FloatingAssistant />
         <BottomNavigation />
       </div>
     );
@@ -292,7 +290,6 @@ export default function EmergencyContactPage() {
         </div>
       </div>
 
-      <FloatingAssistant />
       <BottomNavigation />
     </div>
   );

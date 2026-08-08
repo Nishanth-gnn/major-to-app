@@ -7,10 +7,14 @@ import transitRoutes from './routes/transit';
 import luggageRoutes from './routes/luggage';
 import emergencyRoutes from './routes/emergency';
 import supportRoutes from './routes/support';
+import auraRoutes from './routes/aura';
+import busRoutes from './routes/busRoutes';
+import baggageRoutes from './routes/baggage';
 import https from 'https';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { startTelegramLongPolling } from './services/telegramService';
+import { upsertLocation } from './repositories/trackingRepository';
 
 dotenv.config();
 const app = express();
@@ -23,6 +27,9 @@ app.use('/api/transit', transitRoutes);
 app.use('/api/luggage', luggageRoutes);
 app.use('/api/emergency-alert', emergencyRoutes);
 app.use('/api/support', supportRoutes);
+app.use('/api/aura', auraRoutes);
+app.use('/api/bus-service', busRoutes);
+app.use('/api/baggage', baggageRoutes);
 
 app.get('/api/tts', (req, res) => {
   const { text, lang } = req.query;
@@ -55,15 +62,67 @@ io.on('connection', (socket) => {
   });
 });
 
-// Start Telegram long polling loop and forward updates via Socket.IO
-startTelegramLongPolling((text) => {
-  console.log('Telegram reply received:', text);
-  io.emit('support-reply', {
-    sender: 'staff',
-    text,
-    timestamp: new Date()
-  });
-});
+// ── Telegram → Prisma wiring ───────────────────────────────────────────────────
+//
+// pendingDriverId tracks which bus driver the passenger most recently requested.
+// When a single Telegram chat is shared by one physical driver, this is the correct
+// mapping: location updates from that chat are attributed to the last-requested driver.
+//
+// For a multi-driver deployment, this would be replaced with a driver-specific
+// Telegram chat ID per driver stored in the BusTracking table.
+//
+let pendingDriverId: string | null = null;
+let pendingDriverName: string | null = null;
+
+/**
+ * Called by the Decision Engine (via TelemetryManager) after a Telegram
+ * location request is sent, so the daemon knows which driver to update.
+ */
+export function setPendingDriver(driverId: string, driverName: string): void {
+  pendingDriverId = driverId;
+  pendingDriverName = driverName;
+}
+
+// Start Telegram long polling loop
+startTelegramLongPolling(
+  // onMessageReceived — existing support chat handler (unchanged)
+  (text) => {
+    console.log('Telegram reply received:', text);
+    io.emit('support-reply', {
+      sender: 'staff',
+      text,
+      timestamp: new Date()
+    });
+  },
+  // onLocationUpdate — persist driver location to Prisma
+  async ({ latitude, longitude, timestampMs, livePeriodSeconds }) => {
+    if (!pendingDriverId || !pendingDriverName) {
+      // Location received but no driver request is pending — log and ignore
+      console.warn(
+        '[BusTracking] Location update received but no pending driver is set. Ignoring.',
+      );
+      return;
+    }
+
+    try {
+      await upsertLocation({
+        driverId: pendingDriverId,
+        driverName: pendingDriverName,
+        latitude,
+        longitude,
+        lastUpdatedMs: timestampMs,
+        livePeriodSeconds,
+      });
+      console.log(
+        `[BusTracking] Location persisted for driver "${pendingDriverName}" (${pendingDriverId}):`,
+        latitude,
+        longitude,
+      );
+    } catch (err) {
+      console.error('[BusTracking] Failed to upsert location to Prisma:', err);
+    }
+  },
+);
 
 httpServer.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

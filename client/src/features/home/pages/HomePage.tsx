@@ -5,7 +5,6 @@ import HeroAction from '../../../components/HeroAction'
 import QuickActions from '../components/QuickActions'
 import Alerts from '../../../components/Alerts'
 import EmergencySection from '../components/EmergencySection'
-import FloatingAssistant from '../../../components/FloatingAssistant'
 import BottomNavigation from '../components/BottomNavigation'
 import { motion } from 'framer-motion'
 import {
@@ -144,7 +143,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <FloatingAssistant />
+
       <BottomNavigation />
     </div>
   )

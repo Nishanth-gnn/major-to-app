@@ -37,6 +37,6 @@ export async function queryOpenAI(prompt: string) {
     if (p.includes('first-time') || p.includes('first time') || p.includes('what should i do after entering')) {
       return 'First-time flyer tips: Arrive early (2 hours domestic), check-in or use kiosks, clear security (have ID and liquids guidelines ready), find your gate on the departure board.';
     }
-    return 'Sorry — the AI service is currently unreachable; please try again later or use the Transit Planner and Luggage Guidance pages for immediate help.';
+    return 'Sorry — the AI service is currently unreachable; please try again later or use the Flight Tracking and Baggage Guidance pages for immediate help.';
   }
 }

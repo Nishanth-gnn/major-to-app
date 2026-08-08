@@ -7,7 +7,7 @@ export default function BottomNav(){
     { to: '/', label: 'Home' },
     { to: '/navigate', label: 'Navigate' },
     { to: '/chat', label: 'Assistant' },
-    { to: '/transit', label: 'Flights' },
+    { to: '/flight-tracking', label: 'Flights' },
     { to: '/profile', label: 'Profile' }
   ]
   return (

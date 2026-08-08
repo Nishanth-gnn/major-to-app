@@ -1,0 +1,2493 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4645118,
+          51.4699761
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "19",
+        "terminal": "3",
+        "osm_id": 567061631,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4651287,
+          51.4705232
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "21",
+        "terminal": "3",
+        "osm_id": 567061632,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4645013,
+          51.4705705
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "22",
+        "terminal": "3",
+        "osm_id": 567061634,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4632888,
+          51.4688313
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "16",
+        "terminal": "3",
+        "osm_id": 567061635,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4639008,
+          51.469404
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "17",
+        "terminal": "3",
+        "osm_id": 567061636,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4632577,
+          51.4694275
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "18",
+        "terminal": "3",
+        "osm_id": 567061637,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4654605,
+          51.4734482
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "42",
+        "terminal": "3",
+        "osm_id": 567061641,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4618748,
+          51.4718201
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "27",
+        "terminal": "3",
+        "osm_id": 567061642,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4623385,
+          51.4723658
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "29",
+        "terminal": "3",
+        "osm_id": 567061643,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4628882,
+          51.4728976
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "31",
+        "terminal": "3",
+        "osm_id": 567061644,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4642877,
+          51.4734126
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "35",
+        "terminal": "3",
+        "osm_id": 567061645,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4620491,
+          51.4730985
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "28",
+        "terminal": "3",
+        "osm_id": 567061646,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.461476,
+          51.4725822
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "26",
+        "terminal": "3",
+        "osm_id": 567061647,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4647476,
+          51.4740734
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "36",
+        "terminal": "3",
+        "osm_id": 567061649,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4634783,
+          51.4738557
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "34",
+        "terminal": "3",
+        "osm_id": 567061651,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4654343,
+          51.473964
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "40",
+        "terminal": "3",
+        "osm_id": 567061652,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.463036,
+          51.4738052
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "32",
+        "terminal": "3",
+        "osm_id": 567061653,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.462641,
+          51.4735626
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "30",
+        "terminal": "3",
+        "osm_id": 567061654,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4617574,
+          51.4681561
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "13",
+        "terminal": "3",
+        "osm_id": 567061655,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4574746,
+          51.4685936
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "5",
+        "terminal": "3",
+        "osm_id": 567061656,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4587862,
+          51.4685768
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "7",
+        "terminal": "3",
+        "osm_id": 567061657,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4594972,
+          51.4695727
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "11",
+        "terminal": "3",
+        "osm_id": 567061661,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4592886,
+          51.4691974
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "9",
+        "terminal": "3",
+        "osm_id": 567061662,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4607212,
+          51.4707874
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "23",
+        "terminal": "3",
+        "osm_id": 567061663,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4561837,
+          51.468603
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "3",
+        "terminal": "3",
+        "osm_id": 567061664,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4547852,
+          51.4686074
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "1",
+        "terminal": "3",
+        "osm_id": 567061666,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4613208,
+          51.4713023
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "25",
+        "terminal": "3",
+        "osm_id": 567061680,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.474083,
+          51.4603776
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "614",
+        "osm_id": 567064009,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4423099,
+          51.4601278
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "422",
+        "osm_id": 567064020,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4741266,
+          51.4611548
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "615",
+        "osm_id": 567064021,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4741157,
+          51.4621331
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "616",
+        "osm_id": 567064022,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4715056,
+          51.4608186
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "612",
+        "osm_id": 567064023,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4714662,
+          51.4602819
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "613",
+        "osm_id": 567064024,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4715067,
+          51.4616496
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "611",
+        "osm_id": 567064025,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4483738,
+          51.4602515
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "408",
+        "osm_id": 567064046,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.447393,
+          51.4606843
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "409",
+        "osm_id": 567064047,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.446815,
+          51.4611782
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "410",
+        "osm_id": 567064048,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4454073,
+          51.4605702
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "421",
+        "osm_id": 567064049,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4448629,
+          51.461429
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "419",
+        "osm_id": 567064050,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4452269,
+          51.461003
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "420",
+        "osm_id": 567064051,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4451549,
+          51.4622896
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "412",
+        "osm_id": 567064052,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4458761,
+          51.461718
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "411",
+        "osm_id": 567064053,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4420355,
+          51.4607056
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "423",
+        "osm_id": 567064054,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4445991,
+          51.4619778
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "416",
+        "osm_id": 567064055,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4446821,
+          51.4617255
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "417",
+        "osm_id": 567064057,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4442674,
+          51.462396
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "414",
+        "osm_id": 567064062,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4445863,
+          51.4620408
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "415",
+        "osm_id": 567064064,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4403339,
+          51.4606559
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "430",
+        "osm_id": 567064065,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4415988,
+          51.4612997
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "424",
+        "osm_id": 567064066,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4411973,
+          51.4618469
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "425",
+        "osm_id": 567064067,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4392298,
+          51.4606559
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "431",
+        "osm_id": 567064069,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4381447,
+          51.4606749
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "432",
+        "osm_id": 567064070,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4819888,
+          51.472741
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "533",
+        "note": "B33 is ref shown for passengers in Terminal, 533 is shown for airplanes on the apron",
+        "ref": "B33",
+        "osm_id": 567065568,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4819943,
+          51.4734157
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "532",
+        "note": "B32 is ref shown for passengers in Terminal, 532 is shown for airplanes on the apron",
+        "ref": "B32",
+        "osm_id": 567065595,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4424813,
+          51.4724967
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "B47",
+        "osm_id": 2466034249,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4437045,
+          51.4735822
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "B32",
+        "osm_id": 3600288396,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4438128,
+          51.4727609
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "B33",
+        "osm_id": 3600343394,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4425194,
+          51.4740014
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "B49",
+        "osm_id": 3600343593,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4425097,
+          51.4732727
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "B48",
+        "osm_id": 3600343693,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.443697,
+          51.4743177
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "B31",
+        "osm_id": 3600343793,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4818847,
+          51.4687511
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "539",
+        "note": "B39 is ref shown for passengers in Terminal, 539 is shown for airplanes on the apron",
+        "ref": "B39",
+        "osm_id": 3831836584,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4805642,
+          51.468879
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "542",
+        "note": "B42 is ref shown for passengers in Terminal, 542 is shown for airplanes on the apron",
+        "ref": "B42",
+        "osm_id": 3831836636,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4889742,
+          51.4693967
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "523",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A23",
+        "osm_id": 3831836722,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4819621,
+          51.4694201
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "538",
+        "note": "B38 is ref shown for passengers in Terminal, 538 is shown for airplanes on the apron",
+        "ref": "B38",
+        "osm_id": 3831836731,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4768746,
+          51.4694219
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "552",
+        "note": "Cxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "C52",
+        "osm_id": 3831836732,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4860917,
+          51.4694398
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "519",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A19",
+        "osm_id": 3831836744,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4881808,
+          51.4694774
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "522",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A22",
+        "osm_id": 3831836761,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4874598,
+          51.4694815
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "521",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A21",
+        "osm_id": 3831836765,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4867742,
+          51.4694833
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "520",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A20",
+        "osm_id": 3831836766,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4805688,
+          51.4695513
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "543",
+        "note": "Bxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "B43",
+        "osm_id": 3831836799,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4753143,
+          51.469565
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "566",
+        "note": "Cxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "C66",
+        "osm_id": 3831836806,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.486313,
+          51.4696777
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "518",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A18",
+        "osm_id": 3831836839,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4819675,
+          51.4700816
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "537",
+        "note": "B37 is ref shown for passengers in Terminal, 537 is shown for airplanes on the apron",
+        "ref": "B37",
+        "osm_id": 3831836986,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4768798,
+          51.4700844
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "553",
+        "note": "Cxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "C53",
+        "osm_id": 3831836987,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.480575,
+          51.4702161
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "544",
+        "note": "Bxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "B44",
+        "osm_id": 3831837014,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4753879,
+          51.4702183
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "565",
+        "note": "Cxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "C65",
+        "osm_id": 3831837015,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.486739,
+          51.471126
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "bus",
+        "level": "0",
+        "level_ref": "0",
+        "ref": "A10e",
+        "osm_id": 3831837029,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4863366,
+          51.4703293
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "517",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A17",
+        "osm_id": 3831837036,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.486298,
+          51.47035
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "516",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A16",
+        "osm_id": 3831837040,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4819727,
+          51.4707363
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "536",
+        "note": "B36 is ref shown for passengers in Terminal, 536 is shown for airplanes on the apron",
+        "ref": "B36",
+        "osm_id": 3831837167,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.476885,
+          51.4707503
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "554",
+        "note": "Cxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "C54",
+        "osm_id": 3831837170,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4860426,
+          51.4708605
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "515",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A15",
+        "osm_id": 3831837176,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4863411,
+          51.4710103
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "514",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A14",
+        "osm_id": 3831837200,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4805824,
+          51.4710143
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "545",
+        "note": "Bxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "B45",
+        "osm_id": 3831837205,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4867411,
+          51.4712863
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "bus",
+        "level": "0",
+        "level_ref": "0",
+        "ref": "A10d",
+        "osm_id": 3831837206,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4863025,
+          51.47103
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "513",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A13",
+        "osm_id": 3831837209,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4753949,
+          51.4711108
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "564",
+        "note": "Cxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "C64",
+        "osm_id": 3831837226,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4819782,
+          51.4714182
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "535",
+        "note": "B35 is ref shown for passengers in Terminal, 535 is shown for airplanes on the apron",
+        "ref": "B35",
+        "osm_id": 3831837256,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4768281,
+          51.4715584
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "555",
+        "note": "Cxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "C55",
+        "osm_id": 3831837369,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4863262,
+          51.471699
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "512",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A12",
+        "osm_id": 3831837382,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4867637,
+          51.4722212
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "bus",
+        "level": "0",
+        "level_ref": "0",
+        "ref": "A10c",
+        "osm_id": 3831837399,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4805878,
+          51.4718198
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "546",
+        "note": "Bxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "B46",
+        "osm_id": 3831837405,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4754013,
+          51.47192
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "563",
+        "note": "Cxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "C63",
+        "osm_id": 3831837421,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4819835,
+          51.4720735
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "534",
+        "note": "B34 is ref shown for passengers in Terminal, 534 is shown for airplanes on the apron",
+        "ref": "B34",
+        "osm_id": 3831837433,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4863296,
+          51.4722038
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "511",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A11",
+        "osm_id": 3831837453,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4867659,
+          51.4725278
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "bus",
+        "level": "0",
+        "level_ref": "0",
+        "ref": "A10b",
+        "osm_id": 3831837588,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4768359,
+          51.4725356
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "556",
+        "note": "Cxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "C56",
+        "osm_id": 3831837589,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4863321,
+          51.4725932
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "509",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A9",
+        "osm_id": 3831837607,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4805956,
+          51.4727814
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "547",
+        "note": "Bxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "B47",
+        "osm_id": 3831837650,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4754086,
+          51.4728498
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "562",
+        "note": "Cxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "C62",
+        "osm_id": 3831837670,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4863347,
+          51.4729834
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "508",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A8",
+        "osm_id": 3831837688,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4867762,
+          51.473281
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "bus",
+        "level": "0",
+        "level_ref": "0",
+        "ref": "A10a",
+        "osm_id": 3831837703,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4863379,
+          51.4734735
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "507",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A7",
+        "osm_id": 3831837773,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4768433,
+          51.4734826
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "557",
+        "note": "Cxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "C57",
+        "osm_id": 3831837777,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4754148,
+          51.4736452
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "561",
+        "note": "Cxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "C61",
+        "osm_id": 3831837844,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4805245,
+          51.4736681
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "548",
+        "note": "Bxx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "B48",
+        "osm_id": 3831837854,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.487292,
+          51.4738041
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "505",
+        "level": "0",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A5",
+        "osm_id": 3831837909,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4887187,
+          51.4738285
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "502",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A2",
+        "osm_id": 3831837912,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4881029,
+          51.4738304
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "503",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A3",
+        "osm_id": 3831837913,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4863405,
+          51.4738702
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "506",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A6",
+        "osm_id": 3831837929,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4893433,
+          51.4739689
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "aeroway:gate:type": "skywalk",
+        "alt_ref": "501",
+        "level": "1",
+        "note": "Axx is ref shown for passengers in Terminal, 5xx is shown for airplanes on the apron",
+        "ref": "A1",
+        "osm_id": 3831837957,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4638909,
+          51.4700092
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "20",
+        "terminal": "3",
+        "osm_id": 4078703157,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4471357,
+          51.4681047
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "A20",
+        "osm_id": 4079635963,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4471132,
+          51.4684637
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "A19",
+        "osm_id": 4079635964,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4436627,
+          51.4687982
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "B39",
+        "osm_id": 4079635965,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4424138,
+          51.4685379
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "B41",
+        "osm_id": 4079635966,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4492592,
+          51.4684452
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "A22",
+        "osm_id": 4079635967,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4489779,
+          51.4686123
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "A21",
+        "osm_id": 4079635969,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4501132,
+          51.4686938
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "223",
+        "osm_id": 4079635971,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.449931,
+          51.4684535
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "A23",
+        "osm_id": 4079635972,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4512707,
+          51.4684203
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "A25",
+        "osm_id": 4079635973,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4505639,
+          51.4684014
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "A24",
+        "osm_id": 4079635974,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4425182,
+          51.4691324
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "B42",
+        "osm_id": 4079635978,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4436116,
+          51.4694223
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "B38",
+        "osm_id": 4079635979,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4472789,
+          51.4698855
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "A17",
+        "osm_id": 4079635983,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4470292,
+          51.4702832
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "A16",
+        "osm_id": 4079635991,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.443633,
+          51.4702845
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "note": "The parking positions are 236, but the interior passenger-facing gate number is B37",
+        "ref": "B37",
+        "osm_id": 4079635992,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4424226,
+          51.4700356
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "B43",
+        "osm_id": 4079635994,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4436437,
+          51.4704482
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "236L",
+        "osm_id": 4079635995,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4424403,
+          51.4708143
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "B44",
+        "osm_id": 4079636003,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4424289,
+          51.4717102
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "B46",
+        "osm_id": 4079636029,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4478168,
+          51.4697378
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "level": "4",
+        "ref": "A17",
+        "osm_id": 9508128583,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4478101,
+          51.4698474
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "level": "4",
+        "ref": "A16",
+        "osm_id": 9508128585,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4519149,
+          51.4684256
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "A26",
+        "osm_id": 9967079963,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4473219,
+          51.4690564
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "level": "4",
+        "ref": "A18",
+        "osm_id": 10137183292,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4437134,
+          51.4720806
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "B35",
+        "osm_id": 10588153353,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4437165,
+          51.471278
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "B36",
+        "osm_id": 11558092366,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4606408,
+          51.4725995
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "24d",
+        "terminal": "3",
+        "osm_id": 13721125860,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4603764,
+          51.4726262
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "24b",
+        "terminal": "3",
+        "osm_id": 13721125863,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4605858,
+          51.4726136
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "24c",
+        "terminal": "3",
+        "osm_id": 13721125865,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4601441,
+          51.4725613
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "24a",
+        "terminal": "3",
+        "osm_id": 13721125866,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4610896,
+          51.4724139
+        ]
+      },
+      "properties": {
+        "aeroway": "gate",
+        "ref": "24e",
+        "terminal": "3",
+        "osm_id": 13721125867,
+        "osm_type": "node"
+      }
+    }
+  ]
+}

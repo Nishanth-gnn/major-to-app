@@ -57,3 +57,40 @@ model LuggageGuide {
   description String
   voiceText  String
 }
+
+// ── Aura AI Chat History ──────────────────────────────────────────────────────
+
+model AuraChat {
+  id        String        @id @default(uuid())
+  title     String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  messages  AuraMessage[]
+}
+
+model AuraMessage {
+  id        String   @id @default(uuid())
+  chat      AuraChat @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  chatId    String
+  role      String   // "user" | "assistant"
+  content   String
+  timestamp DateTime @default(now())
+}
+
+// ── Bus Tracking ──────────────────────────────────────────────────────────────
+// Stores persistent driver tracking sessions so the backend can decide
+// whether a Telegram location request is necessary before notifying the driver.
+
+model BusTracking {
+  id                Int       @id @default(autoincrement())
+  driverId          String    @unique
+  driverName        String
+  latitude          Float?
+  longitude         Float?
+  lastUpdated       DateTime?
+  trackingStartedAt DateTime?
+  trackingExpiresAt DateTime?
+  lastRequestSent   DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}

@@ -16,7 +16,6 @@ import {
 import { BoardingPassData } from '../utils/qrDecoder';
 import Header from '../../home/components/Header';
 import BottomNavigation from '../../home/components/BottomNavigation';
-import FloatingAssistant from '../../../components/FloatingAssistant';
 
 // ── Animated field card ───────────────────────────────────────
 function DataField({ icon: Icon, label, value }: { icon: any; label: string; value: string }) {
@@ -158,7 +157,6 @@ export default function BoardingPassPage() {
         </motion.div>
       </div>
 
-      <FloatingAssistant />
       <BottomNavigation />
     </div>
   );

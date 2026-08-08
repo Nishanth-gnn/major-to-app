@@ -5,7 +5,7 @@ export default function FlightCard({ flight }: { flight?: any }) {
     return (
       <div className="bg-white rounded-2xl p-4 shadow-lg">
         <div className="text-sm text-slate-400">No active flight</div>
-        <div className="text-xl font-semibold mt-2">Add a flight in Transit Planner</div>
+        <div className="text-xl font-semibold mt-2">Track your flight in Flight Tracking</div>
       </div>
     )
   }

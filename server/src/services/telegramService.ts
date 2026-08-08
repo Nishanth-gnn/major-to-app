@@ -80,9 +80,36 @@ export function generateLocationString(lat: number, lng: number): string {
   return `Airport Premises\nCoordinates: ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
 }
 
+// ── Long polling ───────────────────────────────────────────────────────────────
+
 let lastUpdateId = 0;
 
-export function startTelegramLongPolling(onMessageReceived: (text: string) => void) {
+/**
+ * Callback type invoked when a Telegram location update is received.
+ * The caller (index.ts) wires this to the TrackingRepository upsert.
+ */
+export type OnLocationUpdate = (data: {
+  latitude: number;
+  longitude: number;
+  timestampMs: number;
+  /** Seconds the live location will remain active. null if not provided by Telegram. */
+  livePeriodSeconds: number | null;
+}) => void;
+
+/**
+ * Starts the Telegram long-polling daemon.
+ *
+ * @param onMessageReceived  Called for plain text messages (existing support chat flow).
+ * @param onLocationUpdate   Called when a location message is received. The caller persists
+ *                           the data to Prisma via the TrackingRepository.
+ *
+ * NOTE: The in-memory latestBusLocation cache has been removed.
+ *       All location state now lives in the BusTracking Prisma table.
+ */
+export function startTelegramLongPolling(
+  onMessageReceived: (text: string) => void,
+  onLocationUpdate: OnLocationUpdate,
+) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) {
     console.warn('Telegram bot token not configured. Skipping long polling.');
@@ -107,12 +134,39 @@ export function startTelegramLongPolling(onMessageReceived: (text: string) => vo
           if (parsed.ok && parsed.result && parsed.result.length > 0) {
             for (const update of parsed.result) {
               lastUpdateId = Math.max(lastUpdateId, update.update_id);
-              
-              const message = update.message;
-              if (message && message.chat && String(message.chat.id) === String(process.env.TELEGRAM_CHAT_ID)) {
-                // Ensure it's not a message from the bot itself
+
+              const message = update.message || update.edited_message;
+              if (
+                message &&
+                message.chat &&
+                String(message.chat.id) === String(process.env.TELEGRAM_CHAT_ID)
+              ) {
+                // Ignore messages sent by the bot itself
                 if (message.from && !message.from.is_bot) {
-                  if (message.text) {
+                  if (message.location) {
+                    // Extract live_period only from the original message (not edits).
+                    // Telegram does not re-send live_period on edited_message updates.
+                    const livePeriodSeconds: number | null =
+                      update.message?.location?.live_period ?? null;
+
+                    const timestampMs =
+                      (message.edit_date ?? message.date) * 1000;
+
+                    onLocationUpdate({
+                      latitude: message.location.latitude,
+                      longitude: message.location.longitude,
+                      timestampMs,
+                      livePeriodSeconds,
+                    });
+
+                    console.log(
+                      '[Telegram] Location update received:',
+                      message.location.latitude,
+                      message.location.longitude,
+                      '| live_period:',
+                      livePeriodSeconds ?? 'not provided (using default)',
+                    );
+                  } else if (message.text) {
                     onMessageReceived(message.text);
                   }
                 }
@@ -120,7 +174,7 @@ export function startTelegramLongPolling(onMessageReceived: (text: string) => vo
             }
           }
         } catch (e) {
-          console.error('Error parsing Telegram updates:', e);
+          console.error('[Telegram] Error parsing updates:', e);
         }
         // Poll again immediately
         setTimeout(poll, 1000);
@@ -128,7 +182,7 @@ export function startTelegramLongPolling(onMessageReceived: (text: string) => vo
     });
 
     req.on('error', (err) => {
-      console.error('Telegram polling error:', err);
+      console.error('[Telegram] Polling error:', err);
       // Wait before retrying on error
       setTimeout(poll, 5000);
     });

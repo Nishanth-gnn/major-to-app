@@ -22,9 +22,11 @@ const quickActions = [
   { id: 'navigate', title: 'Navigate', to: '/navigate' },
   { id: 'staff', title: 'Customer Support', to: '/chat', badge: 'NEW' },
   { id: 'translate', title: 'Translate', to: '/translate' },
-  { id: 'checkin', title: 'Check-in Guide', to: '/luggage' },
-  { id: 'transit', title: 'Transit Planner', to: '/transit' },
-  { id: 'emergency', title: 'Emergency Contact', to: '/emergency-contact' }
+  { id: 'checkin', title: 'Baggage Guidance', to: '/baggage-guidance' },
+  { id: 'transit', title: 'Flight Tracking', to: '/flight-tracking' },
+  { id: 'emergency', title: 'Emergency Contact', to: '/emergency-contact' },
+  { id: 'bus-service', title: 'Bus Service', icon: '🚌', to: '/bus-service' },
+  { id: 'heathrow-map', title: 'View Map', icon: '🗺️', to: '/heathrow-map', badge: 'OSM' }
 ]
 
 const emergencyActions = [

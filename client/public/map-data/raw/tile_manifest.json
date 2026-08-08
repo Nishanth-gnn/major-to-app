@@ -1,0 +1,152 @@
+{
+  "name": "Heathrow Airport OSM Dataset",
+  "description": "Research prototype \u2013 open GIS data only",
+  "crs": "WGS84 EPSG:4326",
+  "server": "http://localhost:8092",
+  "layers": [
+    {
+      "id": "terminals",
+      "path": "map-data/terminals.geojson",
+      "url": "http://localhost:8092/map-data/terminals.geojson",
+      "min_zoom": 8,
+      "max_zoom": 22,
+      "exists": true,
+      "size_kb": 231.9
+    },
+    {
+      "id": "entrances",
+      "path": "map-data/entrances.geojson",
+      "url": "http://localhost:8092/map-data/entrances.geojson",
+      "min_zoom": 12,
+      "max_zoom": 22,
+      "exists": true,
+      "size_kb": 36.5
+    },
+    {
+      "id": "gates",
+      "path": "map-data/gates.geojson",
+      "url": "http://localhost:8092/map-data/gates.geojson",
+      "min_zoom": 12,
+      "max_zoom": 22,
+      "exists": true,
+      "size_kb": 54.6
+    },
+    {
+      "id": "amenities",
+      "path": "map-data/amenities.geojson",
+      "url": "http://localhost:8092/map-data/amenities.geojson",
+      "min_zoom": 13,
+      "max_zoom": 22,
+      "exists": true,
+      "size_kb": 191.7
+    },
+    {
+      "id": "roads",
+      "path": "map-data/roads.geojson",
+      "url": "http://localhost:8092/map-data/roads.geojson",
+      "min_zoom": 8,
+      "max_zoom": 22,
+      "exists": true,
+      "size_kb": 1988.5
+    },
+    {
+      "id": "walkways",
+      "path": "map-data/walkways.geojson",
+      "url": "http://localhost:8092/map-data/walkways.geojson",
+      "min_zoom": 12,
+      "max_zoom": 22,
+      "exists": true,
+      "size_kb": 1505.6
+    },
+    {
+      "id": "indoor_b1",
+      "path": "map-data/indoors/level_b1.geojson",
+      "url": "http://localhost:8092/map-data/indoors/level_b1.geojson",
+      "min_zoom": 14,
+      "max_zoom": 22,
+      "exists": true,
+      "size_kb": 261.3
+    },
+    {
+      "id": "indoor_0",
+      "path": "map-data/indoors/level_0.geojson",
+      "url": "http://localhost:8092/map-data/indoors/level_0.geojson",
+      "min_zoom": 14,
+      "max_zoom": 22,
+      "exists": false,
+      "size_kb": 0
+    },
+    {
+      "id": "indoor_1",
+      "path": "map-data/indoors/level_1.geojson",
+      "url": "http://localhost:8092/map-data/indoors/level_1.geojson",
+      "min_zoom": 14,
+      "max_zoom": 22,
+      "exists": true,
+      "size_kb": 177.2
+    },
+    {
+      "id": "indoor_2",
+      "path": "map-data/indoors/level_2.geojson",
+      "url": "http://localhost:8092/map-data/indoors/level_2.geojson",
+      "min_zoom": 14,
+      "max_zoom": 22,
+      "exists": true,
+      "size_kb": 179.9
+    },
+    {
+      "id": "indoor_3",
+      "path": "map-data/indoors/level_3.geojson",
+      "url": "http://localhost:8092/map-data/indoors/level_3.geojson",
+      "min_zoom": 14,
+      "max_zoom": 22,
+      "exists": true,
+      "size_kb": 90.1
+    },
+    {
+      "id": "indoor_rooms",
+      "path": "map-data/indoors/rooms_all.geojson",
+      "url": "http://localhost:8092/map-data/indoors/rooms_all.geojson",
+      "min_zoom": 15,
+      "max_zoom": 22,
+      "exists": true,
+      "size_kb": 77.3
+    },
+    {
+      "id": "indoor_security",
+      "path": "map-data/indoors/security.geojson",
+      "url": "http://localhost:8092/map-data/indoors/security.geojson",
+      "min_zoom": 13,
+      "max_zoom": 22,
+      "exists": true,
+      "size_kb": 0.1
+    },
+    {
+      "id": "indoor_lounges",
+      "path": "map-data/indoors/lounges.geojson",
+      "url": "http://localhost:8092/map-data/indoors/lounges.geojson",
+      "min_zoom": 13,
+      "max_zoom": 22,
+      "exists": true,
+      "size_kb": 6.7
+    },
+    {
+      "id": "indoor_merged",
+      "path": "map-data/indoors/merged_indoor.geojson",
+      "url": "http://localhost:8092/map-data/indoors/merged_indoor.geojson",
+      "min_zoom": 13,
+      "max_zoom": 22,
+      "exists": true,
+      "size_kb": 793.5
+    },
+    {
+      "id": "nav_graph",
+      "path": "map-data/navigation_graph.json",
+      "url": "http://localhost:8092/map-data/navigation_graph.json",
+      "min_zoom": 10,
+      "max_zoom": 22,
+      "exists": true,
+      "size_kb": 3998.1
+    }
+  ]
+}

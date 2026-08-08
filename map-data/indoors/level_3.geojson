@@ -1,0 +1,4471 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4882476,
+          51.470939
+        ]
+      },
+      "properties": {
+        "barrier": "security_control",
+        "indoor": "yes",
+        "level": "3",
+        "name": "Security South",
+        "osm_id": 1508420385,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4882662,
+          51.4723568
+        ]
+      },
+      "properties": {
+        "barrier": "security_control",
+        "indoor": "yes",
+        "level": "3",
+        "name": "Security North",
+        "osm_id": 1508420544,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4885349,
+          51.4727685
+        ]
+      },
+      "properties": {
+        "barrier": "security_control",
+        "indoor": "yes",
+        "level": "3",
+        "name": "Fast Track North",
+        "osm_id": 4360356627,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.48852,
+          51.4701952
+        ]
+      },
+      "properties": {
+        "amenity": "toilets",
+        "changing_table": "yes",
+        "check_date": "2023-04-08",
+        "fee": "no",
+        "indoor": "yes",
+        "level": "3",
+        "wheelchair": "yes",
+        "osm_id": 4360356630,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4886883,
+          51.4711269
+        ]
+      },
+      "properties": {
+        "amenity": "atm",
+        "cash_in": "no",
+        "check_date": "2023-10-27",
+        "indoor": "yes",
+        "level": "3",
+        "operator": "Travelex",
+        "osm_id": 4360359428,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4886905,
+          51.4711662
+        ]
+      },
+      "properties": {
+        "amenity": "post_box",
+        "brand": "Royal Mail",
+        "brand:wikidata": "Q638098",
+        "collection_times": "Mo-Fr 16:15; Sa 12:00",
+        "fixme": "Check ref: nodes 571521109 and 4360359429 both have the same value",
+        "indoor": "yes",
+        "level": "3",
+        "operator": "Royal Mail",
+        "operator:wikidata": "Q638098",
+        "post_box:type": "pillar",
+        "ref": "TW6 1152",
+        "royal_cypher": "EIIR",
+        "royal_cypher:wikidata": "Q33102113",
+        "osm_id": 4360359429,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.488409,
+          51.4714761
+        ]
+      },
+      "properties": {
+        "amenity": "toilets",
+        "check_date": "2023-09-29",
+        "fee": "no",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 4360359448,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4880839,
+          51.4713982
+        ]
+      },
+      "properties": {
+        "amenity": "atm",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 4360359451,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4886861,
+          51.4717091
+        ]
+      },
+      "properties": {
+        "amenity": "post_box",
+        "brand": "Royal Mail",
+        "brand:wikidata": "Q638098",
+        "collection_times": "Mo-Fr 16:00; Sa 12:00",
+        "fixme": "Check ref: nodes 571521104 and 4360359466 both have the same value",
+        "indoor": "yes",
+        "level": "3",
+        "operator": "Royal Mail",
+        "operator:wikidata": "Q638098",
+        "post_box:type": "pillar",
+        "ref": "TW6 1150",
+        "royal_cypher": "EIIR",
+        "royal_cypher:wikidata": "Q33102113",
+        "osm_id": 4360359466,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4880619,
+          51.4721043
+        ]
+      },
+      "properties": {
+        "amenity": "atm",
+        "check_date": "2024-01-01",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 4360359505,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4881782,
+          51.4729519
+        ]
+      },
+      "properties": {
+        "amenity": "drinking_water",
+        "check_date": "2023-10-27",
+        "fountain": "bottle_refill",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 4360359586,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4882948,
+          51.4729755
+        ]
+      },
+      "properties": {
+        "amenity": "toilets",
+        "changing_table": "yes",
+        "check_date": "2023-10-27",
+        "fee": "no",
+        "indoor": "yes",
+        "level": "3",
+        "wheelchair": "yes",
+        "osm_id": 4360359587,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4884407,
+          51.4729728
+        ]
+      },
+      "properties": {
+        "amenity": "toilets",
+        "fee": "no",
+        "indoor": "yes",
+        "level": "3",
+        "wheelchair": "yes",
+        "osm_id": 4360359599,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4886952,
+          51.4718781
+        ]
+      },
+      "properties": {
+        "amenity": "atm",
+        "check_date": "2023-09-29",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 6655919654,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4891764,
+          51.472353
+        ]
+      },
+      "properties": {
+        "entrance": "yes",
+        "level": "3",
+        "level_ref": "3",
+        "osm_id": 13400797568,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4884637,
+          51.4707342
+        ]
+      },
+      "properties": {
+        "barrier": "security_control",
+        "indoor": "yes",
+        "level": "3",
+        "name": "Fast Track South",
+        "osm_id": 13400852880,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4888925,
+          51.4730797
+        ]
+      },
+      "properties": {
+        "door": "yes",
+        "level": "3",
+        "osm_id": 13400853063,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4868374,
+          51.4718897
+        ]
+      },
+      "properties": {
+        "door": "yes",
+        "level": "3",
+        "osm_id": 13400853137,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4873086,
+          51.4720291
+        ]
+      },
+      "properties": {
+        "door": "yes",
+        "level": "3",
+        "osm_id": 13400853146,
+        "osm_type": "node"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4888895,
+            51.4727206
+          ],
+          [
+            -0.4889746,
+            51.4727203
+          ],
+          [
+            -0.4890508,
+            51.47272
+          ],
+          [
+            -0.4890774,
+            51.4727199
+          ],
+          [
+            -0.4891803,
+            51.4727195
+          ],
+          [
+            -0.4894331,
+            51.4727185
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "lit": "24/7",
+        "osm_id": 105215472,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4888736,
+            51.4707932
+          ],
+          [
+            -0.4883674,
+            51.4707912
+          ],
+          [
+            -0.4883654,
+            51.4709396
+          ],
+          [
+            -0.4882476,
+            51.470939
+          ],
+          [
+            -0.4878179,
+            51.4709378
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "oneway:foot": "yes",
+        "osm_id": 136853409,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4876554,
+            51.4729786
+          ],
+          [
+            -0.487759,
+            51.4729781
+          ],
+          [
+            -0.4878083,
+            51.4729778
+          ],
+          [
+            -0.4882948,
+            51.4729755
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 136853426,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4888815,
+            51.471746
+          ],
+          [
+            -0.4889536,
+            51.4717457
+          ],
+          [
+            -0.4890565,
+            51.4717453
+          ],
+          [
+            -0.4891701,
+            51.4717449
+          ],
+          [
+            -0.4894195,
+            51.4717444
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "lit": "yes",
+        "surface": "paving_stones",
+        "osm_id": 136853439,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4888865,
+            51.4723546
+          ],
+          [
+            -0.4882662,
+            51.4723568
+          ],
+          [
+            -0.4878303,
+            51.472359
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "oneway:foot": "yes",
+        "osm_id": 137514847,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4878617,
+            51.4702593
+          ],
+          [
+            -0.4878277,
+            51.4702593
+          ],
+          [
+            -0.4877605,
+            51.4702592
+          ],
+          [
+            -0.4877247,
+            51.4702591
+          ],
+          [
+            -0.4877242,
+            51.4704344
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "surface": "paving_stones",
+        "osm_id": 137514849,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4884972,
+              51.4717824
+            ],
+            [
+              -0.4884984,
+              51.471708
+            ],
+            [
+              -0.4884994,
+              51.471647
+            ],
+            [
+              -0.4883776,
+              51.4716462
+            ],
+            [
+              -0.4883754,
+              51.4717816
+            ],
+            [
+              -0.4884972,
+              51.4717824
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "amenity": "toilets",
+        "changing_table": "yes",
+        "fee": "no",
+        "indoor": "room",
+        "level": "3",
+        "wheelchair": "yes",
+        "osm_id": 438299655,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.488462,
+              51.4727272
+            ],
+            [
+              -0.4886843,
+              51.4727259
+            ],
+            [
+              -0.4886834,
+              51.4726618
+            ],
+            [
+              -0.488461,
+              51.4726631
+            ],
+            [
+              -0.488462,
+              51.4727272
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "brand": "Boots",
+        "brand:wikidata": "Q6123139",
+        "check_date": "2025-05-10",
+        "check_date:opening_hours": "2025-05-10",
+        "indoor": "room",
+        "level": "3",
+        "name": "Boots",
+        "opening_hours": "Mo-Su 05:30-22:00",
+        "shop": "chemist",
+        "wheelchair": "yes",
+        "osm_id": 438299662,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4888006,
+              51.4730799
+            ],
+            [
+              -0.4888925,
+              51.4730797
+            ],
+            [
+              -0.488982,
+              51.4730795
+            ],
+            [
+              -0.4889829,
+              51.4732478
+            ],
+            [
+              -0.4888014,
+              51.4732482
+            ],
+            [
+              -0.4888006,
+              51.4730799
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "amenity": "cafe",
+        "brand": "Caffè Nero",
+        "brand:wikidata": "Q675808",
+        "check_date": "2024-08-22",
+        "check_date:opening_hours": "2024-08-22",
+        "cuisine": "coffee_shop",
+        "indoor": "room",
+        "level": "3",
+        "name": "Caffè Nero",
+        "opening_hours": "Mo-Su 00:00-24:00",
+        "takeaway": "yes",
+        "website": "https://www.caffenero.com/uk/stores/heathrow-t5-landside",
+        "osm_id": 438299667,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4885146,
+              51.4722657
+            ],
+            [
+              -0.4885159,
+              51.4720354
+            ],
+            [
+              -0.4887014,
+              51.4720358
+            ],
+            [
+              -0.4887,
+              51.4722661
+            ],
+            [
+              -0.4885146,
+              51.4722657
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "amenity": "fast_food",
+        "brand": "Pret A Manger",
+        "brand:wikidata": "Q2109109",
+        "cuisine": "sandwich",
+        "indoor": "area",
+        "level": "3",
+        "name": "Pret A Manger",
+        "short_name": "Pret",
+        "takeaway": "yes",
+        "osm_id": 438299668,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4877599,
+              51.4713113
+            ],
+            [
+              -0.4877605,
+              51.4714724
+            ],
+            [
+              -0.4873007,
+              51.471475
+            ],
+            [
+              -0.4872996,
+              51.4714018
+            ],
+            [
+              -0.4873,
+              51.4713139
+            ],
+            [
+              -0.4877599,
+              51.4713113
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "airside": "yes",
+        "check_date": "2026-02-09",
+        "indoor": "room",
+        "level": "3",
+        "name": "Collection",
+        "shop": "clothes",
+        "osm_id": 438299673,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.488371,
+              51.4722188
+            ],
+            [
+              -0.4883709,
+              51.4721147
+            ],
+            [
+              -0.4880585,
+              51.4721118
+            ],
+            [
+              -0.4880583,
+              51.4722165
+            ],
+            [
+              -0.488371,
+              51.4722188
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "brand": "Accessorize",
+        "brand:wikidata": "Q65007482",
+        "indoor": "room",
+        "level": "3",
+        "name": "Accessorize",
+        "shop": "fashion_accessories",
+        "osm_id": 438299675,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4883735,
+              51.4718696
+            ],
+            [
+              -0.4883754,
+              51.4717816
+            ],
+            [
+              -0.4883776,
+              51.4716462
+            ],
+            [
+              -0.4883783,
+              51.471506
+            ],
+            [
+              -0.4881138,
+              51.4715061
+            ],
+            [
+              -0.4881297,
+              51.4715839
+            ],
+            [
+              -0.4881313,
+              51.471665
+            ],
+            [
+              -0.488116,
+              51.4717476
+            ],
+            [
+              -0.4880888,
+              51.4718183
+            ],
+            [
+              -0.4880541,
+              51.4718699
+            ],
+            [
+              -0.4883735,
+              51.4718696
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "brand": "InMotion",
+        "brand:wikidata": "Q109648041",
+        "indoor": "room",
+        "level": "3",
+        "name": "InMotion",
+        "shop": "electronics",
+        "osm_id": 438299676,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4886787,
+              51.4710582
+            ],
+            [
+              -0.4886784,
+              51.4711447
+            ],
+            [
+              -0.4884026,
+              51.4711443
+            ],
+            [
+              -0.4884029,
+              51.4710577
+            ],
+            [
+              -0.4886787,
+              51.4710582
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "check_date": "2023-10-27",
+        "indoor": "room",
+        "level": "3",
+        "name": "Excess Baggage Company",
+        "shop": "bag",
+        "osm_id": 438299678,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4886834,
+              51.4726618
+            ],
+            [
+              -0.4886824,
+              51.4725977
+            ],
+            [
+              -0.4884601,
+              51.472599
+            ],
+            [
+              -0.488461,
+              51.4726631
+            ],
+            [
+              -0.4886834,
+              51.4726618
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "addr:street": "Wallis Road",
+        "check_date": "2023-09-29",
+        "indoor": "room",
+        "level": "3",
+        "name": "Excess Baggage Company",
+        "shop": "bag",
+        "wheelchair": "yes",
+        "osm_id": 438299679,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4873156,
+              51.4727056
+            ],
+            [
+              -0.487319,
+              51.472842
+            ],
+            [
+              -0.4876262,
+              51.4728393
+            ],
+            [
+              -0.4876231,
+              51.472703
+            ],
+            [
+              -0.4873156,
+              51.4727056
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "check_date": "2026-02-09",
+        "indoor": "room",
+        "level": "3",
+        "name": "Glorious Britain",
+        "shop": "gift",
+        "wheelchair": "yes",
+        "osm_id": 438299683,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4873122,
+              51.4725589
+            ],
+            [
+              -0.4876197,
+              51.4725562
+            ],
+            [
+              -0.4876231,
+              51.472703
+            ],
+            [
+              -0.4873156,
+              51.4727056
+            ],
+            [
+              -0.4873122,
+              51.4725589
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "check_date": "2023-10-27",
+        "indoor": "room",
+        "level": "3",
+        "name": "The Harry Potter Shop",
+        "shop": "toys",
+        "wheelchair": "yes",
+        "osm_id": 438299686,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4880838,
+              51.4713704
+            ],
+            [
+              -0.4883771,
+              51.47137
+            ],
+            [
+              -0.4883773,
+              51.4714479
+            ],
+            [
+              -0.488084,
+              51.4714482
+            ],
+            [
+              -0.4880839,
+              51.4713982
+            ],
+            [
+              -0.4880838,
+              51.4713704
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "amenity": "bureau_de_change",
+        "brand": "Travelex",
+        "brand:wikidata": "Q2337964",
+        "brand:wikipedia": "en:Travelex",
+        "indoor": "room",
+        "level": "3",
+        "name": "Travelex",
+        "osm_id": 438299687,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4877605,
+              51.4714724
+            ],
+            [
+              -0.4877678,
+              51.4719735
+            ],
+            [
+              -0.4873079,
+              51.4719761
+            ],
+            [
+              -0.4873056,
+              51.4718002
+            ],
+            [
+              -0.4873007,
+              51.471475
+            ],
+            [
+              -0.4877605,
+              51.4714724
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "airside": "yes",
+        "check_date": "2026-02-09",
+        "indoor": "room",
+        "level": "3",
+        "name": "Harrods",
+        "shop": "gift",
+        "osm_id": 438299688,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.488648,
+              51.4705126
+            ],
+            [
+              -0.4886462,
+              51.4705846
+            ],
+            [
+              -0.4884065,
+              51.4705823
+            ],
+            [
+              -0.4884083,
+              51.4705103
+            ],
+            [
+              -0.488648,
+              51.4705126
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "indoor": "room",
+        "level": "3",
+        "name": "Case",
+        "shop": "bag",
+        "osm_id": 438299703,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.488648,
+              51.4705126
+            ],
+            [
+              -0.488407,
+              51.4705103
+            ],
+            [
+              -0.4884086,
+              51.4704458
+            ],
+            [
+              -0.4886496,
+              51.4704482
+            ],
+            [
+              -0.488648,
+              51.4705126
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "disused:shop": "yes",
+        "indoor": "room",
+        "level": "3",
+        "osm_id": 438299708,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4886784,
+              51.4725388
+            ],
+            [
+              -0.4886774,
+              51.4724453
+            ],
+            [
+              -0.4885363,
+              51.4724459
+            ],
+            [
+              -0.4885374,
+              51.4725394
+            ],
+            [
+              -0.4886784,
+              51.4725388
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "amenity": "bureau_de_change",
+        "brand": "Travelex",
+        "brand:wikidata": "Q2337964",
+        "brand:wikipedia": "en:Travelex",
+        "check_date": "2023-04-08",
+        "indoor": "room",
+        "level": "3",
+        "name": "Travelex",
+        "wheelchair": "yes",
+        "osm_id": 438299716,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4876713,
+              51.473009
+            ],
+            [
+              -0.4879406,
+              51.4730092
+            ],
+            [
+              -0.4879402,
+              51.4731667
+            ],
+            [
+              -0.4876709,
+              51.4731664
+            ],
+            [
+              -0.4876713,
+              51.473009
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "amenity": "bureau_de_change",
+        "check_date": "2023-09-29",
+        "indoor": "room",
+        "level": "3",
+        "name": "Travelex",
+        "wheelchair": "yes",
+        "osm_id": 438299717,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4887019,
+              51.4719416
+            ],
+            [
+              -0.4887023,
+              51.4718706
+            ],
+            [
+              -0.4885169,
+              51.4718701
+            ],
+            [
+              -0.4885165,
+              51.4719412
+            ],
+            [
+              -0.4887019,
+              51.4719416
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "amenity": "bureau_de_change",
+        "brand": "Travelex",
+        "brand:wikidata": "Q2337964",
+        "brand:wikipedia": "en:Travelex",
+        "check_date": "2023-09-29",
+        "indoor": "room",
+        "level": "3",
+        "name": "Travelex",
+        "osm_id": 438299718,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4886832,
+              51.4706423
+            ],
+            [
+              -0.4886828,
+              51.4707109
+            ],
+            [
+              -0.4885306,
+              51.4707106
+            ],
+            [
+              -0.488531,
+              51.470642
+            ],
+            [
+              -0.4886832,
+              51.4706423
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "amenity": "bureau_de_change",
+        "brand": "Travelex",
+        "brand:wikidata": "Q2337964",
+        "check_date": "2023-04-08",
+        "indoor": "room",
+        "level": "3",
+        "name": "Travelex",
+        "osm_id": 438299720,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4886791,
+              51.4709725
+            ],
+            [
+              -0.4886787,
+              51.4710582
+            ],
+            [
+              -0.4884036,
+              51.4710577
+            ],
+            [
+              -0.4884039,
+              51.4709721
+            ],
+            [
+              -0.4886791,
+              51.4709725
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "amenity": "vat_refund",
+        "indoor": "room",
+        "level": "3",
+        "name": "VAT Refunds",
+        "osm_id": 438299725,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4887014,
+              51.4720358
+            ],
+            [
+              -0.4887019,
+              51.4719416
+            ],
+            [
+              -0.4885165,
+              51.4719412
+            ],
+            [
+              -0.4885159,
+              51.4720354
+            ],
+            [
+              -0.4887014,
+              51.4720358
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "brand": "WHSmith",
+        "brand:website": "https://www.whsmithplc.co.uk/",
+        "brand:wikidata": "Q1548712",
+        "brand:wikipedia": "en:WHSmith",
+        "check_date": "2024-09-29",
+        "indoor": "room",
+        "level": "3",
+        "name": "WHSmith",
+        "shop": "newsagent",
+        "osm_id": 438299727,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.488409,
+              51.4703561
+            ],
+            [
+              -0.4886518,
+              51.4703584
+            ],
+            [
+              -0.4886496,
+              51.4704482
+            ],
+            [
+              -0.4884086,
+              51.4704458
+            ],
+            [
+              -0.488409,
+              51.4703561
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "brand": "WHSmith",
+        "brand:website": "https://www.whsmithplc.co.uk/",
+        "brand:wikidata": "Q1548712",
+        "brand:wikipedia": "en:WHSmith",
+        "check_date": "2023-04-08",
+        "indoor": "room",
+        "level": "3",
+        "name": "WHSmith",
+        "shop": "newsagent",
+        "osm_id": 438299729,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4880541,
+              51.4718699
+            ],
+            [
+              -0.4880551,
+              51.471955
+            ],
+            [
+              -0.4880566,
+              51.4720341
+            ],
+            [
+              -0.4880626,
+              51.4720849
+            ],
+            [
+              -0.4883719,
+              51.472087
+            ],
+            [
+              -0.4883734,
+              51.4719465
+            ],
+            [
+              -0.4883735,
+              51.4718696
+            ],
+            [
+              -0.4880541,
+              51.4718699
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "brand": "WHSmith",
+        "brand:website": "https://www.whsmithplc.co.uk/",
+        "brand:wikidata": "Q1548712",
+        "brand:wikipedia": "en:WHSmith",
+        "indoor": "room",
+        "level": "3",
+        "name": "WHSmith",
+        "shop": "newsagent",
+        "osm_id": 438299730,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4868362,
+              51.4718027
+            ],
+            [
+              -0.4868374,
+              51.4718897
+            ],
+            [
+              -0.48684,
+              51.4720847
+            ],
+            [
+              -0.4870232,
+              51.4720837
+            ],
+            [
+              -0.4873093,
+              51.4720822
+            ],
+            [
+              -0.4873086,
+              51.4720291
+            ],
+            [
+              -0.4873079,
+              51.4719761
+            ],
+            [
+              -0.4873056,
+              51.4718002
+            ],
+            [
+              -0.4868362,
+              51.4718027
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "airside": "yes",
+        "amenity": "restaurant",
+        "brand": "Wagamama",
+        "brand:wikidata": "Q503715",
+        "brand:wikipedia": "en:Wagamama",
+        "check_date": "2026-02-09",
+        "cuisine": "asian",
+        "indoor": "room",
+        "level": "3",
+        "name": "Wagamama",
+        "website": "https://www.wagamama.com/restaurants/heathrow/heathrow-t5",
+        "osm_id": 438299732,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4872955,
+              51.4711166
+            ],
+            [
+              -0.4877553,
+              51.471114
+            ],
+            [
+              -0.4877599,
+              51.4713113
+            ],
+            [
+              -0.4873,
+              51.4713139
+            ],
+            [
+              -0.4872955,
+              51.4711166
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "airside": "yes",
+        "brand": "Boots",
+        "brand:wikidata": "Q6123139",
+        "check_date": "2026-02-09",
+        "indoor": "room",
+        "level": "3",
+        "name": "Boots",
+        "shop": "chemist",
+        "website": "https://www.boots.com/stores/1145-heathrow-t5-airside-departures-tw6-2ga",
+        "osm_id": 438299739,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4880298,
+            51.4714774
+          ],
+          [
+            -0.488409,
+            51.4714761
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 438299750,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4888902,
+            51.4728049
+          ],
+          [
+            -0.4885211,
+            51.4728081
+          ],
+          [
+            -0.4885247,
+            51.4729721
+          ],
+          [
+            -0.4884407,
+            51.4729728
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "surface": "asphalt",
+        "osm_id": 438299753,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4888899,
+            51.4727656
+          ],
+          [
+            -0.4885349,
+            51.4727685
+          ],
+          [
+            -0.4880302,
+            51.4727726
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "oneway:foot": "yes",
+        "osm_id": 438299755,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.48852,
+            51.4701952
+          ],
+          [
+            -0.4885946,
+            51.470195
+          ],
+          [
+            -0.4885956,
+            51.470322
+          ],
+          [
+            -0.4887415,
+            51.4703216
+          ],
+          [
+            -0.4887421,
+            51.4703973
+          ],
+          [
+            -0.4888703,
+            51.4703969
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "surface": "paving_stones",
+        "osm_id": 438299756,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4880297,
+            51.4715083
+          ],
+          [
+            -0.4879449,
+            51.4715085
+          ],
+          [
+            -0.4878936,
+            51.4715087
+          ],
+          [
+            -0.4878251,
+            51.4715081
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "surface": "paving_stones",
+        "osm_id": 438299757,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4895055,
+            51.4705168
+          ],
+          [
+            -0.489538,
+            51.4705167
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1178268700,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4890496,
+            51.4710981
+          ],
+          [
+            -0.4890545,
+            51.4711376
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1178305511,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.489502,
+            51.4710706
+          ],
+          [
+            -0.4895393,
+            51.4710705
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1178305524,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4895393,
+            51.4710383
+          ],
+          [
+            -0.4895006,
+            51.4710384
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1178305525,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4895403,
+            51.4711419
+          ],
+          [
+            -0.4895051,
+            51.471142
+          ]
+        ]
+      },
+      "properties": {
+        "covered": "yes",
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1178305526,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4895075,
+            51.4711737
+          ],
+          [
+            -0.4895405,
+            51.4711736
+          ]
+        ]
+      },
+      "properties": {
+        "covered": "yes",
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1178305541,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.489543,
+            51.4717863
+          ],
+          [
+            -0.4895433,
+            51.471818
+          ],
+          [
+            -0.4894995,
+            51.4718177
+          ]
+        ]
+      },
+      "properties": {
+        "covered": "yes",
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179690036,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4895424,
+            51.4717149
+          ],
+          [
+            -0.4895427,
+            51.4717439
+          ],
+          [
+            -0.489543,
+            51.4717863
+          ],
+          [
+            -0.4894972,
+            51.471786
+          ]
+        ]
+      },
+      "properties": {
+        "covered": "yes",
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179690037,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4894926,
+            51.4716824
+          ],
+          [
+            -0.4895422,
+            51.4716827
+          ],
+          [
+            -0.4895424,
+            51.4717149
+          ],
+          [
+            -0.489494,
+            51.4717146
+          ]
+        ]
+      },
+      "properties": {
+        "covered": "yes",
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179690038,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4890564,
+            51.4717084
+          ],
+          [
+            -0.4890565,
+            51.4717453
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179702379,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4895529,
+            51.472718
+          ],
+          [
+            -0.4895532,
+            51.4727604
+          ],
+          [
+            -0.4895535,
+            51.4727921
+          ],
+          [
+            -0.4895554,
+            51.4730199
+          ],
+          [
+            -0.4894914,
+            51.4730202
+          ]
+        ]
+      },
+      "properties": {
+        "covered": "yes",
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179767729,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4889741,
+            51.4726833
+          ],
+          [
+            -0.4889746,
+            51.4727203
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179767737,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4895135,
+            51.4726569
+          ],
+          [
+            -0.4895524,
+            51.4726568
+          ],
+          [
+            -0.4895527,
+            51.472689
+          ]
+        ]
+      },
+      "properties": {
+        "covered": "yes",
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179767750,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4895204,
+            51.4727922
+          ],
+          [
+            -0.4895535,
+            51.4727921
+          ]
+        ]
+      },
+      "properties": {
+        "covered": "yes",
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179767752,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4895399,
+            51.4710995
+          ],
+          [
+            -0.4895403,
+            51.4711419
+          ],
+          [
+            -0.4895405,
+            51.4711736
+          ],
+          [
+            -0.489536,
+            51.4714288
+          ],
+          [
+            -0.4895422,
+            51.4716827
+          ]
+        ]
+      },
+      "properties": {
+        "covered": "yes",
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179782487,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4809249,
+            51.4704729
+          ],
+          [
+            -0.4809774,
+            51.4704735
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179971620,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4808916,
+            51.4698495
+          ],
+          [
+            -0.4809668,
+            51.4698478
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179971623,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4814354,
+            51.469748
+          ],
+          [
+            -0.4815434,
+            51.4697445
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179971630,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4814382,
+            51.4701648
+          ],
+          [
+            -0.4815587,
+            51.4701639
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179971635,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4815699,
+            51.4704721
+          ],
+          [
+            -0.4814404,
+            51.4704747
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179971638,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4809382,
+            51.4708937
+          ],
+          [
+            -0.4809846,
+            51.4708931
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179971641,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4809434,
+            51.4714388
+          ],
+          [
+            -0.4809985,
+            51.4714378
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179971644,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4809499,
+            51.4719935
+          ],
+          [
+            -0.4810245,
+            51.4719942
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179971647,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4815829,
+            51.4717186
+          ],
+          [
+            -0.4814854,
+            51.4717186
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179971648,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4815837,
+            51.4719972
+          ],
+          [
+            -0.4814915,
+            51.4719993
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179971651,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4815819,
+            51.4714154
+          ],
+          [
+            -0.4814788,
+            51.4714171
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179971654,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4814699,
+            51.4709788
+          ],
+          [
+            -0.4815806,
+            51.4709774
+          ],
+          [
+            -0.4815812,
+            51.4707838
+          ],
+          [
+            -0.4815699,
+            51.4704721
+          ],
+          [
+            -0.4815687,
+            51.4704379
+          ],
+          [
+            -0.4815587,
+            51.4701639
+          ],
+          [
+            -0.481558,
+            51.4701443
+          ],
+          [
+            -0.4815444,
+            51.4697713
+          ],
+          [
+            -0.4815434,
+            51.4697445
+          ],
+          [
+            -0.4815424,
+            51.4697154
+          ],
+          [
+            -0.4814351,
+            51.4697174
+          ],
+          [
+            -0.4813893,
+            51.4697188
+          ],
+          [
+            -0.4810293,
+            51.4697296
+          ],
+          [
+            -0.4809648,
+            51.4697315
+          ],
+          [
+            -0.4809665,
+            51.4698307
+          ],
+          [
+            -0.4809668,
+            51.4698478
+          ],
+          [
+            -0.4809772,
+            51.4704597
+          ],
+          [
+            -0.4809774,
+            51.4704735
+          ],
+          [
+            -0.4809844,
+            51.4708861
+          ],
+          [
+            -0.4809846,
+            51.4708931
+          ],
+          [
+            -0.4809912,
+            51.4712809
+          ],
+          [
+            -0.480997,
+            51.4714054
+          ],
+          [
+            -0.4809985,
+            51.4714378
+          ],
+          [
+            -0.4810231,
+            51.4719634
+          ],
+          [
+            -0.4810245,
+            51.4719942
+          ],
+          [
+            -0.4810274,
+            51.4720545
+          ],
+          [
+            -0.4815839,
+            51.472057
+          ],
+          [
+            -0.4815837,
+            51.4719972
+          ],
+          [
+            -0.4815837,
+            51.4719711
+          ],
+          [
+            -0.4815829,
+            51.4717186
+          ],
+          [
+            -0.4815828,
+            51.4716973
+          ],
+          [
+            -0.4815819,
+            51.4714154
+          ],
+          [
+            -0.4815819,
+            51.4713937
+          ],
+          [
+            -0.4815806,
+            51.4709774
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179971657,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.481446,
+            51.4709783
+          ],
+          [
+            -0.4814545,
+            51.4709783
+          ],
+          [
+            -0.4814602,
+            51.4709784
+          ],
+          [
+            -0.4814654,
+            51.4709786
+          ],
+          [
+            -0.4814699,
+            51.4709788
+          ],
+          [
+            -0.4814699,
+            51.4710081
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179971661,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4876085,
+            51.4728895
+          ],
+          [
+            -0.4876834,
+            51.4728878
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179989964,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4876082,
+            51.4728651
+          ],
+          [
+            -0.4876832,
+            51.4728634
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179989966,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4878251,
+            51.4715081
+          ],
+          [
+            -0.487827,
+            51.4718219
+          ],
+          [
+            -0.4878287,
+            51.4720286
+          ],
+          [
+            -0.4878303,
+            51.472359
+          ],
+          [
+            -0.4878286,
+            51.4724126
+          ],
+          [
+            -0.4876793,
+            51.4724102
+          ],
+          [
+            -0.4876832,
+            51.4728634
+          ],
+          [
+            -0.4876834,
+            51.4728878
+          ],
+          [
+            -0.4876554,
+            51.4729786
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179989972,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4877598,
+            51.4704913
+          ],
+          [
+            -0.48776,
+            51.4704345
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179989993,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4878271,
+            51.4704345
+          ],
+          [
+            -0.487827,
+            51.4704914
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1179989996,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4868382,
+            51.4704333
+          ],
+          [
+            -0.4868372,
+            51.4704468
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1180025415,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4877242,
+            51.4704344
+          ],
+          [
+            -0.4868382,
+            51.4704333
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1180025422,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4554891,
+            51.4708141
+          ],
+          [
+            -0.4555494,
+            51.4707869
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1180196708,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4563289,
+            51.4716187
+          ],
+          [
+            -0.4554891,
+            51.4708141
+          ],
+          [
+            -0.4554619,
+            51.470788
+          ],
+          [
+            -0.4555209,
+            51.4707621
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1180196709,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4563441,
+            51.4716331
+          ],
+          [
+            -0.4563504,
+            51.4716305
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1180196728,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4563545,
+            51.471643
+          ],
+          [
+            -0.4563608,
+            51.4716405
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1180196729,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4563666,
+            51.4716546
+          ],
+          [
+            -0.4563545,
+            51.471643
+          ],
+          [
+            -0.4563441,
+            51.4716331
+          ],
+          [
+            -0.4563289,
+            51.4716187
+          ],
+          [
+            -0.4563354,
+            51.4716161
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1180196730,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4563859,
+            51.471666
+          ],
+          [
+            -0.4563805,
+            51.4716681
+          ],
+          [
+            -0.4563666,
+            51.4716546
+          ],
+          [
+            -0.4563725,
+            51.4716524
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1180196733,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4889532,
+            51.4717088
+          ],
+          [
+            -0.4889536,
+            51.4717457
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185197,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4888707,
+            51.470446
+          ],
+          [
+            -0.4889443,
+            51.4704458
+          ],
+          [
+            -0.4890474,
+            51.4704455
+          ],
+          [
+            -0.4891566,
+            51.4704452
+          ],
+          [
+            -0.4894437,
+            51.4704446
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185280,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4888688,
+            51.4702174
+          ],
+          [
+            -0.4890202,
+            51.4702171
+          ],
+          [
+            -0.4890203,
+            51.4702367
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185283,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4889446,
+            51.4704831
+          ],
+          [
+            -0.4889443,
+            51.4704458
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185289,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4890474,
+            51.4704455
+          ],
+          [
+            -0.4890476,
+            51.4704826
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185294,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4895375,
+            51.4704136
+          ],
+          [
+            -0.489508,
+            51.4704136
+          ],
+          [
+            -0.489508,
+            51.4703997
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185316,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4894824,
+            51.4703996
+          ],
+          [
+            -0.4894823,
+            51.4704136
+          ],
+          [
+            -0.489508,
+            51.4704136
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185323,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.489536,
+            51.4714288
+          ],
+          [
+            -0.4895062,
+            51.4714289
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185324,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4894811,
+            51.471443
+          ],
+          [
+            -0.4894807,
+            51.471429
+          ],
+          [
+            -0.4895062,
+            51.4714289
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185330,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4889513,
+            51.4711381
+          ],
+          [
+            -0.488951,
+            51.4711012
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185337,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4888761,
+            51.4711016
+          ],
+          [
+            -0.488951,
+            51.4711012
+          ],
+          [
+            -0.4890282,
+            51.4710988
+          ],
+          [
+            -0.4890496,
+            51.4710981
+          ],
+          [
+            -0.4891634,
+            51.4711007
+          ],
+          [
+            -0.4894386,
+            51.4710999
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "surface": "paving_stones",
+        "osm_id": 1461185343,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4895433,
+            51.471818
+          ],
+          [
+            -0.4895524,
+            51.4726568
+          ]
+        ]
+      },
+      "properties": {
+        "covered": "yes",
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185348,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4888742,
+            51.4708724
+          ],
+          [
+            -0.4890269,
+            51.4708721
+          ],
+          [
+            -0.489027,
+            51.4708917
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185359,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4888834,
+            51.4719752
+          ],
+          [
+            -0.4890346,
+            51.4719742
+          ],
+          [
+            -0.4890343,
+            51.4719546
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185360,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4888925,
+            51.4730797
+          ],
+          [
+            -0.4888902,
+            51.4728049
+          ],
+          [
+            -0.4888899,
+            51.4727656
+          ],
+          [
+            -0.4888895,
+            51.4727206
+          ],
+          [
+            -0.4888879,
+            51.4725237
+          ],
+          [
+            -0.4888865,
+            51.4723546
+          ],
+          [
+            -0.4888834,
+            51.4719752
+          ],
+          [
+            -0.4888822,
+            51.4718371
+          ],
+          [
+            -0.4888815,
+            51.471746
+          ],
+          [
+            -0.4888761,
+            51.4711016
+          ],
+          [
+            -0.4888742,
+            51.4708724
+          ],
+          [
+            -0.4888736,
+            51.4707932
+          ],
+          [
+            -0.4888731,
+            51.4707358
+          ],
+          [
+            -0.4888707,
+            51.470446
+          ],
+          [
+            -0.4888703,
+            51.4703969
+          ],
+          [
+            -0.4888688,
+            51.4702174
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185383,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4888731,
+            51.4707358
+          ],
+          [
+            -0.4884637,
+            51.4707342
+          ],
+          [
+            -0.4880281,
+            51.4707325
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "oneway:foot": "yes",
+        "osm_id": 1461185387,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4888822,
+            51.4718371
+          ],
+          [
+            -0.4885357,
+            51.4718359
+          ],
+          [
+            -0.4885369,
+            51.4717081
+          ],
+          [
+            -0.4884984,
+            51.471708
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185388,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4878083,
+            51.4729778
+          ],
+          [
+            -0.4878068,
+            51.4729043
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185389,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4877575,
+            51.4729043
+          ],
+          [
+            -0.487759,
+            51.4729781
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185390,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.489466,
+            51.4730343
+          ],
+          [
+            -0.4894659,
+            51.4730203
+          ],
+          [
+            -0.4894914,
+            51.4730202
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185394,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.487828,
+            51.4701574
+          ],
+          [
+            -0.4878277,
+            51.4702593
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185405,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4878617,
+            51.4702593
+          ],
+          [
+            -0.4878612,
+            51.4704346
+          ],
+          [
+            -0.4878271,
+            51.4704345
+          ],
+          [
+            -0.48776,
+            51.4704345
+          ],
+          [
+            -0.4877242,
+            51.4704344
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "surface": "paving_stones",
+        "osm_id": 1461185406,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4877605,
+            51.4702592
+          ],
+          [
+            -0.4877609,
+            51.4701565
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185408,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4877605,
+            51.4702592
+          ],
+          [
+            -0.4877605,
+            51.4702727
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "surface": "paving_stones",
+        "osm_id": 1461185409,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4878276,
+            51.4702727
+          ],
+          [
+            -0.4878277,
+            51.4702593
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "surface": "paving_stones",
+        "osm_id": 1461185410,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4895181,
+            51.4727605
+          ],
+          [
+            -0.4895532,
+            51.4727604
+          ]
+        ]
+      },
+      "properties": {
+        "covered": "yes",
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185418,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4890512,
+            51.4727397
+          ],
+          [
+            -0.4890508,
+            51.47272
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185421,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4890774,
+            51.4727199
+          ],
+          [
+            -0.4890773,
+            51.4726829
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185422,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4892314,
+            51.4723527
+          ],
+          [
+            -0.4891764,
+            51.472353
+          ],
+          [
+            -0.4888865,
+            51.4723546
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185423,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4892331,
+            51.4725223
+          ],
+          [
+            -0.4892314,
+            51.4723527
+          ],
+          [
+            -0.4892303,
+            51.4722422
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185424,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4893478,
+            51.4722122
+          ],
+          [
+            -0.4893481,
+            51.4722417
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185432,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4892692,
+            51.4722125
+          ],
+          [
+            -0.4892695,
+            51.472242
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185435,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4893085,
+            51.4722124
+          ],
+          [
+            -0.4893088,
+            51.4722419
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185436,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4893871,
+            51.472212
+          ],
+          [
+            -0.4893874,
+            51.4722416
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185446,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4894264,
+            51.4722119
+          ],
+          [
+            -0.4894267,
+            51.4722414
+          ],
+          [
+            -0.4893874,
+            51.4722416
+          ],
+          [
+            -0.4893481,
+            51.4722417
+          ],
+          [
+            -0.4893088,
+            51.4722419
+          ],
+          [
+            -0.4892695,
+            51.472242
+          ],
+          [
+            -0.4892303,
+            51.4722422
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185449,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.489272,
+            51.4724926
+          ],
+          [
+            -0.4892724,
+            51.4725221
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185455,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4893113,
+            51.4724924
+          ],
+          [
+            -0.4893116,
+            51.4725219
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185456,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4893506,
+            51.4724923
+          ],
+          [
+            -0.4893509,
+            51.4725218
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185457,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4893899,
+            51.4724921
+          ],
+          [
+            -0.4893902,
+            51.4725216
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185458,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4894292,
+            51.4724919
+          ],
+          [
+            -0.4894295,
+            51.4725214
+          ],
+          [
+            -0.4893902,
+            51.4725216
+          ],
+          [
+            -0.4893509,
+            51.4725218
+          ],
+          [
+            -0.4893116,
+            51.4725219
+          ],
+          [
+            -0.4892724,
+            51.4725221
+          ],
+          [
+            -0.4892331,
+            51.4725223
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185459,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4878936,
+            51.4715087
+          ],
+          [
+            -0.4878936,
+            51.47154
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "surface": "paving_stones",
+        "osm_id": 1461185483,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4879449,
+            51.4715085
+          ],
+          [
+            -0.4879473,
+            51.4715398
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "surface": "paving_stones",
+        "osm_id": 1461185484,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4878251,
+            51.4715081
+          ],
+          [
+            -0.4878179,
+            51.4709378
+          ],
+          [
+            -0.4878162,
+            51.4707316
+          ],
+          [
+            -0.4880281,
+            51.4707325
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185485,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.4880923,
+              51.4706973
+            ],
+            [
+              -0.4877485,
+              51.4706973
+            ],
+            [
+              -0.4877485,
+              51.4707583
+            ],
+            [
+              -0.4870247,
+              51.4707583
+            ],
+            [
+              -0.4870247,
+              51.4700479
+            ],
+            [
+              -0.4880923,
+              51.4700479
+            ],
+            [
+              -0.4880923,
+              51.4706973
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "access": "customers",
+        "airside": "yes",
+        "amenity": "lounge",
+        "bar": "yes",
+        "check_date": "2026-02-09",
+        "customers": "airline",
+        "food": "yes",
+        "indoor": "room",
+        "internet_access": "wlan",
+        "level": "3",
+        "membership": "yes",
+        "name": "Concorde Lounge",
+        "operator": "British Airways",
+        "toilets": "yes",
+        "osm_id": 1461185486,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4880296,
+            51.4716465
+          ],
+          [
+            -0.4880641,
+            51.4716465
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185487,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4880296,
+            51.4716699
+          ],
+          [
+            -0.4880641,
+            51.4716699
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185488,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4880641,
+            51.4716961
+          ],
+          [
+            -0.4880296,
+            51.471696
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185489,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4880301,
+            51.4720973
+          ],
+          [
+            -0.4880292,
+            51.4720212
+          ],
+          [
+            -0.4880294,
+            51.4718238
+          ],
+          [
+            -0.4880294,
+            51.4717989
+          ],
+          [
+            -0.4880296,
+            51.471696
+          ],
+          [
+            -0.4880296,
+            51.4716699
+          ],
+          [
+            -0.4880296,
+            51.4716465
+          ],
+          [
+            -0.4880297,
+            51.4715083
+          ],
+          [
+            -0.4880298,
+            51.4714774
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185498,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4868374,
+            51.4718897
+          ],
+          [
+            -0.4867772,
+            51.47189
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185501,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4878287,
+            51.4720286
+          ],
+          [
+            -0.4873086,
+            51.4720291
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185502,
+        "osm_type": "way"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.4876793,
+            51.4724102
+          ],
+          [
+            -0.486908,
+            51.4724154
+          ],
+          [
+            -0.4869144,
+            51.4725742
+          ]
+        ]
+      },
+      "properties": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "3",
+        "osm_id": 1461185503,
+        "osm_type": "way"
+      }
+    }
+  ]
+}
