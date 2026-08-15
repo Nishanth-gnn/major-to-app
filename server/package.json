@@ -2,9 +2,12 @@
   "name": "smart-airport-server",
   "version": "0.1.0",
   "main": "dist/index.js",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "npx prisma generate && tsc",
+    "build": "prisma generate && tsc",
     "start": "node dist/index.js",
     "prisma:migrate": "prisma migrate dev --name init",
     "prisma:generate": "prisma generate",
