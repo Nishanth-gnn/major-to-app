@@ -17,6 +17,7 @@ export default function RootLayout() {
         <SafeAreaProvider>
           <StatusBar style="light" />
           <Stack
+            initialRouteName="index"
             screenOptions={{
               headerShown: false,
               contentStyle: { backgroundColor: Colors.background },
