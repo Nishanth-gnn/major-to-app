@@ -11,6 +11,18 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.skyos.passenger"
     },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      ["expo-camera", { "cameraPermission": "Allow Airport Assistance to scan boarding-pass QR codes." }],
+      ["expo-location", { "locationWhenInUsePermission": "Allow Airport Assistance to use your location for airport navigation and emergency assistance." }],
+      ["expo-notifications", { "icon": "./assets/icon.png", "color": "#06121F" }]
+    ],
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#06121F",
@@ -19,16 +31,8 @@
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "package": "com.skyos.passenger",
-      "predictiveBackGestureEnabled": false
-    },
-    "web": {
-      "favicon": "./assets/favicon.png",
-      "bundler": "metro",
-      "output": "single"
-    },
-    "plugins": [
-      "expo-router",
-      "expo-secure-store"
-    ]
+      "predictiveBackGestureEnabled": false,
+      "permissions": ["CAMERA", "ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "POST_NOTIFICATIONS"]
+    }
   }
 }

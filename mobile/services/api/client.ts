@@ -1,19 +1,20 @@
 import axios from 'axios';
-import { Platform } from 'react-native';
-
-const BASE_URL = process.env.EXPO_PUBLIC_API_URL || Platform.select({
-  android: 'http://10.0.2.2:4000/api',
-  ios: 'http://localhost:4000/api',
-  default: 'http://localhost:4000/api',
-});
+import { API_BASE_URL } from './config';
+import { getAuthToken } from './session';
 
 const apiClient = axios.create({
-  baseURL: BASE_URL,
+  baseURL: API_BASE_URL,
   timeout: 15000,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
+});
+
+apiClient.interceptors.request.use(async (config) => {
+  const token = await getAuthToken();
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
 });
 
 apiClient.interceptors.response.use(

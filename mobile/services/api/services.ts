@@ -45,7 +45,7 @@ export const updateAlertStatus = async (id: string, status: string) => {
 
 export const requestBusTracking = async (driverId: string, driverName: string) => {
   try {
-    const response = await apiClient.post('/bus-service/request-tracking', { driverId, driverName });
+    const response = await apiClient.post(`/bus-service/track/${driverId}`, { driverName });
     return response.data;
   } catch (e) {
     return { status: 'active', latitude: 17.2403, longitude: 78.4294, lastUpdated: new Date().toISOString() };
@@ -79,9 +79,9 @@ export const sendChatMessage = async (message: string, context?: any) => {
   }
 };
 
-export const sendAuraMessage = async (message: string, profile?: any) => {
+export const sendAuraMessage = async (message: string, passenger?: any, chatId?: string) => {
   try {
-    const response = await apiClient.post('/aura', { message, profile });
+    const response = await apiClient.post('/aura/chat', { message, passenger, chatId });
     return response.data;
   } catch (e) {
     return { reply: `AURA AI: Assisting with "${message}". All flight telemetry looks normal.` };
