@@ -338,8 +338,8 @@ export default function PersonalGuardianPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 pb-24 transition-colors duration-200">
-      <Header title="Personal Guardian" />
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 pb-40 transition-colors duration-200">
+
 
       <main className="max-w-4xl mx-auto px-4 pt-6">
         {/* Banner Section */}
@@ -719,8 +719,6 @@ export default function PersonalGuardianPage() {
           )}
         </div>
       </main>
-
-      <BottomNavigation activeTab="home" />
     </div>
   );
 }

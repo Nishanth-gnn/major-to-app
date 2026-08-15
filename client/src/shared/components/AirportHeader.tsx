@@ -40,10 +40,6 @@ const AIRPORTS = [
 
 const NAV_ZONES = [
   { id: 'home', label: 'Home', path: '/', icon: LayoutDashboard, exact: true },
-  { id: 'flights', label: 'Flights', path: '/flight-tracking', icon: Plane, badge: 'LIVE' },
-  { id: 'baggage', label: 'Baggage', path: '/baggage-guidance', icon: Luggage },
-  { id: 'transit', label: 'Transit', path: '/transit-services', icon: Train },
-  { id: 'services', label: 'Services', path: '/profile', icon: Grid },
 ]
 
 interface AirportHeaderProps {

@@ -204,6 +204,26 @@ function featureCentroid(f: any): [number, number] | null {
   return null;
 }
 
+function createPinElement(label: string, color: string) {
+  const el = document.createElement('div');
+  el.className = 'custom-pin-marker';
+  el.style.cssText = `
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 10;
+  `;
+  el.innerHTML = `
+    <div style="background: #1e293b; color: white; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: bold; border: 1px solid ${color}; box-shadow: 0 4px 12px rgba(0,0,0,0.5); white-space: nowrap; margin-bottom: 4px;">
+      📍 ${label}
+    </div>
+    <div style="width: 14px; height: 14px; background: ${color}; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px ${color};"></div>
+  `;
+  return el;
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    HeathrowMapPage
 ═══════════════════════════════════════════════════════════════════════════ */
@@ -244,6 +264,8 @@ export default function HeathrowMapPage() {
   const [routeError, setRouteError] = useState('');
 
   /* ── Refs for imperative nav ── */
+  const sourceMarkerRef = useRef<Marker | null>(null);
+  const destMarkerRef   = useRef<Marker | null>(null);
   const userMarkerRef = useRef<Marker | null>(null);
   const stepsRef      = useRef<NavigationStep[]>([]);
   const activeStepRef = useRef(0);
@@ -697,6 +719,14 @@ export default function HeathrowMapPage() {
     if (!fromLoc) { setRouteError(`Location not found: "${fromQuery}". Try a gate like "Gate A10" or "T5 Entrance"`); return; }
     if (!toLoc)   { setRouteError(`Location not found: "${toQuery}". Try a gate, lounge, or terminal name.`); return; }
 
+    sourceMarkerRef.current?.remove();
+    const sourceEl = createPinElement(fromQuery, '#2979ff');
+    sourceMarkerRef.current = new Marker({ element: sourceEl }).setLngLat(fromLoc.coords as [number, number]).addTo(map);
+
+    destMarkerRef.current?.remove();
+    const destEl = createPinElement(toQuery, '#aa00ff');
+    destMarkerRef.current = new Marker({ element: destEl }).setLngLat(toLoc.coords as [number, number]).addTo(map);
+
     const startNode = nearestNode(fromLoc.coords[0], fromLoc.coords[1], graph.nodes, fromLoc.level);
     const goalNode  = nearestNode(toLoc.coords[0], toLoc.coords[1], graph.nodes, toLoc.level);
 
@@ -775,19 +805,33 @@ export default function HeathrowMapPage() {
 
     /* Draw route line */
     const coords = pathNodes.map(n => [n.lon, n.lat]);
+    if (map.getLayer('route-line-arrows')) map.removeLayer('route-line-arrows');
     if (map.getLayer('route-line')) map.removeLayer('route-line');
+    if (map.getLayer('route-line-casing')) map.removeLayer('route-line-casing');
     if (map.getSource('route-line')) map.removeSource('route-line');
+    
     map.addSource('route-line', {
       type: 'geojson',
       data: { type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: coords } as any },
     });
+    
+    map.addLayer({
+      id: 'route-line-casing', type: 'line', source: 'route-line',
+      layout: { visibility: 'none', 'line-cap': 'round', 'line-join': 'round' },
+      paint: {
+        'line-color': '#ffffff',
+        'line-width': ['interpolate', ['linear'], ['zoom'], 12, 6, 18, 10],
+        'line-opacity': 1,
+      },
+    });
+    
     map.addLayer({
       id: 'route-line', type: 'line', source: 'route-line',
+      layout: { visibility: 'none', 'line-cap': 'round', 'line-join': 'round' },
       paint: {
-        'line-color': '#aa00ff',
-        'line-width': ['interpolate', ['linear'], ['zoom'], 12, 3, 18, 6],
-        'line-opacity': 0.92,
-        'line-blur': 0.5,
+        'line-color': '#9c27b0', // Very dense, intense purple
+        'line-width': ['interpolate', ['linear'], ['zoom'], 12, 4, 18, 7],
+        'line-opacity': 1,
       },
     });
 
@@ -820,11 +864,22 @@ export default function HeathrowMapPage() {
   }, [location.search, location.state, loading, handleRoute]);
 
   /* ─── Fly map to a named location ─────────────────────────────────── */
-  const flyToLocation = useCallback((query: string) => {
+  const flyToLocation = useCallback((query: string, type?: 'source' | 'destination') => {
     const map = mapRef.current;
     if (!map || !query.trim()) return;
     const loc = findFeatureByQuery(query);
     if (!loc) return;
+
+    if (type === 'source') {
+      sourceMarkerRef.current?.remove();
+      const el = createPinElement(query, '#2979ff');
+      sourceMarkerRef.current = new Marker({ element: el }).setLngLat(loc.coords as [number, number]).addTo(map);
+    } else if (type === 'destination') {
+      destMarkerRef.current?.remove();
+      const el = createPinElement(query, '#aa00ff');
+      destMarkerRef.current = new Marker({ element: el }).setLngLat(loc.coords as [number, number]).addTo(map);
+    }
+
     map.flyTo({
       center: loc.coords,
       zoom: 18,
@@ -900,6 +955,31 @@ export default function HeathrowMapPage() {
     setNotificationStatus(null);
     mapRef.current?.easeTo({ pitch: 0, bearing: 0, zoom: 15, duration: 700 });
   }, []);
+
+  /* ─── Manage Map Visualization Mode ───────────────────────────────── */
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    const visibility = navMode ? 'none' : 'visible';
+    const pointLayers = ['entrances', 'gates', 'security', 'lounges', 'amenities', 'indoor'];
+    
+    pointLayers.forEach(base => {
+      ['circle', 'label'].forEach(suffix => {
+        const layerId = `${base}-${suffix}`;
+        if (map.getLayer(layerId)) {
+          map.setLayoutProperty(layerId, 'visibility', visibility);
+        }
+      });
+    });
+
+    if (map.getLayer('route-line-casing')) {
+      map.setLayoutProperty('route-line-casing', 'visibility', navMode ? 'visible' : 'none');
+    }
+    if (map.getLayer('route-line')) {
+      map.setLayoutProperty('route-line', 'visibility', navMode ? 'visible' : 'none');
+    }
+  }, [navMode, steps]);
 
   /* ─── Manual step navigation ──────────────────────────────────────── */
   const gotoStep = useCallback((newIdx: number) => {
@@ -1176,7 +1256,7 @@ export default function HeathrowMapPage() {
                           e.preventDefault();
                           setFromQuery(loc);
                           setShowFromRecs(false);
-                          flyToLocation(loc);
+                          flyToLocation(loc, 'source');
                         }}
                       >
                         <MapPin size={11} className="text-blue-400 shrink-0" />
@@ -1212,7 +1292,7 @@ export default function HeathrowMapPage() {
                           e.preventDefault();
                           setToQuery(loc);
                           setShowToRecs(false);
-                          flyToLocation(loc);
+                          flyToLocation(loc, 'destination');
                         }}
                       >
                         <MapPin size={11} className="text-purple-400 shrink-0" />
