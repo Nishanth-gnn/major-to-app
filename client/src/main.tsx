@@ -9,6 +9,7 @@ import { useDarkMode } from './shared/hooks/useDarkMode'
 import AuraModal from './features/ai-assistant/components/AuraModal'
 import { LanguageProvider } from './shared/context/LanguageContext'
 import TicketScanPage from './features/boarding-pass/pages/TicketScanPage'
+import './config/api'
 
 function AppContent() {
   const [auraOpen, setAuraOpen] = useState(false)

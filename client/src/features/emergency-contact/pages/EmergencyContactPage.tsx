@@ -6,6 +6,7 @@ import EmergencyNotice from '../components/EmergencyNotice'
 import CategorizedEmergencySelector from '../components/CategorizedEmergencySelector'
 import AlertConfirmationDashboard from '../components/AlertConfirmationDashboard'
 import { EmergencyReasonItem, EMERGENCY_REASONS } from '../data/emergencyCategories'
+import { apiFetch } from '../../../config/api'
 
 const ALERT_SENT_KEY = 'emergencyAlertSent_v2'
 const ALERT_DATA_KEY = 'emergencyAlertData_v2'
@@ -89,7 +90,7 @@ export default function EmergencyContactPage() {
         timestamp: new Date().toISOString(),
       }
 
-      const response = await fetch('/api/emergency-alert', {
+      const response = await apiFetch('/api/emergency-alert', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

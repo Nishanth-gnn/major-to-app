@@ -1,9 +1,10 @@
 import { Airport, MetroService, MultiModalOption, TelemetryData } from '../types';
 import { AIRPORTS, getMetroServicesForAirport, getMultiModalOptions } from '../data/transitData';
+import { apiFetch } from '../../../config/api';
 
 export async function fetchAirports(): Promise<Airport[]> {
   try {
-    const res = await fetch('/api/transit-services/airports');
+    const res = await apiFetch('/api/transit-services/airports');
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) return data;
@@ -16,7 +17,7 @@ export async function fetchAirports(): Promise<Airport[]> {
 
 export async function fetchMetroRoutes(airportId: string, destination: string): Promise<MetroService[]> {
   try {
-    const res = await fetch(`/api/transit-services/metro/routes?airportId=${airportId}&destination=${encodeURIComponent(destination)}`);
+    const res = await apiFetch(`/api/transit-services/metro/routes?airportId=${airportId}&destination=${encodeURIComponent(destination)}`);
     if (res.ok) {
       return await res.json();
     }
@@ -29,7 +30,7 @@ export async function fetchMetroRoutes(airportId: string, destination: string): 
 export async function fetchMultiModalComparison(airportId: string, destination: string): Promise<MultiModalOption[]> {
   const airport = AIRPORTS.find(a => a.id === airportId) || AIRPORTS[0];
   try {
-    const res = await fetch(`/api/transit-services/cab/estimate?airportId=${airportId}&destination=${encodeURIComponent(destination)}`);
+    const res = await apiFetch(`/api/transit-services/cab/estimate?airportId=${airportId}&destination=${encodeURIComponent(destination)}`);
     if (res.ok) {
       return await res.json();
     }

@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { computeAStar, nearestNode, NavGraph } from '../utils/astar';
 import { convertRouteToSteps, NavigationStep, GraphNode } from '../utils/route_to_steps';
+import { apiFetch } from '../../../config/api';
 import { calculateBearing } from '../utils/bearing';
 import { CHECKPOINT_REGIONS, CHECKPOINT_DEFINITIONS, CheckpointDef } from '../data/mapData';
 
@@ -1036,7 +1037,7 @@ export default function HeathrowMapPage() {
 
       if (isSecurity && !notifiedCheckpointsRef.current.has('security')) {
         notifiedCheckpointsRef.current.add('security');
-        fetch('/api/guardian/navigation/security-complete', {
+        apiFetch('/api/guardian/navigation/security-complete', {
           method: 'POST',
           headers,
         })
@@ -1056,7 +1057,7 @@ export default function HeathrowMapPage() {
           });
       } else if (isLuggage && !notifiedCheckpointsRef.current.has('luggage')) {
         notifiedCheckpointsRef.current.add('luggage');
-        fetch('/api/guardian/navigation/luggage-complete', {
+        apiFetch('/api/guardian/navigation/luggage-complete', {
           method: 'POST',
           headers,
         })

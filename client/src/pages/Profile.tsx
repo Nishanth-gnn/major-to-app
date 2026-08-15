@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { apiFetch } from '../config/api'
 import {
   User,
   ShieldCheck,
@@ -27,7 +28,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (!token) return
-    fetch('/api/guardian/status', {
+    apiFetch('/api/guardian/status', {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

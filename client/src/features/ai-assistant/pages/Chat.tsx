@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
+import { API_BASE_URL, apiFetch } from '../../../config/api';
 import { ArrowLeft, Send, Check, Loader, ChevronDown, Info, User, Star } from 'lucide-react';
 
 interface Message {
@@ -60,7 +61,7 @@ export default function ChatPage() {
   useEffect(() => {
     if (step !== 'chat') return;
 
-    const socket = io('http://localhost:4000');
+    const socket = io(API_BASE_URL);
     socketRef.current = socket;
 
     socket.on('connect', () => {
@@ -120,7 +121,7 @@ export default function ChatPage() {
     setChatHistory(prev => [...prev, userMessage]);
 
     try {
-      const res = await fetch('/api/support/send', {
+      const res = await apiFetch('/api/support/send', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -1,3 +1,5 @@
+import { apiFetch } from '../../../config/api';
+
 const API_BASE = '/api/airport-bus';
 
 export interface BusOfficialWebsite {
@@ -59,7 +61,7 @@ export async function investigateAirportBus(
   payload: BusInvestigationPayload
 ): Promise<BusServiceResult> {
   try {
-    const response = await fetch(`${API_BASE}/investigate`, {
+    const response = await apiFetch(`${API_BASE}/investigate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),

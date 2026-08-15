@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { X, Send, Loader, Plus, MessageSquare, Menu, Trash2, Mic, Square } from 'lucide-react';
 import { pois, findShortestPath } from '../../navigation/data/mapData';
+import { apiUrl } from '../../../config/api';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface AuraChat {
@@ -54,7 +55,7 @@ function dbToDisplay(m: DbMessage): DisplayMessage {
 
 // ── API helpers ───────────────────────────────────────────────────────────────
 async function apiFetch(url: string, options?: RequestInit) {
-  const res = await fetch(url, options);
+  const res = await fetch(apiUrl(url), options);
   const data = await res.json();
   if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
   return data;

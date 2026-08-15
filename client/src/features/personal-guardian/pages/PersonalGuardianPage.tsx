@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../home/components/Header';
+import { apiFetch } from '../../../config/api';
 import BottomNavigation from '../../home/components/BottomNavigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -101,7 +102,7 @@ export default function PersonalGuardianPage() {
   const fetchGuardianStatus = async () => {
     try {
       setIsFetchingStatus(true);
-      const res = await fetch('/api/guardian/status', {
+      const res = await apiFetch('/api/guardian/status', {
         headers: {
           Authorization: token ? `Bearer ${token}` : '',
         },
@@ -169,7 +170,7 @@ export default function PersonalGuardianPage() {
 
     setIsSavingConfig(true);
     try {
-      const res = await fetch('/api/guardian/email-config', {
+      const res = await apiFetch('/api/guardian/email-config', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -207,7 +208,7 @@ export default function PersonalGuardianPage() {
 
     setIsSendingOtp(true);
     try {
-      const res = await fetch('/api/guardian/send-otp', {
+      const res = await apiFetch('/api/guardian/send-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -252,7 +253,7 @@ export default function PersonalGuardianPage() {
 
     setIsVerifying(true);
     try {
-      const res = await fetch('/api/guardian/verify-otp', {
+      const res = await apiFetch('/api/guardian/verify-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -297,7 +298,7 @@ export default function PersonalGuardianPage() {
     if (!window.confirm('Are you sure you want to remove this guardian?')) return;
     try {
       setRemovingId(id);
-      const res = await fetch(`/api/guardian/${id}`, {
+      const res = await apiFetch(`/api/guardian/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: token ? `Bearer ${token}` : '',

@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import { GeminiTranslationProvider } from '../services/GeminiTranslationProvider';
+import { apiUrl } from '../../../config/api';
 import {
   ConversationEntry,
   LanguageOption,
@@ -41,8 +42,7 @@ function speakText(text: string, bcp47: string): Promise<'spoke' | 'silent'> {
     const langPrefix = bcp47.split('-')[0];
     
     // Proxy through our backend to bypass Google's Referer 404 blocking
-    // The Vite dev server will proxy /api to localhost:4000
-    const url = `/api/tts?lang=${langPrefix}&text=${encodeURIComponent(text)}`;
+    const url = apiUrl(`/api/tts?lang=${langPrefix}&text=${encodeURIComponent(text)}`);
     
     const audio = new Audio(url);
     audio.volume = 1.0;

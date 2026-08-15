@@ -1,3 +1,5 @@
+import { apiFetch } from '../../../config/api';
+
 const API_BASE = '/api/metro-tracking';
 
 export interface MetroOfficialWebsite {
@@ -118,7 +120,7 @@ export interface InvestigatePayload {
 export async function investigateAirportMetro(
   payload: InvestigatePayload
 ): Promise<MetroInvestigationResult> {
-  const response = await fetch(`${API_BASE}/investigate`, {
+  const response = await apiFetch(`${API_BASE}/investigate`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),

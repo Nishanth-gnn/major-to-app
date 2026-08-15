@@ -4,6 +4,7 @@ import { ArrowLeft, ShieldAlert, CheckCircle2, Clock, MapPin, User, FileText, Ac
 import { motion } from 'framer-motion';
 import LiveTrackingMap from '../../transit-services/components/LiveTrackingMap';
 import { AGENCIES, AgencyType } from '../data/emergencyCategories';
+import { apiFetch } from '../../../config/api';
 
 interface ActiveStaffAlert {
   id: string;
@@ -61,7 +62,7 @@ export default function StaffResponseDashboardPage() {
 
   // Fetch server alerts if available
   useEffect(() => {
-    fetch('/api/emergency-alert/active')
+    apiFetch('/api/emergency-alert/active')
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
@@ -78,7 +79,7 @@ export default function StaffResponseDashboardPage() {
     );
 
     // Sync with backend if available
-    fetch(`/api/emergency-alert/${id}/status`, {
+    apiFetch(`/api/emergency-alert/${id}/status`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status: newStatus }),

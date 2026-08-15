@@ -1,4 +1,5 @@
 import { TrackBusResponse, BusLocationResponse } from '../types';
+import { apiFetch } from '../../../config/api';
 
 /**
  * Sends a tracking request to the backend Decision Engine via POST /api/bus-service/track/:driverId.
@@ -7,7 +8,7 @@ export async function requestBusTracking(
   driverId: string,
   driverName?: string,
 ): Promise<TrackBusResponse> {
-  const response = await fetch(
+  const response = await apiFetch(
     `/api/bus-service/track/${driverId}`,
     {
       method: 'POST',
@@ -30,7 +31,7 @@ export async function requestBusTracking(
 export async function getBusLocation(
   driverId: string,
 ): Promise<BusLocationResponse> {
-  const response = await fetch(
+  const response = await apiFetch(
     `/api/bus-service/location/${driverId}`,
     {
       method: 'GET',
