@@ -5,11 +5,10 @@ export default function BottomNavigation() {
   const loc = useLocation()
 
   const navItems = [
-    { to: '/',             label: 'Home',     icon: '🏠' },
-    { to: '/navigate',     label: 'Navigate', icon: '🧭' },
-    // index 2 = Aura (handled separately below)
-    { to: '/heathrow-map', label: 'Map',      icon: '🗺️' },
-    { to: '/profile',      label: 'Profile',  icon: '👤' },
+    { to: '/', label: 'Home', icon: '🏠' },
+    { to: '/navigation', label: 'Navigation', icon: '🧭' },
+    { to: '/baggage-guidance', label: 'Baggage', icon: '🧳' },
+    { to: '/profile', label: 'Profile', icon: '👤' },
   ]
 
   const openAura = () => {
@@ -20,7 +19,7 @@ export default function BottomNavigation() {
     <>
       {/* ── Bottom Navigation Bar ─────────────────────────────────────────── */}
       <div
-        className="fixed bottom-0 left-0 right-0 bg-white border-t p-3 safe-bottom"
+        className="fixed bottom-0 left-0 right-0 bg-white border-t p-3 safe-bottom z-40"
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
         <div className="max-w-3xl mx-auto flex items-center justify-between">
@@ -34,10 +33,10 @@ export default function BottomNavigation() {
             <span className="text-[11px]">{navItems[0].label}</span>
           </Link>
 
-          {/* Navigate */}
+          {/* Navigation */}
           <Link
             to={navItems[1].to}
-            className={`flex-1 flex flex-col items-center gap-0.5 text-center ${loc.pathname === navItems[1].to ? 'text-blue-600 font-semibold' : 'text-slate-500'}`}
+            className={`flex-1 flex flex-col items-center gap-0.5 text-center ${loc.pathname === navItems[1].to || loc.pathname === '/heathrow-map' || loc.pathname === '/navigate' ? 'text-blue-600 font-semibold' : 'text-slate-500'}`}
           >
             <span className="text-base leading-none">{navItems[1].icon}</span>
             <span className="text-[11px]">{navItems[1].label}</span>
@@ -61,7 +60,7 @@ export default function BottomNavigation() {
             </div>
           </button>
 
-          {/* Map */}
+          {/* Baggage */}
           <Link
             to={navItems[2].to}
             className={`flex-1 flex flex-col items-center gap-0.5 text-center ${loc.pathname === navItems[2].to ? 'text-blue-600 font-semibold' : 'text-slate-500'}`}

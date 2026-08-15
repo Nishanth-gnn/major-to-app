@@ -136,12 +136,12 @@ export default function BoardingPassPage() {
 
           {/* ── Detail grid ── */}
           <motion.div variants={item} className="grid grid-cols-2 gap-3">
-            <DataField icon={Plane}        label="Flight ID"  value={data.flight_id} />
-            <DataField icon={Calendar}     label="Date"       value={data.date} />
-            <DataField icon={Armchair}     label="Seat"       value={data.seat} />
-            <DataField icon={MapPin}       label="Terminal"   value={data.terminal} />
-            <DataField icon={PlaneTakeoff} label="From"       value={data.from} />
-            <DataField icon={PlaneLanding} label="To"         value={data.to} />
+            <DataField icon={Plane} label="Flight ID" value={data.flight_id} />
+            <DataField icon={Calendar} label="Date" value={data.date} />
+            <DataField icon={Armchair} label="Seat" value={data.seat} />
+            <DataField icon={MapPin} label="Terminal" value={data.terminal} />
+            <DataField icon={PlaneTakeoff} label="From" value={data.from} />
+            <DataField icon={PlaneLanding} label="To" value={data.to} />
           </motion.div>
 
           {/* ── Go Back button ── */}

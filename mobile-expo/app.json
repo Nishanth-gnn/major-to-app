@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "SKYOS Mobile",
+    "slug": "skyos-mobile",
+    "platforms": ["ios","android"],
+    "sdkVersion": "UNVERSIONED",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "assetBundlePatterns": ["**/*"],
+    "scheme": "skyos",
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}
+

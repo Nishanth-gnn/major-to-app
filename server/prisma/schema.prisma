@@ -94,3 +94,41 @@ model BusTracking {
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 }
+
+// ── Personal Guardian ──────────────────────────────────────────────────────────
+
+model PersonalGuardian {
+  id               String    @id @default(uuid())
+  userId           String
+  guardianEmail    String
+  guardianName     String    @default("")
+  guardianVerified Boolean   @default(false)
+  verifiedAt       DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@unique([userId, guardianEmail])
+}
+
+model GuardianOtp {
+  id        String   @id @default(uuid())
+  userId    String
+  email     String
+  otpHash   String
+  attempts  Int      @default(0)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+}
+
+model GuardianEmailConfig {
+  id              String   @id @default(cuid())
+  userId          String
+  guardianEmail   String
+  smtpUser        String
+  smtpAppPassword String
+  createdAt       DateTime @default(now())
+
+  @@unique([userId, guardianEmail])
+}
+
+

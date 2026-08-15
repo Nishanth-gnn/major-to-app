@@ -19,14 +19,15 @@ const flight = {
 }
 
 const quickActions = [
-  { id: 'navigate', title: 'Navigate', to: '/navigate' },
-  { id: 'staff', title: 'Customer Support', to: '/chat', badge: 'NEW' },
+  { id: 'guardian', title: 'Personal Guardian', icon: '🤝', to: '/personal-guardian', badge: 'NEW' },
+  { id: 'navigate', title: 'Navigation', to: '/navigation' },
+  { id: 'meal-delivery', title: 'Meal Delivery', icon: '✈️', to: '/meal-delivery' },
+  { id: 'staff', title: 'Customer Support', to: '/chat' },
   { id: 'translate', title: 'Translate', to: '/translate' },
   { id: 'checkin', title: 'Baggage Guidance', to: '/baggage-guidance' },
   { id: 'transit', title: 'Flight Tracking', to: '/flight-tracking' },
   { id: 'emergency', title: 'Emergency Contact', to: '/emergency-contact' },
-  { id: 'bus-service', title: 'Bus Service', icon: '🚌', to: '/bus-service' },
-  { id: 'heathrow-map', title: 'View Map', icon: '🗺️', to: '/heathrow-map', badge: 'OSM' }
+  { id: 'transit-services', title: 'Airport Transit Services', icon: '🚆', to: '/transit-services' },
 ]
 
 const emergencyActions = [

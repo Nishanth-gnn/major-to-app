@@ -1,16 +1,137 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Map, NavigationControl, LngLatBounds, Marker } from 'maplibre-gl';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Map, NavigationControl, LngLatBounds, Marker, Popup } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import {
   ArrowLeft, Maximize2, Minimize2, Navigation as NavIcon,
   Search, Layers, X, MapPin, Info, ArrowUp, ArrowRight,
   ArrowUpRight, ArrowUpLeft, CheckCircle2, CornerUpLeft,
-  CornerUpRight, Undo2
+  CornerUpRight, Undo2, ShieldCheck, Luggage
 } from 'lucide-react';
 import { computeAStar, nearestNode, NavGraph } from '../utils/astar';
 import { convertRouteToSteps, NavigationStep, GraphNode } from '../utils/route_to_steps';
 import { calculateBearing } from '../utils/bearing';
+import { CHECKPOINT_REGIONS, CHECKPOINT_DEFINITIONS, CheckpointDef } from '../data/mapData';
+
+/* ─── Path P1 Definition ─────────────────────────────────────────────────── */
+const PATH_P1 = {
+  id: 'P1',
+  startQuery: 'entrance 10',
+  destQuery: 'gate a9',
+  checkpoints: CHECKPOINT_DEFINITIONS,
+};
+
+/** Detect if a route qualifies as Path P1 */
+function isPathP1(fromQuery: string, toQuery: string): boolean {
+  const f = fromQuery.toLowerCase().trim();
+  const t = toQuery.toLowerCase().trim();
+  return (
+    (f.includes('entrance 10') || f.includes('entrance10')) &&
+    (t.includes('gate a9') || t.includes('a9'))
+  );
+}
+
+/**
+ * Inject checkpoint steps into the route steps for Path P1.
+ * Guarantees:
+ *  - Security North inserted after step index ~25% of route
+ *  - At least 2 walking steps between Security North and Luggage Check
+ *  - Luggage Check inserted around 55% of route
+ *  - At least 2 walking steps between Luggage Check and Gate A9
+ */
+function injectCheckpointSteps(
+  steps: NavigationStep[],
+  checkpoints: CheckpointDef[]
+): NavigationStep[] {
+  if (!steps.length || !checkpoints.length) return steps;
+
+  // Filter out the arrive step temporarily
+  const arriveStep = steps.find(s => s.action === 'arrive');
+  const walkSteps  = steps.filter(s => s.action !== 'arrive');
+
+  const total = walkSteps.length;
+  if (total < 6) {
+    // Not enough steps — insert after step 1 and 3 minimally
+    const result = [...walkSteps];
+    const secCP = checkpoints.find(c => c.type === 'security');
+    const lugCP = checkpoints.find(c => c.type === 'luggage');
+
+    if (secCP) {
+      result.splice(1, 0, makeCheckpointStep(secCP, result[0]));
+    }
+    if (lugCP) {
+      const insertAt = Math.min(4, result.length - 1);
+      result.splice(insertAt, 0, makeCheckpointStep(lugCP, result[insertAt - 1]));
+    }
+    return arriveStep ? [...result, arriveStep] : result;
+  }
+
+  // Normal case: plenty of walk steps
+  // Security North: after ~20-25% of walk steps (min index 1)
+  const secInsertAfter = Math.max(1, Math.floor(total * 0.22));
+  // Luggage Check: at least 2 steps after Security North, around 55%
+  const lugInsertAfter = Math.max(secInsertAfter + 3, Math.floor(total * 0.55));
+  // Arrive: at least 2 walk steps remain after luggage check
+  const lugMaxInsert = total - 3;
+
+  const result: NavigationStep[] = [];
+  let secInjected = false;
+  let lugInjected = false;
+
+  walkSteps.forEach((step, i) => {
+    result.push(step);
+
+    // Inject Security North after secInsertAfter index
+    if (!secInjected && i >= secInsertAfter) {
+      const secCP = checkpoints.find(c => c.type === 'security');
+      if (secCP) {
+        result.push(makeCheckpointStep(secCP, step));
+        secInjected = true;
+      }
+    }
+
+    // Inject Luggage Check — at least 2 regular steps after security checkpoint step
+    const secIdx = result.findIndex(s => s.checkpoint?.type === 'security');
+    const regularStepsSinceSec = secIdx >= 0
+      ? result.slice(secIdx + 1).filter(s => !s.checkpoint).length
+      : 0;
+
+    if (
+      !lugInjected && secInjected &&
+      regularStepsSinceSec >= 2 &&
+      i >= Math.min(lugInsertAfter, lugMaxInsert)
+    ) {
+      const lugCP = checkpoints.find(c => c.type === 'luggage');
+      if (lugCP) {
+        result.push(makeCheckpointStep(lugCP, step));
+        lugInjected = true;
+      }
+    }
+  });
+
+  if (arriveStep) result.push(arriveStep);
+  return result;
+}
+
+function makeCheckpointStep(cp: CheckpointDef, anchorStep: NavigationStep): NavigationStep {
+  return {
+    id: `checkpoint-${cp.id}`,
+    action: 'arrive' as any,
+    instruction: `${cp.type === 'security' ? 'Pass through' : 'Proceed through'} ${cp.name}`,
+    distanceMeters: 0,
+    startNodeIdx: anchorStep.endNodeIdx,
+    endNodeIdx: anchorStep.endNodeIdx,
+    level: anchorStep.level,
+    coordinates: anchorStep.coordinates.slice(-1),
+    checkpoint: {
+      id: cp.id,
+      name: cp.name,
+      type: cp.type,
+      color: cp.color,
+    },
+  };
+}
+
 
 /* ─── Constants ─────────────────────────────────────────────────────────── */
 const CENTER: [number, number] = [-0.4614, 51.4775];
@@ -88,6 +209,7 @@ function featureCentroid(f: any): [number, number] | null {
 ═══════════════════════════════════════════════════════════════════════════ */
 export default function HeathrowMapPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef       = useRef<Map | null>(null);
   const navGraphRef  = useRef<NavGraph | null>(null);
@@ -103,9 +225,15 @@ export default function HeathrowMapPage() {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const tooltipTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+
+  /* ── Checkpoint hover tooltip ── */
+  const checkpointPopupRef = useRef<Popup | null>(null);
+
   /* ── Route planner ── */
-  const [fromQuery, setFromQuery] = useState('');
-  const [toQuery, setToQuery]     = useState('');
+  const [fromQuery, setFromQuery]       = useState('');
+  const [toQuery, setToQuery]           = useState('');
+  const [showFromRecs, setShowFromRecs] = useState(false);
+  const [showToRecs, setShowToRecs]     = useState(false);
 
   /* ── Navigation state ── */
   const [navMode, setNavMode]       = useState(false);
@@ -119,6 +247,59 @@ export default function HeathrowMapPage() {
   const userMarkerRef = useRef<Marker | null>(null);
   const stepsRef      = useRef<NavigationStep[]>([]);
   const activeStepRef = useRef(0);
+
+  /* ── Mentor navigation notification state & duplicate protection ── */
+  const notifiedCheckpointsRef = useRef<Set<string>>(new Set());
+  const [notificationStatus, setNotificationStatus] = useState<string | null>(null);
+
+  /* ─── Search Recommender Helpers (2-way Case-Insensitive) ──────────── */
+  const getAllLocations = useCallback((): string[] => {
+    const set = new Set<string>();
+    const defaults = [
+      'Terminal T1', 'Terminal T2', 'Terminal T3', 'Terminal T4', 'Terminal T5', 'Terminal T6',
+      'BA Galleries Club Lounge', 'Galleries First Lounge', 'Concorde Room',
+      'Main Entrance 01', 'Main Entrance 02', 'Entrance 86', 'Entrance 01', 'Entrance 02',
+      'Gate A1', 'Gate A6', 'Gate A10', 'Gate A12', 'Gate B36', 'Gate C54',
+      'Security Checkpoint 1', 'Security Checkpoint 2', 'Passport Control',
+      'Baggage Claim Hall', 'Duty Free Shop', 'Starbucks Coffee', 'Costa Coffee'
+    ];
+    defaults.forEach(d => set.add(d));
+
+    if (allFeaturesRef.current) {
+      allFeaturesRef.current.forEach(f => {
+        const p = f.properties || {};
+        const lbl = p._label || p.name || p.ref;
+        if (lbl && typeof lbl === 'string' && lbl.trim().length > 1) {
+          set.add(lbl.trim());
+        }
+      });
+    }
+    return Array.from(set);
+  }, []);
+
+  const getRecommendations = (query: string): string[] => {
+    if (!query || !query.trim()) return [];
+    const qLower = query.toLowerCase().trim();
+    const locs = getAllLocations();
+
+    // 2-way lowercase comparison
+    const matched = locs.filter(loc => {
+      const locLower = loc.toLowerCase();
+      return locLower.includes(qLower) || qLower.includes(locLower);
+    });
+
+    matched.sort((a, b) => {
+      const aLower = a.toLowerCase();
+      const bLower = b.toLowerCase();
+      const aStart = aLower.startsWith(qLower);
+      const bStart = bLower.startsWith(qLower);
+      if (aStart && !bStart) return -1;
+      if (!aStart && bStart) return 1;
+      return a.localeCompare(b);
+    });
+
+    return matched.slice(0, 8);
+  };
 
   /* ─── Tooltip helpers ─────────────────────────────────────────────── */
   const showTooltip = useCallback((data: TooltipData) => {
@@ -338,6 +519,117 @@ export default function HeathrowMapPage() {
       }
 
       allFeaturesRef.current = allFeats;
+
+      /* ── Add Checkpoint Regions (Security North & Luggage Check) ── */
+      try {
+        if (!map.getSource('checkpoint-regions')) {
+          map.addSource('checkpoint-regions', {
+            type: 'geojson',
+            data: CHECKPOINT_REGIONS as any,
+          });
+        }
+
+        /* Fill layer */
+        if (!map.getLayer('checkpoint-fill')) {
+          map.addLayer({
+            id: 'checkpoint-fill',
+            type: 'fill',
+            source: 'checkpoint-regions',
+            paint: {
+              'fill-color': ['get', 'fillColor'],
+              'fill-opacity': 0.35,
+            },
+          });
+        }
+
+        /* Outline layer */
+        if (!map.getLayer('checkpoint-outline')) {
+          map.addLayer({
+            id: 'checkpoint-outline',
+            type: 'line',
+            source: 'checkpoint-regions',
+            paint: {
+              'line-color': ['get', 'strokeColor'],
+              'line-width': 2.5,
+              'line-opacity': 0.85,
+            },
+          });
+        }
+
+        /* Label layer */
+        if (!map.getLayer('checkpoint-label')) {
+          map.addLayer({
+            id: 'checkpoint-label',
+            type: 'symbol',
+            source: 'checkpoint-regions',
+            layout: {
+              'text-field': ['get', '_label'],
+              'text-size': 12,
+              'text-anchor': 'center',
+              'text-allow-overlap': true,
+              'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+            },
+            paint: {
+              'text-color': '#ffffff',
+              'text-halo-color': '#000000',
+              'text-halo-width': 2,
+            },
+          });
+        }
+
+        /* Hover interaction using MapLibre Popup */
+        map.on('mouseenter', 'checkpoint-fill', (e) => {
+          map.getCanvas().style.cursor = 'pointer';
+          const feature = e.features?.[0];
+          if (!feature) return;
+          const name = (feature.properties as any)?._label || (feature.properties as any)?.name || 'Checkpoint';
+          const type = (feature.properties as any)?.type || 'security';
+          const bgColor = type === 'security' ? '#7f1d1d' : '#713f12';
+          const borderColor = type === 'security' ? '#ff3344' : '#ffea00';
+          const icon = type === 'security' ? '🛡️' : '🧳';
+
+          checkpointPopupRef.current?.remove();
+          checkpointPopupRef.current = new Popup({
+            closeButton: false,
+            closeOnClick: false,
+            className: 'checkpoint-popup',
+            offset: 8,
+          })
+            .setLngLat(e.lngLat)
+            .setHTML(`
+              <div style="
+                background:${bgColor};
+                border:1.5px solid ${borderColor};
+                border-radius:10px;
+                padding:6px 12px;
+                color:#fff;
+                font-size:12px;
+                font-weight:700;
+                font-family:Inter,system-ui,sans-serif;
+                display:flex;
+                align-items:center;
+                gap:6px;
+                box-shadow:0 4px 20px rgba(0,0,0,0.6);
+              ">
+                <span>${icon}</span>
+                <span>${name}</span>
+              </div>
+            `)
+            .addTo(map);
+        });
+
+        map.on('mouseleave', 'checkpoint-fill', () => {
+          map.getCanvas().style.cursor = '';
+          checkpointPopupRef.current?.remove();
+          checkpointPopupRef.current = null;
+        });
+
+        map.on('mousemove', 'checkpoint-fill', (e) => {
+          checkpointPopupRef.current?.setLngLat(e.lngLat);
+        });
+
+      } catch (cpErr) { console.warn('[Checkpoint regions failed]', cpErr); }
+
       setLoadMsg('Ready');
       setLoading(false);
     });
@@ -345,22 +637,45 @@ export default function HeathrowMapPage() {
     return () => {
       if (tooltipTimer.current) clearTimeout(tooltipTimer.current);
       userMarkerRef.current?.remove();
+      checkpointPopupRef.current?.remove();
       map.remove();
       mapRef.current = null;
     };
   }, [showTooltip, hideTooltip]);
 
-  /* ─── Route Finding ──────────────────────────────────────────────── */
+  /* ─── Route Finding with 2-way Case-Insensitive Matching ───────────── */
   const findFeatureByQuery = (q: string): { coords: [number, number]; level: number } | null => {
-    if (!q.trim()) return null;
-    const tokens = q.toLowerCase().trim().split(/\s+/);
-    // Search through all loaded features
-    const feat = allFeaturesRef.current.find(f => {
+    if (!q || !q.trim()) return null;
+    const qClean = q.toLowerCase().trim();
+
+    // 1. Exact case-insensitive match
+    let feat = allFeaturesRef.current.find(f => {
       const p = f.properties || {};
-      const hay = [p._label, p.name, p.ref, p._category, p.aeroway, p.amenity, p.highway]
-        .filter(Boolean).join(' ').toLowerCase();
-      return tokens.every(tok => hay.includes(tok));
+      const lbl = (p._label || p.name || p.ref || '').toLowerCase().trim();
+      return lbl === qClean;
     });
+
+    // 2. 2-way case-insensitive comparison
+    if (!feat) {
+      feat = allFeaturesRef.current.find(f => {
+        const p = f.properties || {};
+        const hay = [p._label, p.name, p.ref, p._category, p.aeroway, p.amenity, p.highway]
+          .filter(Boolean).join(' ').toLowerCase();
+        return hay.includes(qClean) || qClean.includes(hay);
+      });
+    }
+
+    // 3. Token match
+    if (!feat) {
+      const tokens = qClean.split(/\s+/);
+      feat = allFeaturesRef.current.find(f => {
+        const p = f.properties || {};
+        const hay = [p._label, p.name, p.ref, p._category, p.aeroway, p.amenity, p.highway]
+          .filter(Boolean).join(' ').toLowerCase();
+        return tokens.every(tok => hay.includes(tok));
+      });
+    }
+
     if (!feat) return null;
     const coords = featureCentroid(feat);
     if (!coords) return null;
@@ -396,8 +711,59 @@ export default function HeathrowMapPage() {
     }
 
     const pathNodes = path.map(k => graph.nodes[k]);
-    const genSteps  = convertRouteToSteps(pathNodes);
-    const totalD    = genSteps.reduce((s, st) => s + st.distanceMeters, 0);
+    let genSteps = convertRouteToSteps(pathNodes);
+
+    /* ── Path P1: inject Security North & Luggage Check checkpoints ── */
+    if (isPathP1(fromQuery, toQuery)) {
+      genSteps = injectCheckpointSteps(genSteps, PATH_P1.checkpoints);
+
+      /* Dynamically update checkpoint polygon positions to match the actual route */
+      try {
+        const cpSteps = genSteps.filter(s => s.checkpoint);
+        if (cpSteps.length > 0) {
+          const dynamicFeatures = cpSteps.map(step => {
+            const cp = step.checkpoint!;
+            // Use the last coordinate of the anchor step (where the user is at that point)
+            const coord = step.coordinates[step.coordinates.length - 1] ||
+                          step.coordinates[0];
+            const lng = coord[0];
+            const lat = coord[1];
+            // Create a box ~25m wide centred on the route node
+            const d = 0.00022;
+            return {
+              type: 'Feature' as const,
+              id: cp.id,
+              properties: {
+                id: cp.id,
+                name: cp.name,
+                _label: cp.name,
+                type: cp.type,
+                color: cp.color,
+                fillColor: cp.color,
+                strokeColor: cp.color,
+              },
+              geometry: {
+                type: 'Polygon' as const,
+                coordinates: [[
+                  [lng - d, lat - d],
+                  [lng + d, lat - d],
+                  [lng + d, lat + d],
+                  [lng - d, lat + d],
+                  [lng - d, lat - d],
+                ]],
+              },
+            };
+          });
+
+          const src = map.getSource('checkpoint-regions') as any;
+          if (src?.setData) {
+            src.setData({ type: 'FeatureCollection', features: dynamicFeatures });
+          }
+        }
+      } catch (cpErr) { console.warn('[Checkpoint dynamic update failed]', cpErr); }
+    }
+
+    const totalD = genSteps.reduce((s, st) => s + st.distanceMeters, 0);
 
     setSteps(genSteps);
     stepsRef.current = genSteps;
@@ -433,6 +799,43 @@ export default function HeathrowMapPage() {
     map.fitBounds(bounds, { padding: 80, duration: 900, maxZoom: 18 });
   }, [fromQuery, toQuery]);
 
+  /* ─── Auto-route trigger on load / route params ────────────────────── */
+  useEffect(() => {
+    if (loading) return;
+
+    const params  = new URLSearchParams(location.search);
+    const state   = location.state as any;
+    const fromVal = params.get('from') || state?.from;
+    const toVal   = params.get('to')   || state?.to || state?.autoSelectPoiId;
+
+    if (fromVal) setFromQuery(fromVal);
+    if (toVal)   setToQuery(toVal);
+
+    if (fromVal && toVal) {
+      const timer = setTimeout(() => {
+        handleRoute();
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [location.search, location.state, loading, handleRoute]);
+
+  /* ─── Fly map to a named location ─────────────────────────────────── */
+  const flyToLocation = useCallback((query: string) => {
+    const map = mapRef.current;
+    if (!map || !query.trim()) return;
+    const loc = findFeatureByQuery(query);
+    if (!loc) return;
+    map.flyTo({
+      center: loc.coords,
+      zoom: 18,
+      pitch: 30,
+      bearing: 0,
+      duration: 1000,
+      essential: true,
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allFeaturesRef]);
+
   /* ─── Camera helper ───────────────────────────────────────────────── */
   const cameraToStep = useCallback((stepIdx: number, instant = false) => {
     const map = mapRef.current;
@@ -461,6 +864,8 @@ export default function HeathrowMapPage() {
     setNavMode(true);
     setActiveStep(0);
     activeStepRef.current = 0;
+    notifiedCheckpointsRef.current.clear();
+    setNotificationStatus(null);
     hideTooltip();
 
     /* Place user marker at step 0 */
@@ -491,6 +896,8 @@ export default function HeathrowMapPage() {
     setNavMode(false);
     setActiveStep(0);
     activeStepRef.current = 0;
+    notifiedCheckpointsRef.current.clear();
+    setNotificationStatus(null);
     mapRef.current?.easeTo({ pitch: 0, bearing: 0, zoom: 15, duration: 700 });
   }, []);
 
@@ -517,7 +924,84 @@ export default function HeathrowMapPage() {
     cameraToStep(newIdx);
   }, [cameraToStep]);
 
-  const handleNextStep = useCallback(() => gotoStep(activeStepRef.current + 1), [gotoStep]);
+  const handleNextStep = useCallback(() => {
+    const currentIdx = activeStepRef.current;
+    const currentStep = stepsRef.current[currentIdx];
+
+    if (currentStep) {
+      const instrLower = (currentStep.instruction || '').toLowerCase();
+      const titleLower = (currentStep.title || '').toLowerCase();
+      const cpNameLower = (currentStep.checkpoint?.name || '').toLowerCase();
+
+      const isSecurity = currentStep.checkpoint?.type === 'security' ||
+                         instrLower.includes('security') ||
+                         titleLower.includes('security') ||
+                         cpNameLower.includes('security');
+
+      const isLuggage  = currentStep.checkpoint?.type === 'luggage' ||
+                         instrLower.includes('luggage') ||
+                         instrLower.includes('baggage') ||
+                         titleLower.includes('luggage') ||
+                         titleLower.includes('baggage') ||
+                         cpNameLower.includes('luggage') ||
+                         cpNameLower.includes('baggage');
+
+      const token = localStorage.getItem('token');
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+      };
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      if (isSecurity && !notifiedCheckpointsRef.current.has('security')) {
+        notifiedCheckpointsRef.current.add('security');
+        fetch('/api/guardian/navigation/security-complete', {
+          method: 'POST',
+          headers,
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success && data.guardianNotified) {
+              setNotificationStatus('✓ Personal Guardian notified via email');
+              setTimeout(() => setNotificationStatus(null), 4000);
+            } else if (data.success && !data.guardianNotified) {
+              console.log('[Navigation] No verified guardian found to notify.');
+            }
+          })
+          .catch(err => {
+            console.error('Failed to notify guardian for security complete:', err);
+            setNotificationStatus('⚠ Guardian notification could not be sent.');
+            setTimeout(() => setNotificationStatus(null), 4000);
+          });
+      } else if (isLuggage && !notifiedCheckpointsRef.current.has('luggage')) {
+        notifiedCheckpointsRef.current.add('luggage');
+        fetch('/api/guardian/navigation/luggage-complete', {
+          method: 'POST',
+          headers,
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success && data.guardianNotified) {
+              setNotificationStatus('✓ Personal Guardian notified via email');
+              setTimeout(() => setNotificationStatus(null), 4000);
+            } else if (data.success && !data.guardianNotified) {
+              console.log('[Navigation] No verified guardian found to notify.');
+            }
+          })
+          .catch(err => {
+            console.error('Failed to notify guardian for luggage complete:', err);
+            setNotificationStatus('⚠ Guardian notification could not be sent.');
+            setTimeout(() => setNotificationStatus(null), 4000);
+          });
+      }
+    }
+
+    // Advance to next step immediately
+    gotoStep(currentIdx + 1);
+  }, [gotoStep]);
+
+
   const handlePrevStep = useCallback(() => gotoStep(activeStepRef.current - 1), [gotoStep]);
 
   /* ─── Tooltip safe position ───────────────────────────────────────── */
@@ -535,6 +1019,9 @@ export default function HeathrowMapPage() {
 
   const mins = Math.ceil(eta / 60);
   const currentStep = steps[activeStep];
+
+  const fromRecs = getRecommendations(fromQuery);
+  const toRecs   = getRecommendations(toQuery);
 
   /* ═══════════════════════════════════════════════════════════════════
      Render
@@ -657,49 +1144,107 @@ export default function HeathrowMapPage() {
 
         {/* ── Route Planner panel ───────────────────────────────── */}
         {!navMode && !loading && (
-          <div className="absolute top-4 left-4 w-72 bg-[#0a1020]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl z-10">
+          <div className="absolute top-4 left-4 w-80 bg-[#0a1020]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl z-30">
             <h3 className="text-white text-sm font-bold mb-3 flex items-center gap-2">
               <NavIcon size={15} className="text-blue-400" />
               Route Planner
             </h3>
-            <div className="space-y-2">
+            <div className="space-y-3">
+
+              {/* From Input + Autocomplete Recommender */}
               <div className="relative">
-                <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                <Search size={13} className="absolute left-3 top-3 text-gray-400 z-10" />
                 <input
                   type="text"
-                  className="w-full bg-white/5 border border-white/10 rounded-lg pl-8 pr-3 py-2 text-sm text-white placeholder-gray-500 outline-none focus:border-blue-500 transition-colors"
-                  placeholder="From (e.g. Gate 19 T3, T5 Entrance)"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl pl-8 pr-3 py-2 text-xs text-white placeholder-gray-400 outline-none focus:border-blue-500 transition-colors"
+                  placeholder="From (e.g. BA Galleries Lounge, Entrance 86)"
                   value={fromQuery}
-                  onChange={e => setFromQuery(e.target.value)}
+                  onFocus={() => { setShowFromRecs(true); setShowToRecs(false); }}
+                  onChange={e => { setFromQuery(e.target.value); setShowFromRecs(true); }}
                   onKeyDown={e => e.key === 'Enter' && handleRoute()}
                 />
+                {showFromRecs && fromRecs.length > 0 && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-[#0b1324] border border-blue-500/40 rounded-xl shadow-2xl z-50 max-h-48 overflow-y-auto divide-y divide-white/5">
+                    <div className="px-3 py-1.5 text-[10px] font-bold uppercase text-blue-400 bg-blue-500/20">
+                      Matching Locations ({fromRecs.length})
+                    </div>
+                    {fromRecs.map((loc, idx) => (
+                      <button
+                        key={idx}
+                        className="w-full text-left px-3 py-2 text-xs text-gray-200 hover:bg-blue-600/40 hover:text-white transition-colors flex items-center gap-2"
+                        onMouseDown={(e) => {
+                          e.preventDefault();
+                          setFromQuery(loc);
+                          setShowFromRecs(false);
+                          flyToLocation(loc);
+                        }}
+                      >
+                        <MapPin size={11} className="text-blue-400 shrink-0" />
+                        <span className="truncate">{loc}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
+
+              {/* To Input + Autocomplete Recommender */}
               <div className="relative">
-                <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                <Search size={13} className="absolute left-3 top-3 text-gray-400 z-10" />
                 <input
                   type="text"
-                  className="w-full bg-white/5 border border-white/10 rounded-lg pl-8 pr-3 py-2 text-sm text-white placeholder-gray-500 outline-none focus:border-purple-500 transition-colors"
-                  placeholder="To (e.g. Gate 42 T3, Security)"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl pl-8 pr-3 py-2 text-xs text-white placeholder-gray-400 outline-none focus:border-purple-500 transition-colors"
+                  placeholder="To (e.g. Entrance 86, Gate A12, Terminal T6)"
                   value={toQuery}
-                  onChange={e => setToQuery(e.target.value)}
+                  onFocus={() => { setShowToRecs(true); setShowFromRecs(false); }}
+                  onChange={e => { setToQuery(e.target.value); setShowToRecs(true); }}
                   onKeyDown={e => e.key === 'Enter' && handleRoute()}
                 />
+                {showToRecs && toRecs.length > 0 && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-[#0b1324] border border-purple-500/40 rounded-xl shadow-2xl z-50 max-h-48 overflow-y-auto divide-y divide-white/5">
+                    <div className="px-3 py-1.5 text-[10px] font-bold uppercase text-purple-400 bg-purple-500/20">
+                      Matching Locations ({toRecs.length})
+                    </div>
+                    {toRecs.map((loc, idx) => (
+                      <button
+                        key={idx}
+                        className="w-full text-left px-3 py-2 text-xs text-gray-200 hover:bg-purple-600/40 hover:text-white transition-colors flex items-center gap-2"
+                        onMouseDown={(e) => {
+                          e.preventDefault();
+                          setToQuery(loc);
+                          setShowToRecs(false);
+                          flyToLocation(loc);
+                        }}
+                      >
+                        <MapPin size={11} className="text-purple-400 shrink-0" />
+                        <span className="truncate">{loc}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
+
               {routeError && (
                 <div className="text-xs text-red-400 bg-red-400/10 rounded-lg px-3 py-2">{routeError}</div>
               )}
+
               <div className="flex gap-2 pt-1">
-                <button onClick={handleRoute}
-                  className="flex-1 bg-white/10 hover:bg-white/20 text-white rounded-lg py-2 text-sm font-semibold transition-colors">
+                <button
+                  onClick={() => { setShowFromRecs(false); setShowToRecs(false); handleRoute(); }}
+                  className="flex-1 bg-white/10 hover:bg-white/20 text-white rounded-xl py-2.5 text-xs font-bold transition-colors"
+                >
                   Find Route
                 </button>
-                <button onClick={startNavigation} disabled={steps.length === 0}
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-500 hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-lg py-2 text-sm font-semibold transition-all">
+                <button
+                  onClick={startNavigation}
+                  disabled={steps.length === 0}
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-500 hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl py-2.5 text-xs font-bold transition-all shadow-md"
+                >
                   Start Nav
                 </button>
               </div>
+
               {steps.length > 0 && (
-                <div className="text-xs text-green-400 text-center pt-1 font-medium">
+                <div className="text-xs text-green-400 text-center pt-1 font-medium bg-green-500/10 py-1.5 rounded-lg border border-green-500/20">
                   ✓ {steps.length} steps · {Math.round(dist)}m · ~{mins} min
                 </div>
               )}
@@ -759,6 +1304,17 @@ export default function HeathrowMapPage() {
                   <div className="text-gray-500 text-[10px]">steps</div>
                 </div>
               </div>
+
+              {/* Notification Status Banner */}
+              {notificationStatus && (
+                <div className={`mt-2.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-center transition-all ${
+                  notificationStatus.startsWith('✓')
+                    ? 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300'
+                    : 'bg-amber-500/15 border border-amber-500/30 text-amber-300'
+                }`}>
+                  {notificationStatus}
+                </div>
+              )}
             </div>
 
             {/* Current step hero */}
@@ -784,6 +1340,51 @@ export default function HeathrowMapPage() {
               {steps.map((step, idx) => {
                 const isActive = idx === activeStep;
                 const isPast   = idx < activeStep;
+                const cp = step.checkpoint;
+
+                /* ── Checkpoint Step Card ── */
+                if (cp) {
+                  const isSecurity = cp.type === 'security';
+                  const bgActive   = isSecurity ? 'rgba(239,68,68,0.18)' : 'rgba(234,179,8,0.15)';
+                  const bgNormal   = isSecurity ? 'rgba(239,68,68,0.07)' : 'rgba(234,179,8,0.06)';
+                  const borderClr  = isSecurity ? 'rgba(239,68,68,0.45)' : 'rgba(234,179,8,0.4)';
+                  const textClr    = isSecurity ? '#fca5a5' : '#fde68a';
+                  const iconBg     = isSecurity ? '#7f1d1d' : '#713f12';
+                  return (
+                    <button key={idx}
+                      onClick={() => gotoStep(idx)}
+                      className="w-full text-left mb-2 rounded-xl transition-all"
+                      style={{
+                        background: isActive ? bgActive : isPast ? 'rgba(255,255,255,0.02)' : bgNormal,
+                        border: `1.5px solid ${isActive ? cp.color : isPast ? 'rgba(255,255,255,0.05)' : borderClr}`,
+                        opacity: isPast ? 0.45 : 1,
+                      }}
+                    >
+                      <div className="flex items-center gap-3 px-3 py-2.5">
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center text-base shrink-0"
+                          style={{ background: iconBg, border: `1.5px solid ${cp.color}` }}>
+                          {isSecurity ? '🛡️' : '🧳'}
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-[11px] font-bold" style={{ color: textClr }}>
+                            {isSecurity ? 'Pass through' : 'Proceed through'} {cp.name}
+                          </div>
+                          <div className="text-[9px] mt-0.5" style={{ color: isSecurity ? '#ef4444' : '#eab308', opacity: 0.7 }}>
+                            {isSecurity ? '🔴 Security Checkpoint' : '🟡 Luggage Check Zone'}
+                          </div>
+                        </div>
+                        {isActive && (
+                          <div className="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
+                            style={{ background: cp.color, color: isSecurity ? '#1a0000' : '#1a1000' }}>
+                            NOW
+                          </div>
+                        )}
+                      </div>
+                    </button>
+                  );
+                }
+
+                /* ── Regular Step Card ── */
                 return (
                   <button key={idx}
                     onClick={() => gotoStep(idx)}

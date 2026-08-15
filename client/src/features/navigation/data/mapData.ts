@@ -202,3 +202,90 @@ export function findShortestPath(startId: string, endId: string): (POINode | Gra
 
   return path.map(id => allNodes.find(n => n.id === id)!);
 }
+
+// ── Security & Luggage Checkpoints GeoJSON Regions ─────────────────────────────
+
+export interface CheckpointDef {
+  id: string;
+  name: string;
+  type: 'security' | 'luggage';
+  color: string;
+  order: number;
+  center: [number, number];
+}
+
+export const CHECKPOINT_DEFINITIONS: CheckpointDef[] = [
+  {
+    id: 'security-north',
+    name: 'Security North',
+    type: 'security',
+    color: '#ff3344',
+    order: 1,
+    center: [-0.4885, 51.4720],
+  },
+  {
+    id: 'luggage-check',
+    name: 'Luggage Check',
+    type: 'luggage',
+    color: '#ffea00',
+    order: 2,
+    center: [-0.4873, 51.4723],
+  },
+];
+
+export const CHECKPOINT_REGIONS = {
+  type: 'FeatureCollection',
+  features: [
+    {
+      type: 'Feature',
+      id: 'security-north',
+      properties: {
+        id: 'security-north',
+        name: 'Security North',
+        _label: 'Security North',
+        type: 'security',
+        color: '#ff3344',
+        fillColor: '#ff3344',
+        strokeColor: '#ff1744',
+      },
+      geometry: {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [-0.48895, 51.47192],
+            [-0.48815, 51.47192],
+            [-0.48815, 51.47215],
+            [-0.48895, 51.47215],
+            [-0.48895, 51.47192],
+          ],
+        ],
+      },
+    },
+    {
+      type: 'Feature',
+      id: 'luggage-check',
+      properties: {
+        id: 'luggage-check',
+        name: 'Luggage Check',
+        _label: 'Luggage Check',
+        type: 'luggage',
+        color: '#ffea00',
+        fillColor: '#ffea00',
+        strokeColor: '#ffd600',
+      },
+      geometry: {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [-0.48775, 51.47222],
+            [-0.48695, 51.47222],
+            [-0.48695, 51.47245],
+            [-0.48775, 51.47245],
+            [-0.48775, 51.47222],
+          ],
+        ],
+      },
+    },
+  ],
+};
+

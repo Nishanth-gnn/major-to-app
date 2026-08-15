@@ -18,7 +18,15 @@ export interface NavigationStep {
   endNodeIdx: number;
   level: number;
   coordinates: [number, number][];
+  /** Present only for injected checkpoint steps (Security North / Luggage Check) */
+  checkpoint?: {
+    id: string;
+    name: string;
+    type: 'security' | 'luggage';
+    color: string;
+  };
 }
+
 
 /**
  * Converts a raw list of graph nodes into human-readable navigation steps.

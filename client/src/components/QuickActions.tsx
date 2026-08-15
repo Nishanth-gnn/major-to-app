@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const actions = [
-  { id: 'navigate', title: 'Navigate', to: '/navigate' },
+  { id: 'navigate', title: 'Navigation', to: '/navigation' },
   { id: 'staff', title: 'Customer Support', to: '/chat' },
   { id: 'translate', title: 'Translate', to: '/translate' },
   { id: 'checkin', title: 'Baggage Guidance', to: '/baggage-guidance' },

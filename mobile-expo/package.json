@@ -1,0 +1,39 @@
+{
+  "name": "skyos-mobile-expo",
+  "private": true,
+  "version": "0.1.0",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "expo": "latest",
+    "expo-router": "latest",
+    "react": "latest",
+    "react-native": "latest",
+    "react-native-reanimated": "latest",
+    "react-native-gesture-handler": "latest",
+    "react-native-svg": "latest",
+    "react-native-maps": "latest",
+    "expo-notifications": "latest",
+    "expo-secure-store": "latest",
+    "@tanstack/react-query": "latest",
+    "axios": "latest",
+    "react-hook-form": "latest",
+    "zustand": "latest",
+    "nativewind": "latest",
+    "tailwindcss": "latest",
+    "react-native-safe-area-context": "latest",
+    "@react-navigation/native": "latest",
+    "@react-navigation/native-stack": "latest"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "@types/react": "latest",
+    "@types/react-native": "latest"
+  }
+}

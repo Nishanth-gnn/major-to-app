@@ -268,13 +268,13 @@ export default function AuraModal({ open, onClose }: AuraModalProps) {
           },
           destinations: pois.map(p => {
             let path = [];
-            try { path = findShortestPath('main_entrance', p.id); } catch {}
+            try { path = findShortestPath('main_entrance', p.id); } catch { }
             let dist = 0;
             if (path && path.length > 0) {
               for (let i = 0; i < path.length - 1; i++) {
                 dist += Math.sqrt(
-                  Math.pow(path[i].x - path[i+1].x, 2) + 
-                  Math.pow(path[i].y - path[i+1].y, 2)
+                  Math.pow(path[i].x - path[i + 1].x, 2) +
+                  Math.pow(path[i].y - path[i + 1].y, 2)
                 );
               }
             }
@@ -297,15 +297,29 @@ export default function AuraModal({ open, onClose }: AuraModalProps) {
       setMessages(prev => [...prev, auraMsg]);
 
       // Automatically trigger navigation or tool page navigation without closing Aura chat
-      if (data.action?.type === 'navigate' && data.action?.poiId) {
+      if (data.action?.type === 'route' || (data.action?.type === 'navigate' && data.action?.from && data.action?.to)) {
+        const from = data.action.from;
+        const to = data.action.to;
+        navigate(`/navigation?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`, { state: { from, to } });
+      } else if (data.action?.type === 'navigate' && data.action?.poiId) {
         sessionStorage.setItem('autoSelectPoiId', data.action.poiId);
-        navigate('/navigate', { state: { autoSelectPoiId: data.action.poiId } });
+        navigate('/navigation', { state: { autoSelectPoiId: data.action.poiId } });
+      } else if (data.action?.type === 'navigate') {
+        navigate('/navigation');
       } else if (data.action?.type === 'customer_support') {
         navigate('/chat');
       } else if (data.action?.type === 'baggage_guidance') {
         navigate('/baggage-guidance');
-      } else if (data.action?.type === 'bus_service') {
-        navigate('/bus-service');
+      } else if (data.action?.type === 'bus_service' || data.action?.type === 'transit_services') {
+        navigate('/transit-services');
+      } else if (data.action?.type === 'flight_tracking') {
+        navigate('/flight-tracking');
+      } else if (data.action?.type === 'meal_delivery') {
+        navigate('/meal-delivery');
+      } else if (data.action?.type === 'emergency_contact') {
+        navigate('/emergency-contact');
+      } else if (data.action?.type === 'event_scheduler') {
+        navigate('/event-scheduler', { state: { eventName: data.action.eventName, eventTime: data.action.eventTime } });
       }
 
       // Bump the chat to top in the sidebar list (update updatedAt locally)
@@ -367,7 +381,7 @@ export default function AuraModal({ open, onClose }: AuraModalProps) {
           flightTrackingData: { countdown: '01h 18m', gate: 'Gate A12', status: 'Boarding Soon' },
           destinations: pois.map(p => {
             let path: any[] = [];
-            try { path = findShortestPath('main_entrance', p.id); } catch {}
+            try { path = findShortestPath('main_entrance', p.id); } catch { }
             let dist = 0;
             if (path && path.length > 0) {
               for (let i = 0; i < path.length - 1; i++) {
@@ -387,12 +401,30 @@ export default function AuraModal({ open, onClose }: AuraModalProps) {
       };
       setMessages(prev => [...prev, auraMsg]);
 
-      if (data.action?.type === 'navigate' && data.action?.poiId) {
+      if (data.action?.type === 'route' || (data.action?.type === 'navigate' && data.action?.from && data.action?.to)) {
+        const from = data.action.from;
+        const to = data.action.to;
+        navigate(`/navigation?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`, { state: { from, to } });
+      } else if (data.action?.type === 'navigate' && data.action?.poiId) {
         sessionStorage.setItem('autoSelectPoiId', data.action.poiId);
-        navigate('/navigate', { state: { autoSelectPoiId: data.action.poiId } });
-      } else if (data.action?.type === 'customer_support') navigate('/chat');
-      else if (data.action?.type === 'baggage_guidance') navigate('/baggage-guidance');
-      else if (data.action?.type === 'bus_service') navigate('/bus-service');
+        navigate('/navigation', { state: { autoSelectPoiId: data.action.poiId } });
+      } else if (data.action?.type === 'navigate') {
+        navigate('/navigation');
+      } else if (data.action?.type === 'customer_support') {
+        navigate('/chat');
+      } else if (data.action?.type === 'baggage_guidance') {
+        navigate('/baggage-guidance');
+      } else if (data.action?.type === 'bus_service' || data.action?.type === 'transit_services') {
+        navigate('/transit-services');
+      } else if (data.action?.type === 'flight_tracking') {
+        navigate('/flight-tracking');
+      } else if (data.action?.type === 'meal_delivery') {
+        navigate('/meal-delivery');
+      } else if (data.action?.type === 'emergency_contact') {
+        navigate('/emergency-contact');
+      } else if (data.action?.type === 'event_scheduler') {
+        navigate('/event-scheduler', { state: { eventName: data.action.eventName, eventTime: data.action.eventTime } });
+      }
 
       setChats(prev => [
         { ...prev.find(c => c.id === chatId)!, updatedAt: new Date().toISOString() },
@@ -594,11 +626,10 @@ export default function AuraModal({ open, onClose }: AuraModalProps) {
                       <button
                         key={chat.id}
                         onClick={() => { setActiveChatId(chat.id); setSidebarOpen(false); }}
-                        className={`w-full text-left px-3 py-2.5 rounded-xl text-sm transition-all group flex items-center gap-2 ${
-                          activeChatId === chat.id
+                        className={`w-full text-left px-3 py-2.5 rounded-xl text-sm transition-all group flex items-center gap-2 ${activeChatId === chat.id
                             ? 'bg-blue-600 text-white shadow-lg'
                             : 'text-slate-300 hover:bg-white/8 hover:text-white'
-                        }`}
+                          }`}
                         style={activeChatId !== chat.id ? { background: 'transparent' } : {}}
                       >
                         <MessageSquare size={12} className="flex-shrink-0 opacity-70" />
@@ -678,11 +709,10 @@ export default function AuraModal({ open, onClose }: AuraModalProps) {
                   onClick={isRecording ? stopVoiceInput : startVoiceInput}
                   disabled={isLoading || isInitializing}
                   aria-label={isRecording ? 'Stop recording' : 'Talk to AI'}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all disabled:opacity-40 disabled:cursor-not-allowed ${
-                    isRecording
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all disabled:opacity-40 disabled:cursor-not-allowed ${isRecording
                       ? 'text-red-300 border-red-500/50 bg-red-500/15 hover:bg-red-500/25 animate-pulse'
                       : 'text-violet-300 border-violet-500/30 bg-violet-500/10 hover:bg-violet-500/20 hover:text-white'
-                  }`}
+                    }`}
                 >
                   {isRecording
                     ? <><Square size={11} className="fill-current" /><span>Stop</span></>
@@ -718,8 +748,8 @@ export default function AuraModal({ open, onClose }: AuraModalProps) {
                     isRecording
                       ? 'Listening… press Stop when done.'
                       : activeChatId
-                      ? 'Ask about your flight or airport…'
-                      : 'Create a new chat to start…'
+                        ? 'Ask about your flight or airport…'
+                        : 'Create a new chat to start…'
                   }
                   disabled={isLoading || isInitializing || isRecording}
                   autoComplete="off"

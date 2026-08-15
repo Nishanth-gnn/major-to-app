@@ -119,20 +119,30 @@ export async function getBagStatus(req: Request, res: Response) {
     // Mock status — replace with real airline API call
     const now = new Date();
 
+    const isBag2 = tagId === '176-8927362';
+
     const status = {
       bagTag:           tagId,
-      currentStatus:    'Loaded onto Aircraft',
-      eta:              '2:45 PM (on time)',
+      currentStatus:    isBag2 ? 'Arrived at Belt 4' : 'Loaded onto Aircraft',
+      eta:              isBag2 ? 'Arrived' : '2:45 PM (on time)',
       lastUpdated:      now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
-      lastScanLocation: 'Cargo Hold — Flight AI217',
+      lastScanLocation: isBag2 ? 'Belt 4 — Arrival Hall A' : 'Cargo Hold — Flight AI217',
       expectedBelt:     'Belt 4 — Arrival Hall A',
-      timeline: [
-        { label: 'Checked In',          completed: true,  active: false, time: '08:45 AM' },
-        { label: 'Security Cleared',    completed: true,  active: false, time: '09:02 AM' },
-        { label: 'Loaded onto Aircraft',completed: true,  active: false, time: '09:40 AM' },
-        { label: 'Arriving',            completed: false, active: true,  time: 'In Progress' },
-        { label: 'Waiting at Belt 4',   completed: false, active: false, time: 'Pending' },
-      ],
+      timeline: isBag2
+        ? [
+            { label: 'Checked In',          completed: true,  active: false, time: '08:45 AM' },
+            { label: 'Security Cleared',    completed: true,  active: false, time: '09:02 AM' },
+            { label: 'Loaded onto Aircraft',completed: true,  active: false, time: '09:40 AM' },
+            { label: 'Arrived at Airport',  completed: true,  active: false, time: '11:15 AM' },
+            { label: 'Arrived at Belt 4',   completed: true,  active: true,  time: '11:30 AM' },
+          ]
+        : [
+            { label: 'Checked In',          completed: true,  active: false, time: '08:45 AM' },
+            { label: 'Security Cleared',    completed: true,  active: false, time: '09:02 AM' },
+            { label: 'Loaded onto Aircraft',completed: true,  active: false, time: '09:40 AM' },
+            { label: 'Arriving',            completed: false, active: true,  time: 'In Progress' },
+            { label: 'Waiting at Belt 4',   completed: false, active: false, time: 'Pending' },
+          ],
     };
 
     return res.status(200).json(status);
